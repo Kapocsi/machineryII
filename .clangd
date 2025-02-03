@@ -1,0 +1,2 @@
+CompileFlags:
+  Add: [-isystem.lsp_includes, -D__C68__, -std=c89]
