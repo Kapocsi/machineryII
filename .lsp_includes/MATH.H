@@ -58,26 +58,26 @@ extern "C" {
  */
 
 typedef struct cmplx { /* Complex structure */
-  double real;         /* Real part */
-  double imag;         /* Imaginary part */
+    double real;       /* Real part */
+    double imag;       /* Imaginary part */
 } COMPLEX;
 
 /* exceptions ++jrb */
 typedef enum {
-  DOMAIN = 1,
-  SING = 2,
-  OVERFLOW = 3,
-  UNDERFLOW = 4,
-  TLOSS = 5,
-  PLOSS = 6
+    DOMAIN = 1,
+    SING = 2,
+    OVERFLOW = 3,
+    UNDERFLOW = 4,
+    TLOSS = 5,
+    PLOSS = 6
 } exception_type;
 
 struct exception {
-  exception_type type; /* exception type */
-  const char *name;    /* function in which it occured */
-  double arg1;         /* an arg */
-  double arg2;         /* another arg */
-  double retval;       /* val to return */
+    exception_type type; /* exception type */
+    const char *name;    /* function in which it occured */
+    double arg1;         /* an arg */
+    double arg2;         /* another arg */
+    double retval;       /* val to return */
 };
 
 #define M_LN2 0.69314718055994530942
@@ -117,21 +117,21 @@ extern const double _infinitydf; /* in normdf.cpp */
 #ifndef __cplusplus
 #ifndef max
 #define max(x, y)                                                              \
-  ({                                                                           \
-    typeof(x) _x = (x);                                                        \
-    typeof(y) _y = (y);                                                        \
-    if (_x > _y)                                                               \
-      _y = _x;                                                                 \
-    _y;                                                                        \
-  })
+    ({                                                                         \
+        typeof(x) _x = (x);                                                    \
+        typeof(y) _y = (y);                                                    \
+        if (_x > _y)                                                           \
+            _y = _x;                                                           \
+        _y;                                                                    \
+    })
 #define min(x, y)                                                              \
-  ({                                                                           \
-    typeof(x) _x = (x);                                                        \
-    typeof(y) _y = (y);                                                        \
-    if (_x < _y)                                                               \
-      _y = _x;                                                                 \
-    _y;                                                                        \
-  })
+    ({                                                                         \
+        typeof(x) _x = (x);                                                    \
+        typeof(y) _y = (y);                                                    \
+        if (_x < _y)                                                           \
+            _y = _x;                                                           \
+        _y;                                                                    \
+    })
 #endif
 #endif
 #endif

@@ -69,16 +69,16 @@ __EXTERN int killpg __PROTO((int, int));
 #define _SIGSET_MAX_INDEX (__NSIG / 32)
 
 typedef struct {
-  long __sigset_data[_SIGSET_MAX_INDEX + 1];
+    long __sigset_data[_SIGSET_MAX_INDEX + 1];
 } sigset_t;
 
 #ifdef __MINT__
 #ifndef __STRICT_ANSI__
 struct sigaction {
-  __Sigfunc sa_handler; /* pointer to signal handler */
-  sigset_t sa_mask;     /* additional signals masked during delivery */
-  /* pain here... POSIX forces us to use int, we would prefer short */
-  int sa_flags; /* signal specific flags */
+    __Sigfunc sa_handler; /* pointer to signal handler */
+    sigset_t sa_mask;     /* additional signals masked during delivery */
+    /* pain here... POSIX forces us to use int, we would prefer short */
+    int sa_flags; /* signal specific flags */
 /* signal flags */
 #define SA_NOCLDSTOP 1 /* don't send SIGCHLD when they stop */
 };

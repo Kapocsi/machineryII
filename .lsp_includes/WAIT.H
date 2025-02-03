@@ -21,35 +21,35 @@ extern "C" {
 
 struct __wait {
 #ifndef __MSHORT__
-  unsigned junk : 16; /* padding to make it 32 bits */
+    unsigned junk : 16; /* padding to make it 32 bits */
 #endif
-  unsigned retcode : 8;
-  unsigned coredump : 1;
-  unsigned termsig : 7;
+    unsigned retcode : 8;
+    unsigned coredump : 1;
+    unsigned termsig : 7;
 };
 
 union wait {
-  struct __wait _w;
-  int _i;
+    struct __wait _w;
+    int _i;
 };
 
 union __waitp {
-  int *__wi;
-  union wait *__wu;
+    int *__wi;
+    union wait *__wu;
 };
 typedef union wait __union_wait_t;
 
 /* Allow W* to get parameter in POSIX-Style (int) or BSD-Style (union wait)*/
 #ifdef _EXPERIMENTAL_WAIT_MACROS
 #define __W(x)                                                                 \
-  ({                                                                           \
-    union {                                                                    \
-      typeof(x) __in;                                                          \
-      __union_wait_t __out;                                                    \
-    } __wu;                                                                    \
-    __wu.__in = (x);                                                           \
-    __wu.__out;                                                                \
-  })
+    ({                                                                         \
+        union {                                                                \
+            typeof(x) __in;                                                    \
+            __union_wait_t __out;                                              \
+        } __wu;                                                                \
+        __wu.__in = (x);                                                       \
+        __wu.__out;                                                            \
+    })
 #define __WP union __waitp
 #else
 #define __W(x) (*(__union_wait_t *)&(x))
@@ -71,7 +71,7 @@ typedef union wait __union_wait_t;
 #endif
 
 #define WIFSIGNALED(x)                                                         \
-  (__W(x)._w.termsig != __WSTOPPED && __W(x)._w.termsig != 0)
+    (__W(x)._w.termsig != __WSTOPPED && __W(x)._w.termsig != 0)
 #define WIFSTOPPED(x) (__W(x)._w.termsig == __WSTOPPED)
 #define WIFEXITED(x) (__W(x)._w.termsig == 0)
 #define WIFCOREDUMPED(x) (__W(x)._w.coredump != 0)

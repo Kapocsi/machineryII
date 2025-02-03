@@ -59,8 +59,8 @@ typedef __VA_LIST__ va_list;
 #define va_alist __builtin_va_alist
 /* The ... causes current_function_varargs to be set in cc1.  */
 #define va_dcl                                                                 \
-  int __builtin_va_alist;                                                      \
-  __va_ellipsis
+    int __builtin_va_alist;                                                    \
+    __va_ellipsis
 
 /* Define __gnuc_va_list, just as in stdarg.h.  */
 
@@ -73,13 +73,13 @@ typedef void *__gnuc_va_list;
 #define va_end(AP)
 
 #define __va_rounded_size(TYPE)                                                \
-  (((sizeof(TYPE) + sizeof(int) - 1) / sizeof(int)) * sizeof(int))
+    (((sizeof(TYPE) + sizeof(int) - 1) / sizeof(int)) * sizeof(int))
 
 #define va_arg(AP, TYPE)                                                       \
-  (AP = (__gnuc_va_list)((char *)(AP) + __va_rounded_size(TYPE)),              \
-   *((TYPE *)(void *)((char *)(AP) - ((sizeof(TYPE) < sizeof(int)              \
-                                           ? sizeof(TYPE)                      \
-                                           : __va_rounded_size(TYPE))))))
+    (AP = (__gnuc_va_list)((char *)(AP) + __va_rounded_size(TYPE)),            \
+     *((TYPE *)(void *)((char *)(AP) - ((sizeof(TYPE) < sizeof(int)            \
+                                             ? sizeof(TYPE)                    \
+                                             : __va_rounded_size(TYPE))))))
 
 #ifndef _VA_LIST_
 #define _VA_LIST_

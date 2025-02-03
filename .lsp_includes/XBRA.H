@@ -12,11 +12,11 @@ extern "C" {
 typedef void(*xptr) __PROTO((void));
 
 typedef struct __xbra {
-  long xbra_magic;
-  long gnuc_magic;
-  xptr next;
-  short jump;
-  void(*this) __PROTO((void));
+    long xbra_magic;
+    long gnuc_magic;
+    xptr next;
+    short jump;
+    void(*this) __PROTO((void));
 } xbra_struct;
 
 #define _XBRA_MAGIC 0x58425241L /* "XBRA" */
@@ -27,13 +27,15 @@ typedef struct __xbra {
 #define _XBRA_VEC(x) ((void(*) __PROTO((void))) & (x.jump))
 
 #define _XBRA_INIT(fn)                                                         \
-  {_XBRA_MAGIC, _GNUC_MAGIC, (xptr)0, _JMP_OPCODE, (void(*) __PROTO((void)))fn}
+    {_XBRA_MAGIC, _GNUC_MAGIC, (xptr)0, _JMP_OPCODE,                           \
+     (void(*) __PROTO((void)))fn}
 
 #define _TRAP_VEC(n, x)                                                        \
-  ((void(*) __PROTO((void)))(((long)n << 24) | (long)&(x.jump)))
+    ((void(*) __PROTO((void)))(((long)n << 24) | (long)&(x.jump)))
 
 #define _TRAP_INIT(fn)                                                         \
-  {_XBRA_MAGIC, _GNUC_MAGIC, (xptr)0, _JSR_OPCODE, (void(*) __PROTO((void)))fn}
+    {_XBRA_MAGIC, _GNUC_MAGIC, (xptr)0, _JSR_OPCODE,                           \
+     (void(*) __PROTO((void)))fn}
 #ifdef __cplusplus
 }
 #endif

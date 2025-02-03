@@ -103,14 +103,14 @@ extern "C" {
 #define EOPNOTSUPP (_NE_BASE + 7)      /* Operation not supported */
 #define EPFNOSUPPORT (_NE_BASE + 8)    /* Protocol family not supported */
 #define EAFNOSUPPORT                                                           \
-  (_NE_BASE + 9)                      /* Address family not supported by       \
+    (_NE_BASE + 9)                    /* Address family not supported by       \
                                               protocol */
 #define EADDRINUSE (_NE_BASE + 10)    /* Address already in use */
 #define EADDRNOTAVAIL (_NE_BASE + 11) /* Cannot assign requested address */
 #define ENETDOWN (_NE_BASE + 12)      /* Network is down */
 #define ENETUNREACH (_NE_BASE + 13)   /* Network is unreachable */
 #define ENETRESET                                                              \
-  (_NE_BASE + 14)                    /* Network dropped conn. because of       \
+    (_NE_BASE + 14)                  /* Network dropped conn. because of       \
                                              reset */
 #define ECONNABORTED (_NE_BASE + 15) /* Software caused connection abort */
 #define ECONNRESET (_NE_BASE + 16)   /* Connection reset by peer */

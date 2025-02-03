@@ -14,23 +14,23 @@ extern "C" {
 #endif
 
 struct stat {
-  mode_t st_mode;
-  ino_t st_ino;  /* must be 32 bits */
-  dev_t st_dev;  /* must be 16 bits */
-  short st_rdev; /* not supported by the kernel */
-  short st_nlink;
-  uid_t st_uid; /* must be 16 bits */
-  gid_t st_gid; /* must be 16 bits */
-  off_t st_size;
-  off_t st_blksize;
-  off_t st_blocks;
-  time_t st_mtime;
-  time_t st_atime;
-  time_t st_ctime;
-  short st_attr;
+    mode_t st_mode;
+    ino_t st_ino;  /* must be 32 bits */
+    dev_t st_dev;  /* must be 16 bits */
+    short st_rdev; /* not supported by the kernel */
+    short st_nlink;
+    uid_t st_uid; /* must be 16 bits */
+    gid_t st_gid; /* must be 16 bits */
+    off_t st_size;
+    off_t st_blksize;
+    off_t st_blocks;
+    time_t st_mtime;
+    time_t st_atime;
+    time_t st_ctime;
+    short st_attr;
 #ifdef __MINT__
-  short res1; /* reserved for future kernel use */
-  long res2[2];
+    short res1; /* reserved for future kernel use */
+    long res2[2];
 #endif
 };
 

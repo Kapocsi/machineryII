@@ -68,13 +68,13 @@ typedef _SIZE_T size_t;
 
 typedef struct /* FILE structure */
 {
-  long _cnt;            /* # of bytes in buffer */
-  unsigned char *_ptr;  /* current buffer pointer */
-  unsigned char *_base; /* base of file buffer */
-  unsigned int _flag;   /* file status flags */
-  int _file;            /* file handle */
-  long _bsiz;           /* buffer size */
-  unsigned char _ch;    /* tiny buffer, for "unbuffered" i/o */
+    long _cnt;            /* # of bytes in buffer */
+    unsigned char *_ptr;  /* current buffer pointer */
+    unsigned char *_base; /* base of file buffer */
+    unsigned int _flag;   /* file status flags */
+    int _file;            /* file handle */
+    long _bsiz;           /* buffer size */
+    unsigned char _ch;    /* tiny buffer, for "unbuffered" i/o */
 } FILE;
 
 /* object of type capable of recording uniquely every position in a file */
@@ -190,15 +190,16 @@ __EXTERN int _filbuf __PROTO((FILE *)); /* needed for getc */
 
 #ifdef __GNUC_INLINE__
 #define getc(__fp)                                                             \
-  ({                                                                           \
-    int __c;                                                                   \
-    typedef _tfp = (__fp);                                                     \
-    _tfp __lfp = (__fp);                                                       \
-    do {                                                                       \
-      __c = (--__lfp->_cnt >= 0) ? ((int)*__lfp->_ptr++) : _filbuf(__lfp);     \
-    } while ((!(__lfp->_flag & _IOBIN)) && (__c == '\r'));                     \
-    __c;                                                                       \
-  })
+    ({                                                                         \
+        int __c;                                                               \
+        typedef _tfp = (__fp);                                                 \
+        _tfp __lfp = (__fp);                                                   \
+        do {                                                                   \
+            __c =                                                              \
+                (--__lfp->_cnt >= 0) ? ((int)*__lfp->_ptr++) : _filbuf(__lfp); \
+        } while ((!(__lfp->_flag & _IOBIN)) && (__c == '\r'));                 \
+        __c;                                                                   \
+    })
 #else
 #define getc(fp) fgetc(fp)
 #endif

@@ -31,12 +31,12 @@ __EXTERN __EXITING abort __PROTO((void)) __NORETURN;
 
 #if __STDC__
 #define assert(cond)                                                           \
-  ((cond) ? 0 : (__eprintf(#cond, (long)(__LINE__), __FILE__), abort(), 0))
+    ((cond) ? 0 : (__eprintf(#cond, (long)(__LINE__), __FILE__), abort(), 0))
 #define __assert(cond)                                                         \
-  if (!(cond)) {                                                               \
-    __eprintf(#cond, (long)(__LINE__), __FILE__);                              \
-    abort();                                                                   \
-  }
+    if (!(cond)) {                                                             \
+        __eprintf(#cond, (long)(__LINE__), __FILE__);                          \
+        abort();                                                               \
+    }
 #else /* not __STDC__ */
 
 #ifndef __SOZOBON__
@@ -51,12 +51,12 @@ __EXTERN __EXITING abort __PROTO((void)) __NORETURN;
 #endif /* not __SOZOBON__ */
 
 #define assert(cond)                                                           \
-  ((cond) ? 0 : (__eprintf("cond", (long)(__LINE__), __FILE__), abort(), 0))
+    ((cond) ? 0 : (__eprintf("cond", (long)(__LINE__), __FILE__), abort(), 0))
 #define __assert(cond)                                                         \
-  if (!(cond)) {                                                               \
-    __eprintf("cond", (long)(__LINE__), __FILE__);                             \
-    abort();                                                                   \
-  }
+    if (!(cond)) {                                                             \
+        __eprintf("cond", (long)(__LINE__), __FILE__);                         \
+        abort();                                                               \
+    }
 #endif /* not __STDC__ */
 
 #endif /* not NDEBUG */

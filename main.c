@@ -1,13 +1,9 @@
-#include "stdio.h"
-
 #include "global.h"
-#include <stdio.h>
 
 #include <osbind.h>
 
-int main() {
-  printf("Color : %d \n", BLACK);
-  printf("Color : %d \n", WHITE);
+int main(int argc, char *argv[]) {
+    Screen *screen = (Screen *)Physbase();
 
-  return 0;
+    return 0;
 }

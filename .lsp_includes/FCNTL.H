@@ -65,14 +65,14 @@ extern "C" {
 #define F_SETLKW 7 /* Get lock, wait if busy */
 
 struct flock {
-  short l_type;
+    short l_type;
 #define F_RDLCK O_RDONLY
 #define F_WRLCK O_WRONLY
 #define F_UNLCK 3
-  short l_whence;
-  long l_start;
-  long l_len;
-  short l_pid;
+    short l_whence;
+    long l_start;
+    long l_len;
+    short l_pid;
 };
 #endif /* __MINT__ */
 

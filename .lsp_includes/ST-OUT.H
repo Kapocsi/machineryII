@@ -10,15 +10,15 @@ extern "C" {
 #endif
 
 struct aexec {
-  short a_magic;            /* magic number */
-  unsigned long a_text;     /* size of text segment */
-  unsigned long a_data;     /* size of initialized data */
-  unsigned long a_bss;      /* size of uninitialized data */
-  unsigned long a_syms;     /* size of symbol table */
-  unsigned long a_AZero1;   /* always zero */
-  unsigned long a_ldflgs;   /* program load flags */
-#define a_AZero2 a_ldflgs   /* compatibility */
-  unsigned short a_isreloc; /* is reloc info present */
+    short a_magic;            /* magic number */
+    unsigned long a_text;     /* size of text segment */
+    unsigned long a_data;     /* size of initialized data */
+    unsigned long a_bss;      /* size of uninitialized data */
+    unsigned long a_syms;     /* size of symbol table */
+    unsigned long a_AZero1;   /* always zero */
+    unsigned long a_ldflgs;   /* program load flags */
+#define a_AZero2 a_ldflgs     /* compatibility */
+    unsigned short a_isreloc; /* is reloc info present */
 };
 
 /*
@@ -54,9 +54,9 @@ struct aexec {
  * Format of a symbol table entry
  */
 struct asym {
-  char a_name[8];        /* symbol name */
-  unsigned short a_type; /* type flag, i.e. N_TEXT etc; see below */
-  unsigned long a_value; /* value of this symbol (or sdb offset) */
+    char a_name[8];        /* symbol name */
+    unsigned short a_type; /* type flag, i.e. N_TEXT etc; see below */
+    unsigned long a_value; /* value of this symbol (or sdb offset) */
 };
 
 /*

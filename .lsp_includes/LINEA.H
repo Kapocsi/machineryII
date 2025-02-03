@@ -319,165 +319,165 @@ terminator. 								*/
  */
 typedef struct {
 
-  /* Type    Name       Offset   Function		    Comments
-   */
-  /* -------------------------------------------------------------------------
-   */
-  short _VPLANES;  /*  0  # of Planes	 Also see CurrRez            */
-  short _VWRAP;    /*  2  Bytes / scan line    "    "    "                */
-                   /*     VWRAP can be changed to implement special effect*/
-                   /*     Doubling VWRAP will skip every other scan line  */
-                   /*					             */
-                   /*                                                     */
-  short *_CONTRL;  /*  4  Ptr to CONTRL Array  Contrl gets set to this    */
-  short *_INTIN;   /*  8  Ptr to INTIN  Array  Intin  gets set to this    */
-  short *_PTSIN;   /* 12  Ptr to PTSIN  Array  Ptsin  gets set to this    */
-  short *_INTOUT;  /* 16  Ptr to INTOUT Array  Intout gets set to this    */
-  short *_PTSOUT;  /* 20  Ptr to PTSOUT Array  Ptsout gets set to this    */
-                   /*     CONTRL is the control array		     */
-                   /*     INTIN is the array of input parameters	     */
-                   /*     PTSIN is the array of input coordinates         */
-                   /*	  Even entrys are X coordinate		     */
-                   /* 	  Odd  entrys are corresponding Y coodinates */
-                   /*     INTOUT is the array of output parameters        */
-                   /*     PTSOUT is the array of output coordinates       */
-                   /*	organized like PTSIN.			     */
-                   /*					             */
-  short _COLBIT0;  /* 24  Plane 0 Color Value  All Three Rez's	     */
-  short _COLBIT1;  /* 26  Plane 1 Color Value  Med and Low Rez only	     */
-  short _COLBIT2;  /* 28  Plane 2 Color Value  Low Rez only 		     */
-  short _COLBIT3;  /* 30  Plane 3 Color Value  Low Rez Only 		     */
-                   /*     Foreground color COLBIT0 + 2*COLBIT1 + 4*COLBIT2*/
-                   /*	              + 8*COLBIT3		     */
-                   /*					             */
-                   /*                                                     */
-  short _LSTLIN;   /* 32  Draw last pixel of a line? 0=yes  non0=no	     */
-                   /*     This prevents two connecting lines from XORing  */
-                   /*     a common endpoint out of existence		     */
-                   /*					             */
-  short _LNMASK;   /* 34  Linemask used when drawing lines, same as Vdi's */
-                   /*     line style (rotated to aligned with rightmost   */
-                   /*     endpoint when drawing lines)                    */
-                   /*					             */
-  short _WMODE;    /* 36  Writing mode                                    */
-                   /*     0=Replace Mode-Replace all bits in Dest with src*/
-                   /*     1=Trans. Mode-Only additional bits in src set(OR*/
-                   /*     2=Xor Mode- Src XOR Dest			     */
-                   /*     3=Inverse Trans.- (NOT src) Or Dest             */
-                   /*     Values upto 16 are permitted                    */
-                   /*					             */
-  short _X1;       /* 38  X1 coordinate used in various calls             */
-                   /*					             */
-  short _Y1;       /* 40  Y1 coordinate used in various calls             */
-                   /*					             */
-  short _X2;       /* 42  X2 coordinate used in various calls             */
-                   /*					             */
-  short _Y2;       /* 44  Y2 coordinate used in various calls             */
-                   /*					             */
-                   /*                                                     */
-  short *_PATPTR;  /* 46  Pointer to current fill pattern                 */
-                   /*     Must be integral power of 2 (words) in length   */
-  short _PATMSK;   /* 50  I don't know why they call it a mask. It is in  */
-                   /*     reality the length in words of the current patt.*/
-  short _MFILL;    /* 52  Multi Plane fill flag 1 == Current fill Pattern */
-                   /*     is for Muti Plane.                              */
-                   /*                                                     */
-                   /*                                                     */
-  short _CLIP;     /* 54  Clipping Flag 1 == TRUE                         */
-  short _XMINCL;   /* 56  Min X of clipping window			     */
-  short _YMINCL;   /* 58  Min Y of clipping window                        */
-  short _XMAXCL;   /* 60  Max X of clipping window			     */
-  short _YMAXCL;   /* 62  Max Y of clipping window                        */
-                   /*                                                     */
-                   /*                                                     */
-  short _XDDA;     /* 64  Accumulator for Scaling, Must be set to 0x08000 */
-                   /*     before each call to Text Blt. Done for you in   */
-                   /*     in aline_text()                                 */
-  short _DDAINC;   /* 66  Scaling factor - Fractional amount to scale char*/
-                   /*     When scaling up = 256 *(Size-Textsize)/Textsize */
-                   /*     When scaling down = 256*(Size)/Textsize         */
-                   /*     scaling down does not work                      */
-  short _SCALDIR;  /* 68  Scaling direction 0 == down                     */
-  short _MONO;     /* 70  Mono flag 0== current font is a propotional font*/
-                   /*     Its Ok for Thickening to increase the width of  */
-                   /*     the current character.                          */
-                   /*     1 == current font is mono spaced, so thickening */
-                   /*     may not increase the width of the current char  */
-                   /*                                                     */
-  short _SOURCEX;  /* 72  X coordinate of character in the font form      */
-                   /*     SOURCEX is calculated from info in the font     */
-                   /*     header for the current font (see __FONT type)   */
-                   /*     SOURCEX = off_table[char-first_ade]	     */
-                   /*     SOURCEX is calculated for you in aline_text()   */
-                   /*     The pointer to a table of font header for the   */
-                   /*     internal fonts is returned in A2 on init (A000) */
-  short _SOURCEY;  /* 74  Y coodinate of character in the font form       */
-                   /*     Typically set to 0 (top line of font form)	     */
-  short _DESTX;    /* 76  X coordinate of character on screen             */
-  short _DESTY;    /* 78  Y coordinate of character on screen             */
-  short _DELX;     /* 80  Width of Character				     */
-                   /*     Difference between two SOURCEX's	             */
-  short _DELY;     /* 82  Height of Character                             */
-                   /*     form_height field of FONT_HEAD of current font  */
-  short *_FBASE;   /* 84  Pointer to start of font form                   */
-  short _FWIDTH;   /* 88  Width of the current font's form                */
-                   /*                                                     */
-  short _STYLE;    /* 90  Vector of style flags			     */
-                   /*     Bit 0 = Thicken Flag			     */
-                   /*     Bit 1 = Lighten Flag			     */
-                   /*     Bit 2 = Skewing Flag			     */
-                   /*     Bit 3 = Underline Flag (ignored)		     */
-                   /*     Bit 4 = Outline Flag			     */
-                   /*                                                     */
-  short _LITEMASK; /* 92  Mask used for lightening text      	     */
-                   /*     The Mask is picked up from the font header      */
-  short _SKEWMASK; /* 94  Mask used for skewing text			     */
-                   /*     The Mask is picked up from the font header      */
-  short _WEIGHT;   /* 96  The number of bits by which to thicken text     */
-                   /*     The number is picked up from the font header    */
-  short _ROFF;     /* 98  Offset above baseline when skewing              */
-                   /*     Again picked up from the font header            */
-                   /*						     */
-  short _LOFF;     /* 100 Offset below character baseline when skewing    */
-                   /*     Again picked up from the font header            */
-                   /*                                                     */
-  short _SCALE;    /* 102 Scaling Flag 1 == true                          */
-                   /*                                                     */
-  short _CHUP;     /* 104 Character rotation vector.                      */
-                   /*     0 = normal (0 degrees)			     */
-                   /*     1800 = 180 degrees				     */
-                   /*     2700 = 270 degrees                              */
-                   /*                                                     */
-  short _TEXTFG;   /* 106 Text foreground color			     */
-                   /*                                                     */
-  char *_SCRTCHP;  /* 108 Address of buffer required for creating special */
-                   /*     text effects. The size of this buffer should be */
-                   /*     1K according the Internals. The Atari document  */
-                   /*     of course does not talk about such things :-)   */
-                   /*                                                     */
-  short _SCRPT2;   /* 112 The offset of the scaling buffer buffer in above*/
-                   /*     buffer. Internals suggests an offset of 0x0040  */
-                   /*     As usual the Atari document does'nt say a thing */
-                   /*                                                     */
-  short _TEXTBG;   /* 114 Text background color (Ram Vdi only)            */
-                   /*     used for the BitBlt writing modes (4-19) only   */
-                   /*                                                     */
-  short _COPYTRAN; /* 116 Copy raster form type flag (Ram vdi only)       */
-                   /*     0 => Opaque type                                */
-                   /*          n-plane source  ->  n-plane dest           */
-                   /*              BitBlt writing modes (4-19)            */
-                   /*    ~0 => Transparent type                           */
-                   /*          1-plane source  ->  n-plane dest           */
-                   /*              Vdi writing modes (1-3)                */
-                   /*                                                     */
-  short(*_SEEDABORT) __PROTO((void));
-  /* 118 Pointer to function returning int, which is     */
-  /*     called by the fill logic to allow the fill to   */
-  /*     be aborted. If the routine returns FALSE (0)    */
-  /*     the fill is not aborted. If it returns TRUE (~0)*/
-  /*     the fill is aborted                             */
-  /* -------------------------------------------------------------------------
-   */
+    /* Type    Name       Offset   Function		    Comments
+     */
+    /* -------------------------------------------------------------------------
+     */
+    short _VPLANES;  /*  0  # of Planes	 Also see CurrRez            */
+    short _VWRAP;    /*  2  Bytes / scan line    "    "    "                */
+                     /*     VWRAP can be changed to implement special effect*/
+                     /*     Doubling VWRAP will skip every other scan line  */
+                     /*					             */
+                     /*                                                     */
+    short *_CONTRL;  /*  4  Ptr to CONTRL Array  Contrl gets set to this    */
+    short *_INTIN;   /*  8  Ptr to INTIN  Array  Intin  gets set to this    */
+    short *_PTSIN;   /* 12  Ptr to PTSIN  Array  Ptsin  gets set to this    */
+    short *_INTOUT;  /* 16  Ptr to INTOUT Array  Intout gets set to this    */
+    short *_PTSOUT;  /* 20  Ptr to PTSOUT Array  Ptsout gets set to this    */
+                     /*     CONTRL is the control array		     */
+                     /*     INTIN is the array of input parameters	     */
+                     /*     PTSIN is the array of input coordinates         */
+                     /*	  Even entrys are X coordinate		     */
+                     /* 	  Odd  entrys are corresponding Y coodinates */
+                     /*     INTOUT is the array of output parameters        */
+                     /*     PTSOUT is the array of output coordinates       */
+                     /*	organized like PTSIN.			     */
+                     /*					             */
+    short _COLBIT0;  /* 24  Plane 0 Color Value  All Three Rez's	     */
+    short _COLBIT1;  /* 26  Plane 1 Color Value  Med and Low Rez only	     */
+    short _COLBIT2;  /* 28  Plane 2 Color Value  Low Rez only 		     */
+    short _COLBIT3;  /* 30  Plane 3 Color Value  Low Rez Only 		     */
+                     /*     Foreground color COLBIT0 + 2*COLBIT1 + 4*COLBIT2*/
+                     /*	              + 8*COLBIT3		     */
+                     /*					             */
+                     /*                                                     */
+    short _LSTLIN;   /* 32  Draw last pixel of a line? 0=yes  non0=no	     */
+                     /*     This prevents two connecting lines from XORing  */
+                     /*     a common endpoint out of existence		     */
+                     /*					             */
+    short _LNMASK;   /* 34  Linemask used when drawing lines, same as Vdi's */
+                     /*     line style (rotated to aligned with rightmost   */
+                     /*     endpoint when drawing lines)                    */
+                     /*					             */
+    short _WMODE;    /* 36  Writing mode                                    */
+                     /*     0=Replace Mode-Replace all bits in Dest with src*/
+                     /*     1=Trans. Mode-Only additional bits in src set(OR*/
+                     /*     2=Xor Mode- Src XOR Dest			     */
+                     /*     3=Inverse Trans.- (NOT src) Or Dest             */
+                     /*     Values upto 16 are permitted                    */
+                     /*					             */
+    short _X1;       /* 38  X1 coordinate used in various calls             */
+                     /*					             */
+    short _Y1;       /* 40  Y1 coordinate used in various calls             */
+                     /*					             */
+    short _X2;       /* 42  X2 coordinate used in various calls             */
+                     /*					             */
+    short _Y2;       /* 44  Y2 coordinate used in various calls             */
+                     /*					             */
+                     /*                                                     */
+    short *_PATPTR;  /* 46  Pointer to current fill pattern                 */
+                     /*     Must be integral power of 2 (words) in length   */
+    short _PATMSK;   /* 50  I don't know why they call it a mask. It is in  */
+                     /*     reality the length in words of the current patt.*/
+    short _MFILL;    /* 52  Multi Plane fill flag 1 == Current fill Pattern */
+                     /*     is for Muti Plane.                              */
+                     /*                                                     */
+                     /*                                                     */
+    short _CLIP;     /* 54  Clipping Flag 1 == TRUE                         */
+    short _XMINCL;   /* 56  Min X of clipping window			     */
+    short _YMINCL;   /* 58  Min Y of clipping window                        */
+    short _XMAXCL;   /* 60  Max X of clipping window			     */
+    short _YMAXCL;   /* 62  Max Y of clipping window                        */
+                     /*                                                     */
+                     /*                                                     */
+    short _XDDA;     /* 64  Accumulator for Scaling, Must be set to 0x08000 */
+                     /*     before each call to Text Blt. Done for you in   */
+                     /*     in aline_text()                                 */
+    short _DDAINC;   /* 66  Scaling factor - Fractional amount to scale char*/
+                     /*     When scaling up = 256 *(Size-Textsize)/Textsize */
+                     /*     When scaling down = 256*(Size)/Textsize         */
+                     /*     scaling down does not work                      */
+    short _SCALDIR;  /* 68  Scaling direction 0 == down                     */
+    short _MONO;     /* 70  Mono flag 0== current font is a propotional font*/
+                     /*     Its Ok for Thickening to increase the width of  */
+                     /*     the current character.                          */
+                     /*     1 == current font is mono spaced, so thickening */
+                     /*     may not increase the width of the current char  */
+                     /*                                                     */
+    short _SOURCEX;  /* 72  X coordinate of character in the font form      */
+                     /*     SOURCEX is calculated from info in the font     */
+                     /*     header for the current font (see __FONT type)   */
+                     /*     SOURCEX = off_table[char-first_ade]	     */
+                     /*     SOURCEX is calculated for you in aline_text()   */
+                     /*     The pointer to a table of font header for the   */
+                     /*     internal fonts is returned in A2 on init (A000) */
+    short _SOURCEY;  /* 74  Y coodinate of character in the font form       */
+                     /*     Typically set to 0 (top line of font form)	     */
+    short _DESTX;    /* 76  X coordinate of character on screen             */
+    short _DESTY;    /* 78  Y coordinate of character on screen             */
+    short _DELX;     /* 80  Width of Character				     */
+                     /*     Difference between two SOURCEX's	             */
+    short _DELY;     /* 82  Height of Character                             */
+                     /*     form_height field of FONT_HEAD of current font  */
+    short *_FBASE;   /* 84  Pointer to start of font form                   */
+    short _FWIDTH;   /* 88  Width of the current font's form                */
+                     /*                                                     */
+    short _STYLE;    /* 90  Vector of style flags			     */
+                     /*     Bit 0 = Thicken Flag			     */
+                     /*     Bit 1 = Lighten Flag			     */
+                     /*     Bit 2 = Skewing Flag			     */
+                     /*     Bit 3 = Underline Flag (ignored)		     */
+                     /*     Bit 4 = Outline Flag			     */
+                     /*                                                     */
+    short _LITEMASK; /* 92  Mask used for lightening text      	     */
+                     /*     The Mask is picked up from the font header      */
+    short _SKEWMASK; /* 94  Mask used for skewing text			     */
+                     /*     The Mask is picked up from the font header      */
+    short _WEIGHT;   /* 96  The number of bits by which to thicken text     */
+                     /*     The number is picked up from the font header    */
+    short _ROFF;     /* 98  Offset above baseline when skewing              */
+                     /*     Again picked up from the font header            */
+                     /*						     */
+    short _LOFF;     /* 100 Offset below character baseline when skewing    */
+                     /*     Again picked up from the font header            */
+                     /*                                                     */
+    short _SCALE;    /* 102 Scaling Flag 1 == true                          */
+                     /*                                                     */
+    short _CHUP;     /* 104 Character rotation vector.                      */
+                     /*     0 = normal (0 degrees)			     */
+                     /*     1800 = 180 degrees				     */
+                     /*     2700 = 270 degrees                              */
+                     /*                                                     */
+    short _TEXTFG;   /* 106 Text foreground color			     */
+                     /*                                                     */
+    char *_SCRTCHP;  /* 108 Address of buffer required for creating special */
+                     /*     text effects. The size of this buffer should be */
+                     /*     1K according the Internals. The Atari document  */
+                     /*     of course does not talk about such things :-)   */
+                     /*                                                     */
+    short _SCRPT2;   /* 112 The offset of the scaling buffer buffer in above*/
+                     /*     buffer. Internals suggests an offset of 0x0040  */
+                     /*     As usual the Atari document does'nt say a thing */
+                     /*                                                     */
+    short _TEXTBG;   /* 114 Text background color (Ram Vdi only)            */
+                     /*     used for the BitBlt writing modes (4-19) only   */
+                     /*                                                     */
+    short _COPYTRAN; /* 116 Copy raster form type flag (Ram vdi only)       */
+                     /*     0 => Opaque type                                */
+                     /*          n-plane source  ->  n-plane dest           */
+                     /*              BitBlt writing modes (4-19)            */
+                     /*    ~0 => Transparent type                           */
+                     /*          1-plane source  ->  n-plane dest           */
+                     /*              Vdi writing modes (1-3)                */
+                     /*                                                     */
+    short(*_SEEDABORT) __PROTO((void));
+    /* 118 Pointer to function returning int, which is     */
+    /*     called by the fill logic to allow the fill to   */
+    /*     be aborted. If the routine returns FALSE (0)    */
+    /*     the fill is not aborted. If it returns TRUE (~0)*/
+    /*     the fill is aborted                             */
+    /* -------------------------------------------------------------------------
+     */
 
 } __LINEA; /*       P H E W !!!!!                                 */
 
@@ -543,72 +543,73 @@ typedef struct {
 
 typedef struct _font {
 
-  /* Type    Name       Offset   Function		    Comments
-   */
-  /* -------------------------------------------------------------------------
-   */
-  short font_id;   /*  0 Font face identifier  1 == system font           */
-                   /*                                                     */
-  short size;      /*  2 Font size in points                              */
-                   /*                                                     */
-  char name[32];   /*  4 Face name                                        */
-                   /*                                                     */
-  short first_ade; /* 36 Lowest ADE value in the face (lowest ASCII value */
-                   /*    of displayable character).                       */
-                   /*                                                     */
-  short last_ade;  /* 38 Highest ADE value in the face (highest ASCII valu*/
-                   /*    of displayable character).                       */
-                   /*                                                     */
-  short top;       /* 40 Distance of top line relative to baseline        */
-                   /*                                                     */
-  short ascent;    /* 42 Distance of ascent line relative to baseline     */
-                   /*                                                     */
-  short half;      /* 44 Distance of half line relative to baseline       */
-                   /*                                                     */
-  short descent;   /* 46 Distance of decent line relative to baseline     */
-                   /*                                                     */
-  short bottom;    /* 48 Distance of bottom line relative to baseline     */
-                   /*    All distances are measured in absolute values    */
-                   /*    rather than as offsets. They are always +ve      */
-                   /*                                                     */
-  short max_char_width; /* 50 Width of the widest character in font */
-  /*                                                     */
-  short max_cell_width; /* 52 Width of the widest cell character cell in face */
-  /*                                                     */
-  short left_offset;  /* 54 Left Offset see Vdi appendix G                   */
-                      /*                                                     */
-  short right_offset; /* 56 Right offset   "      "     "                    */
-                      /*                                                     */
-  short thicken;      /* 58 Number of pixels by which to thicken characters  */
-                      /*                                                     */
-  short ul_size;      /* 60 Width in  pixels of the underline                */
-                      /*                                                     */
-  short lighten;      /* 62 The mask used to lighten characters              */
-                      /*                                                     */
-  short skew;         /* 64 The mask used to determine when to perform       */
-                      /*    additional rotation on the character to perform  */
-                      /*    skewing                                          */
-                      /*                                                     */
-  short flags;        /* 66 Flags                                            */
-                      /*      bit 0 set if default system font               */
-                      /*      bit 1 set if horiz offset table should be used */
-                      /*      bit 2 byte-swap flag (thanks to Intel idiots)  */
-                      /*      bit 3 set if mono spaced font                  */
-                      /*                                                     */
-  char *h_table;      /* 68 Pointer to horizontal offset table               */
-                      /*                                                     */
-  short *off_table;   /* 72 Pointer to character offset table                */
-                      /*                                                     */
-  char *dat_table;    /* 76 Pointer to font data                             */
-                      /*                                                     */
-  short form_width;   /* 80 Form width (#of bytes /scanline in font data)    */
-                      /*                                                     */
-  short form_height;  /* 82 Form height (#of scanlines in font data)         */
-                      /*                                                     */
-  struct _font *next_font; /* 84 Pointer to next font in face                */
-  /*                                                     */
-  /* -------------------------------------------------------------------------
-   */
+    /* Type    Name       Offset   Function		    Comments
+     */
+    /* -------------------------------------------------------------------------
+     */
+    short font_id;   /*  0 Font face identifier  1 == system font           */
+                     /*                                                     */
+    short size;      /*  2 Font size in points                              */
+                     /*                                                     */
+    char name[32];   /*  4 Face name                                        */
+                     /*                                                     */
+    short first_ade; /* 36 Lowest ADE value in the face (lowest ASCII value */
+                     /*    of displayable character).                       */
+                     /*                                                     */
+    short last_ade;  /* 38 Highest ADE value in the face (highest ASCII valu*/
+                     /*    of displayable character).                       */
+                     /*                                                     */
+    short top;       /* 40 Distance of top line relative to baseline        */
+                     /*                                                     */
+    short ascent;    /* 42 Distance of ascent line relative to baseline     */
+                     /*                                                     */
+    short half;      /* 44 Distance of half line relative to baseline       */
+                     /*                                                     */
+    short descent;   /* 46 Distance of decent line relative to baseline     */
+                     /*                                                     */
+    short bottom;    /* 48 Distance of bottom line relative to baseline     */
+                     /*    All distances are measured in absolute values    */
+                     /*    rather than as offsets. They are always +ve      */
+                     /*                                                     */
+    short max_char_width; /* 50 Width of the widest character in font */
+    /*                                                     */
+    short
+        max_cell_width; /* 52 Width of the widest cell character cell in face */
+    /*                                                     */
+    short left_offset; /* 54 Left Offset see Vdi appendix G                   */
+                       /*                                                     */
+    short right_offset; /* 56 Right offset   "      "     " */
+    /*                                                     */
+    short thicken;     /* 58 Number of pixels by which to thicken characters  */
+                       /*                                                     */
+    short ul_size;     /* 60 Width in  pixels of the underline                */
+                       /*                                                     */
+    short lighten;     /* 62 The mask used to lighten characters              */
+                       /*                                                     */
+    short skew;        /* 64 The mask used to determine when to perform       */
+                       /*    additional rotation on the character to perform  */
+                       /*    skewing                                          */
+                       /*                                                     */
+    short flags;       /* 66 Flags                                            */
+                       /*      bit 0 set if default system font               */
+                       /*      bit 1 set if horiz offset table should be used */
+                       /*      bit 2 byte-swap flag (thanks to Intel idiots)  */
+                       /*      bit 3 set if mono spaced font                  */
+                       /*                                                     */
+    char *h_table;     /* 68 Pointer to horizontal offset table               */
+                       /*                                                     */
+    short *off_table;  /* 72 Pointer to character offset table                */
+                       /*                                                     */
+    char *dat_table;   /* 76 Pointer to font data                             */
+                       /*                                                     */
+    short form_width;  /* 80 Form width (#of bytes /scanline in font data)    */
+                       /*                                                     */
+    short form_height; /* 82 Form height (#of scanlines in font data)         */
+                       /*                                                     */
+    struct _font *next_font; /* 84 Pointer to next font in face */
+    /*                                                     */
+    /* -------------------------------------------------------------------------
+     */
 } __FONT;
 
 /* function pointer array
@@ -628,28 +629,28 @@ typedef FPTR *FUNCPTR; /* array of pointers to functions returning short */
  */
 typedef struct {
 
-  /* Type    Name       Offset   Function		    Comments
-   */
-  /* -------------------------------------------------------------------------
-   */
-  char fg0bg0; /* 0	Logic op to employ when both FG and BG are 0 */
-  char fg0bg1; /* 1	Logic op to employ when FG = 0 and BG = 1    */
-  char fg1bg0; /* 2	Logic op to employ when FG = 1 and BG = 0    */
-  char fg1bg1; /* 3	Logic op to employ when both FG and BG are 1 */
-  /* -------------------------------------------------------------------------
-   */
+    /* Type    Name       Offset   Function		    Comments
+     */
+    /* -------------------------------------------------------------------------
+     */
+    char fg0bg0; /* 0	Logic op to employ when both FG and BG are 0 */
+    char fg0bg1; /* 1	Logic op to employ when FG = 0 and BG = 1    */
+    char fg1bg0; /* 2	Logic op to employ when FG = 1 and BG = 0    */
+    char fg1bg1; /* 3	Logic op to employ when both FG and BG are 1 */
+    /* -------------------------------------------------------------------------
+     */
 } OP_TAB;
 
 /*
  * Source and destination description blocks
  */
 typedef struct {
-  short bl_xmin; /* Minimum x			*/
-  short bl_ymin; /* Minimum y 			*/
-  char *bl_form; /* short aligned memory form 	*/
-  short bl_nxwd; /* Offset to next word in line  */
-  short bl_nxln; /* Offset to next line in plane */
-  short bl_nxpl; /* Offset to next plane 	*/
+    short bl_xmin; /* Minimum x			*/
+    short bl_ymin; /* Minimum y 			*/
+    char *bl_form; /* short aligned memory form 	*/
+    short bl_nxwd; /* Offset to next word in line  */
+    short bl_nxln; /* Offset to next line in plane */
+    short bl_nxpl; /* Offset to next plane 	*/
 } SDDB;
 
 /* Offsets to next word in plane */
@@ -675,24 +676,24 @@ typedef struct {
 
 typedef struct {
 
-  /* Type    Name           Offset   Function		    Comments	     */
-  /* -------------------------------------------------------------------------
-   */
-  short bb_b_wd;     /*	 width of block in pixels 		     */
-  short bb_b_ht;     /*	 height of block in pixels		     */
-  short bb_plane_ct; /*	 number of planes to blit 		     */
-  short bb_fg_col;   /*	 foreground color 			     */
-  short bb_bg_col;   /*	 back	ground color 			     */
-  OP_TAB bb_op_tab;  /*	 logic for fg x bg combination 		     */
-  SDDB bb_s;         /*	 source info block			     */
-  SDDB bb_d;         /*	 destination info block 		     */
-  short *bb_p_addr;  /*	 pattern buffer address 		     */
-  short bb_p_nxln;   /*	 offset to next line in pattern 	     */
-  short bb_p_nxpl;   /*	 offset to next plane in pattern 	     */
-  short bb_p_mask;   /*	 pattern index mask 			     */
-  char bb_fill[24];  /*	 work space				     */
-  /* -------------------------------------------------------------------------
-   */
+    /* Type    Name           Offset   Function		    Comments	     */
+    /* -------------------------------------------------------------------------
+     */
+    short bb_b_wd;     /*	 width of block in pixels 		     */
+    short bb_b_ht;     /*	 height of block in pixels		     */
+    short bb_plane_ct; /*	 number of planes to blit 		     */
+    short bb_fg_col;   /*	 foreground color 			     */
+    short bb_bg_col;   /*	 back	ground color 			     */
+    OP_TAB bb_op_tab;  /*	 logic for fg x bg combination 		     */
+    SDDB bb_s;         /*	 source info block			     */
+    SDDB bb_d;         /*	 destination info block 		     */
+    short *bb_p_addr;  /*	 pattern buffer address 		     */
+    short bb_p_nxln;   /*	 offset to next line in pattern 	     */
+    short bb_p_nxpl;   /*	 offset to next plane in pattern 	     */
+    short bb_p_mask;   /*	 pattern index mask 			     */
+    char bb_fill[24];  /*	 work space				     */
+    /* -------------------------------------------------------------------------
+     */
 } BBPB;
 
 #ifndef __MFDB__
@@ -702,17 +703,17 @@ typedef struct {
  *
  */
 typedef struct {
-  char *fd_addr;    /* Address of upper left corner of first*/
-                    /* plane of raster area. If NULL then   */
-                    /* MFDB is for a physical device        */
-  short fd_w;       /* Form Width in Pixels                 */
-  short fd_h;       /* Form Height in Pixels                */
-  short fd_wdwidth; /* Form Width in shorts(fd_w/sizeof(int)*/
-  short fd_stand;   /* Form format 0= device spec 1=standard*/
-  short fd_nplanes; /* Number of memory planes              */
-  short fd_r1;      /* Reserved                             */
-  short fd_r2;      /* Reserved                             */
-  short fd_r3;      /* Reserved                             */
+    char *fd_addr;    /* Address of upper left corner of first*/
+                      /* plane of raster area. If NULL then   */
+                      /* MFDB is for a physical device        */
+    short fd_w;       /* Form Width in Pixels                 */
+    short fd_h;       /* Form Height in Pixels                */
+    short fd_wdwidth; /* Form Width in shorts(fd_w/sizeof(int)*/
+    short fd_stand;   /* Form format 0= device spec 1=standard*/
+    short fd_nplanes; /* Number of memory planes              */
+    short fd_r1;      /* Reserved                             */
+    short fd_r2;      /* Reserved                             */
+    short fd_r3;      /* Reserved                             */
 } MFDB;
 #endif /* __MFDB__ */
 
@@ -721,17 +722,17 @@ typedef struct {
  *
  */
 typedef struct {
-  short sp_xhot;     /* Offset to X hot spot		*/
-  short sp_yhot;     /* Offset to Y hot spot		*/
-  short sp_format;   /* Format SP_VDI or SP_XOR 	*/
-  short sp_bg;       /* Background color		*/
-  short sp_fg;       /* Foregroud color		*/
-  short sp_data[32]; /* Sprite data - 		*/
-                     /* Alternating words of back/fore */
-                     /* ground data			  */
-                     /* Note that:			  */
-                     /*   sprite save block is         */
-                     /*  10+VPLANES*64 bytes long	  */
+    short sp_xhot;     /* Offset to X hot spot		*/
+    short sp_yhot;     /* Offset to Y hot spot		*/
+    short sp_format;   /* Format SP_VDI or SP_XOR 	*/
+    short sp_bg;       /* Background color		*/
+    short sp_fg;       /* Foregroud color		*/
+    short sp_data[32]; /* Sprite data - 		*/
+                       /* Alternating words of back/fore */
+                       /* ground data			  */
+                       /* Note that:			  */
+                       /*   sprite save block is         */
+                       /*  10+VPLANES*64 bytes long	  */
 } SFORM;
 
 /*****************************************************************************\
@@ -799,185 +800,199 @@ void lineaf(void);
 #ifdef __GNUC_INLINE__
 
 #define linea0()                                                               \
-  ({                                                                           \
-    __asm__ volatile("\
+    ({                                                                         \
+        __asm__ volatile(                                                      \
+            "\
 		.word   0xA000; \
 		movl    a0,%0;	\
 		movl    a1,%1;	\
-		movl    a2,%2"                                                       \
-                     : "=g"(__aline), "=g"(__fonts),                           \
-                       "=g"(__funcs)                      /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+		movl    a2,%2"                                                                \
+            : "=g"(__aline), "=g"(__fonts), "=g"(__funcs) /* outputs */        \
+            :                                             /* inputs  */        \
+            : "d0", "d1", "d2", "a0", "a1", "a2"          /* clobbered regs */ \
+        );                                                                     \
+    })
 
 #define linea1()                                                               \
-  ({                                                                           \
-    __asm__ volatile("\
-		.word   0xA001"                                                       \
-                     :                                    /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+    ({                                                                         \
+        __asm__ volatile("\
+		.word   0xA001"                                                   \
+                         : /* outputs */                                       \
+                         : /* inputs  */                                       \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #define linea2()                                                               \
-  ({                                                                           \
-    short retvalue;                                                            \
-    __asm__ volatile("\
+    ({                                                                         \
+        short retvalue;                                                        \
+        __asm__ volatile("\
 		.word   0xA002;  \
- 		movew	d0,%0"                                                       \
-                     : "=g"(retvalue)                     /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-    (int)retvalue;                                                             \
-  })
+ 		movew	d0,%0"                                                   \
+                         : "=g"(retvalue) /* outputs */                        \
+                         :                /* inputs  */                        \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+        (int)retvalue;                                                         \
+    })
 
 #define linea3()                                                               \
-  ({                                                                           \
-    __asm__ volatile("\
-		.word   0xA003"                                                       \
-                     :                                    /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+    ({                                                                         \
+        __asm__ volatile("\
+		.word   0xA003"                                                   \
+                         : /* outputs */                                       \
+                         : /* inputs  */                                       \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #define linea4()                                                               \
-  ({                                                                           \
-    __asm__ volatile("\
-		.word   0xA004"                                                       \
-                     :                                    /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+    ({                                                                         \
+        __asm__ volatile("\
+		.word   0xA004"                                                   \
+                         : /* outputs */                                       \
+                         : /* inputs  */                                       \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #define linea5()                                                               \
-  ({                                                                           \
-    __asm__ volatile("\
-		.word   0xA005"                                                       \
-                     :                                    /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+    ({                                                                         \
+        __asm__ volatile("\
+		.word   0xA005"                                                   \
+                         : /* outputs */                                       \
+                         : /* inputs  */                                       \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #define linea6()                                                               \
-  ({                                                                           \
-    __asm__ volatile("\
-		.word   0xA006"                                                       \
-                     :                                    /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+    ({                                                                         \
+        __asm__ volatile("\
+		.word   0xA006"                                                   \
+                         : /* outputs */                                       \
+                         : /* inputs  */                                       \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #define linea7(P)                                                              \
-  ({                                                                           \
-    __asm__ volatile("\
+    ({                                                                         \
+        __asm__ volatile("\
 		movml	d2/a2/a6, sp@-; \
  		movl	%0,a6;  \
 		.word   0xA007; \
-		movml	sp@+, d2/a2/a6"                                                       \
-                     :                        /* outputs */                    \
-                     : "r"(P)                 /* inputs  */                    \
-                     : "d0", "d1", "a0", "a1" /* clobbered regs */             \
-    );                                                                         \
-  })
+		movml	sp@+, d2/a2/a6"                                                   \
+                         :                        /* outputs */                \
+                         : "r"(P)                 /* inputs  */                \
+                         : "d0", "d1", "a0", "a1" /* clobbered regs */         \
+        );                                                                     \
+    })
 
 #define linea8()                                                               \
-  ({                                                                           \
-    __asm__ volatile("\
-		.word   0xA008"                                                       \
-                     :                                    /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+    ({                                                                         \
+        __asm__ volatile("\
+		.word   0xA008"                                                   \
+                         : /* outputs */                                       \
+                         : /* inputs  */                                       \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #define linea9()                                                               \
-  ({                                                                           \
-    __asm__ volatile("\
-		.word   0xA009"                                                       \
-                     :                                    /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+    ({                                                                         \
+        __asm__ volatile("\
+		.word   0xA009"                                                   \
+                         : /* outputs */                                       \
+                         : /* inputs  */                                       \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #define lineaa()                                                               \
-  ({                                                                           \
-    __asm__ volatile("\
-		.word   0xA00A"                                                       \
-                     :                                    /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+    ({                                                                         \
+        __asm__ volatile("\
+		.word   0xA00A"                                                   \
+                         : /* outputs */                                       \
+                         : /* inputs  */                                       \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #define lineab()                                                               \
-  ({                                                                           \
-    __asm__ volatile("\
-		.word   0xA00B"                                                       \
-                     :                                    /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+    ({                                                                         \
+        __asm__ volatile("\
+		.word   0xA00B"                                                   \
+                         : /* outputs */                                       \
+                         : /* inputs  */                                       \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #define lineac(P)                                                              \
-  ({                                                                           \
-    __asm__ volatile("\
+    ({                                                                         \
+        __asm__ volatile("\
  		movl	%0,a2;	\
 		movl	a6,sp@-;\
 		.word   0xA00C; \
-		movl	sp@+,a6"                                                       \
-                     :                                    /* outputs */        \
-                     : "g"(P)                             /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+		movl	sp@+,a6"                                                   \
+                         :        /* outputs */                                \
+                         : "g"(P) /* inputs  */                                \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #define linead(x, y, sd, ss)                                                   \
-  __linead((short)x, (short)y, (void *)sd, (void *)ss)
+    __linead((short)x, (short)y, (void *)sd, (void *)ss)
 #define __linead(x, y, sd, ss)                                                 \
-  ({                                                                           \
-    __asm__ volatile("\
+    ({                                                                         \
+        __asm__ volatile("\
  		movw	%0,d0;  \
  		movw	%1,d1;  \
  		movl	%2,a0;  \
  		movl	%3,a2;  \
 		movl	a6,sp@-;\
 		.word   0xA00D; \
-		movl	sp@+,a6"                                                       \
-                     :                                    /* outputs */        \
-                     : "g"(x), "g"(y), "g"(sd), "g"(ss)   /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+		movl	sp@+,a6"                                                   \
+                         :                                  /* outputs */      \
+                         : "g"(x), "g"(y), "g"(sd), "g"(ss) /* inputs  */      \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #define lineae()                                                               \
-  ({                                                                           \
-    __asm__ volatile("\
-		.word   0xA00E"                                                       \
-                     :                                    /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+    ({                                                                         \
+        __asm__ volatile("\
+		.word   0xA00E"                                                   \
+                         : /* outputs */                                       \
+                         : /* inputs  */                                       \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #define lineaf()                                                               \
-  ({                                                                           \
-    __asm__ volatile("\
-		.word   0xA00F"                                                       \
-                     :                                    /* outputs */        \
-                     :                                    /* inputs  */        \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-  })
+    ({                                                                         \
+        __asm__ volatile("\
+		.word   0xA00F"                                                   \
+                         : /* outputs */                                       \
+                         : /* inputs  */                                       \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+    })
 
 #else /* __NO_INLINE__ */
 

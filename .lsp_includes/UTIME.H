@@ -6,8 +6,8 @@
 #endif
 
 struct utimbuf { /* type for times() call */
-  time_t actime;
-  time_t modtime;
+    time_t actime;
+    time_t modtime;
 };
 
 __EXTERN int utime __PROTO((const char *path, const struct utimbuf *times));

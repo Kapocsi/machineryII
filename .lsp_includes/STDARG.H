@@ -23,7 +23,7 @@ typedef void *__gnuc_va_list;
    TYPE may alternatively be an expression whose type is used.  */
 
 #define __va_rounded_size(TYPE)                                                \
-  (((sizeof(TYPE) + sizeof(int) - 1) / sizeof(int)) * sizeof(int))
+    (((sizeof(TYPE) + sizeof(int) - 1) / sizeof(int)) * sizeof(int))
 
 #define va_start(AP, LASTARG) (AP = ((__gnuc_va_list)__builtin_next_arg()))
 
@@ -32,10 +32,10 @@ typedef void *__gnuc_va_list;
 /* We cast to void * and then to TYPE * because this avoids
    a warning about increasing the alignment requirement.  */
 #define va_arg(AP, TYPE)                                                       \
-  (AP = (__gnuc_va_list)((char *)(AP) + __va_rounded_size(TYPE)),              \
-   *((TYPE *)(void *)((char *)(AP) - ((sizeof(TYPE) < sizeof(int)              \
-                                           ? sizeof(TYPE)                      \
-                                           : __va_rounded_size(TYPE))))))
+    (AP = (__gnuc_va_list)((char *)(AP) + __va_rounded_size(TYPE)),            \
+     *((TYPE *)(void *)((char *)(AP) - ((sizeof(TYPE) < sizeof(int)            \
+                                             ? sizeof(TYPE)                    \
+                                             : __va_rounded_size(TYPE))))))
 
 #ifndef _VA_LIST_
 #define _VA_LIST_
@@ -52,7 +52,7 @@ typedef __VA_LIST__ va_list;
 #define va_end(list)
 #else
 #define va_start(list, param)                                                  \
-  list = ((va_list) & (param)) + ((sizeof(param) + 1) & ~1)
+    list = ((va_list) & (param)) + ((sizeof(param) + 1) & ~1)
 #define va_arg(list, type) ((type *)(list += ((sizeof(type) + 1) & ~1)))[-1]
 #define va_end(list)
 #endif /* __TURBOC__ */

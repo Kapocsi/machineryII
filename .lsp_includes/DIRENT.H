@@ -30,41 +30,41 @@ extern "C" {
 #endif
 
 struct dirent {
-  long d_ino;     /* garbage under TOS */
-  off_t d_off;    /* position in directory  */
-  short d_reclen; /* for us, length of d_name */
+    long d_ino;     /* garbage under TOS */
+    off_t d_off;    /* position in directory  */
+    short d_reclen; /* for us, length of d_name */
 #ifndef __MINT__
-  /* the following (except for d_name) are unique to TOS */
-  struct dirent *d_next;         /* ptr to next struct dirent in list */
-  unsigned char d_attribute;     /* file modes from Fsfirst()  */
-  unsigned short d_time, d_date; /* TOS date and time for file */
-  long d_size;                   /* file size */
-  char d_name[1];
+    /* the following (except for d_name) are unique to TOS */
+    struct dirent *d_next;         /* ptr to next struct dirent in list */
+    unsigned char d_attribute;     /* file modes from Fsfirst()  */
+    unsigned short d_time, d_date; /* TOS date and time for file */
+    long d_size;                   /* file size */
+    char d_name[1];
 #else
-  char d_name[NAME_MAX + 1];
+    char d_name[NAME_MAX + 1];
 #endif
 };
 
 #ifndef __MINT__
 typedef struct _DIR {
-  struct dirent *D_list;   /* list of directory entries */
-  struct dirent *D_curpos; /* current position in list  */
-  char *D_path;            /* path to this directory    */
-  struct _DIR *D_nxtdir;   /* next DIR in opendir chain */
+    struct dirent *D_list;   /* list of directory entries */
+    struct dirent *D_curpos; /* current position in list  */
+    char *D_path;            /* path to this directory    */
+    struct _DIR *D_nxtdir;   /* next DIR in opendir chain */
 } DIR;
 
 #else
 
 typedef struct _DIR {
-  short status;      /* status of the search so far: */
+    short status;      /* status of the search so far: */
 #define _INSEARCH 0    /* need to call Fsnext for a new entry */
 #define _STARTSEARCH 1 /* Fsfirst called once, successfully */
 #define _NMFILE 2      /* no more files in directory */
-  _DTA dta;          /* TOS DTA for this directory */
-  char *dirname;     /* directory of the search (used under
-                        TOS for rewinddir) */
-  struct dirent buf; /* dirent struct for this directory */
-  long handle;       /* Dreaddir handle */
+    _DTA dta;          /* TOS DTA for this directory */
+    char *dirname;     /* directory of the search (used under
+                          TOS for rewinddir) */
+    struct dirent buf; /* dirent struct for this directory */
+    long handle;       /* Dreaddir handle */
 } DIR;
 
 #endif /* __MINT__ */

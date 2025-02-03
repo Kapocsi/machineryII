@@ -31,11 +31,11 @@ extern unsigned char *_ctype;
 #define iscntrl(c) (_ctype[(unsigned char)(c)] & _CTc)
 #define isdigit(c) (_ctype[(unsigned char)(c)] & _CTd)
 #define isgraph(c)                                                             \
-  (!(_ctype[(unsigned char)(c)] & (_CTc | _CTs)) &&                            \
-   (_ctype[(unsigned char)(c)]))
+    (!(_ctype[(unsigned char)(c)] & (_CTc | _CTs)) &&                          \
+     (_ctype[(unsigned char)(c)]))
 #define islower(c) (_ctype[(unsigned char)(c)] & _CTl)
 #define isprint(c)                                                             \
-  (!(_ctype[(unsigned char)(c)] & _CTc) && (_ctype[(unsigned char)(c)]))
+    (!(_ctype[(unsigned char)(c)] & _CTc) && (_ctype[(unsigned char)(c)]))
 #define ispunct(c) (_ctype[(unsigned char)(c)] & _CTp)
 #define isspace(c) (_ctype[(unsigned char)(c)] & _CTs)
 #define isupper(c) (_ctype[(unsigned char)(c)] & _CTu)
@@ -53,37 +53,37 @@ extern unsigned char *_ctype;
 
 #if 0 /* do not define, these are routines in ctype.c as they should be */
 #define toupper(c)                                                             \
-  ({                                                                           \
-    typeof(c) _c = (c);                                                        \
-    islower(_c) ? (_c ^ 0x20) : _c;                                            \
-  })
+    ({                                                                         \
+        typeof(c) _c = (c);                                                    \
+        islower(_c) ? (_c ^ 0x20) : _c;                                        \
+    })
 #define tolower(c)                                                             \
-  ({                                                                           \
-    typeof(c) _c = (c);                                                        \
-    isupper(_c) ? (_c ^ 0x20) : _c;                                            \
-  })
+    ({                                                                         \
+        typeof(c) _c = (c);                                                    \
+        isupper(_c) ? (_c ^ 0x20) : _c;                                        \
+    })
 #endif /* 0 */
 
 #define toint(c)                                                               \
-  ({                                                                           \
-    typeof(c) _c = (c);                                                        \
-    (_c <= '9') ? (_c - '0') : (toupper(_c) - 'A' + 10);                       \
-  })
+    ({                                                                         \
+        typeof(c) _c = (c);                                                    \
+        (_c <= '9') ? (_c - '0') : (toupper(_c) - 'A' + 10);                   \
+    })
 #define isodigit(c)                                                            \
-  ({                                                                           \
-    typeof(c) _c = (c);                                                        \
-    (_c >= '0') && (_c <= '7');                                                \
-  })
+    ({                                                                         \
+        typeof(c) _c = (c);                                                    \
+        (_c >= '0') && (_c <= '7');                                            \
+    })
 #define iscymf(c)                                                              \
-  ({                                                                           \
-    typeof(c) _c = (c);                                                        \
-    isalpha(_c) || (_c == '_');                                                \
-  })
+    ({                                                                         \
+        typeof(c) _c = (c);                                                    \
+        isalpha(_c) || (_c == '_');                                            \
+    })
 #define iscym(c)                                                               \
-  ({                                                                           \
-    typeof(c) _c = (c);                                                        \
-    isalnum(_c) || (_c == '_');                                                \
-  })
+    ({                                                                         \
+        typeof(c) _c = (c);                                                    \
+        isalnum(_c) || (_c == '_');                                            \
+    })
 
 #else /* you know what */
 

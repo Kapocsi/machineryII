@@ -18,11 +18,11 @@ extern "C" {
 typedef long (*devfunc_t)();
 
 struct _device {
-  char *dosnm, /* name under DOS (e.g. "CON:") 	*/
-      *unxnm;  /* name under UNIX (e.g. "console") 	*/
-  dev_t dev;   /* device number   (e.g. 0xffff)	*/
-  devfunc_t open, close, read, write, ioctl;
-  struct _device *next;
+    char *dosnm, /* name under DOS (e.g. "CON:") 	*/
+        *unxnm;  /* name under UNIX (e.g. "console") 	*/
+    dev_t dev;   /* device number   (e.g. 0xffff)	*/
+    devfunc_t open, close, read, write, ioctl;
+    struct _device *next;
 };
 
 /*
@@ -34,7 +34,7 @@ struct _device {
  */
 
 #define mkdev(major, minor)                                                    \
-  ((dev_t)((((major) << 8) & 0xff00) | ((minor) & 0x00ff)))
+    ((dev_t)((((major) << 8) & 0xff00) | ((minor) & 0x00ff)))
 
 /* major/minor defined in <types.h> */
 

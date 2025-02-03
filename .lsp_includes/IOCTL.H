@@ -91,10 +91,10 @@ extern "C" {
 #define PFSTAT (('P' << 8) | 13)
 
 struct __ploadinfo {
-  /* passed */
-  short fnamelen;
-  /* returned */
-  char *cmdlin, *fname;
+    /* passed */
+    short fnamelen;
+    /* returned */
+    char *cmdlin, *fname;
 };
 
 /* shared memory ioctl's */
@@ -112,21 +112,21 @@ struct __ploadinfo {
 
 #ifndef _filesys_h
 struct tchars {
-  char t_intrc;
-  char t_quitc;
-  char t_startc;
-  char t_stopc;
-  char t_eofc;
-  char t_brkc;
+    char t_intrc;
+    char t_quitc;
+    char t_startc;
+    char t_stopc;
+    char t_eofc;
+    char t_brkc;
 };
 
 struct ltchars {
-  char t_suspc;
-  char t_dsuspc;
-  char t_rprntc;
-  char t_flushc;
-  char t_werasc;
-  char t_lnextc;
+    char t_suspc;
+    char t_dsuspc;
+    char t_rprntc;
+    char t_flushc;
+    char t_werasc;
+    char t_lnextc;
 };
 
 #define CRMOD 0x0001
@@ -180,8 +180,8 @@ struct ltchars {
 
 #ifndef _filesys_h
 struct xkey {
-  short xk_num;
-  char xk_def[8];
+    short xk_num;
+    char xk_def[8];
 };
 #endif
 
@@ -203,24 +203,24 @@ struct xkey {
 
 #ifndef _filesys_h
 struct sgttyb {
-  char sg_ispeed;
-  char sg_ospeed;
-  char sg_erase;
-  char sg_kill;
-  short sg_flags;
+    char sg_ispeed;
+    char sg_ospeed;
+    char sg_erase;
+    char sg_kill;
+    short sg_flags;
 };
 
 struct winsize {
-  short ws_row;
-  short ws_col;
-  short ws_xpixel;
-  short ws_ypixel;
+    short ws_row;
+    short ws_col;
+    short ws_xpixel;
+    short ws_ypixel;
 };
 #endif
 
 struct _mutimbuf {
-  unsigned short actime, acdate; /* GEMDOS format */
-  unsigned short modtime, moddate;
+    unsigned short actime, acdate; /* GEMDOS format */
+    unsigned short modtime, moddate;
 };
 
 __EXTERN int ioctl __PROTO((int, int, void *));

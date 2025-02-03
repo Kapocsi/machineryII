@@ -21,11 +21,11 @@ extern "C" {
 #define PROC_LIVES_MAGIC 0x12345678L /* proc_lives if dump is valid */
 #define proc_lives ((unsigned long *)0x380L)
 struct __post_mortem_dump {
-  unsigned long d0, d1, d2, d3, d4, d5, d6, d7;
-  void *a0, *a1, *a2, *a3, *a4, *a5, *a6, *a7; /* a7 == ssp */
-  void *pc;                                    /* first byte is exception #   */
-  void *usp;
-  unsigned short stk[16]; /* sixteen word of super stack */
+    unsigned long d0, d1, d2, d3, d4, d5, d6, d7;
+    void *a0, *a1, *a2, *a3, *a4, *a5, *a6, *a7; /* a7 == ssp */
+    void *pc; /* first byte is exception #   */
+    void *usp;
+    unsigned short stk[16]; /* sixteen word of super stack */
 };
 #define proc_post_mortem_dump_p ((struct __post_mortem_dump *)0x384L)
 #define proc_dregs (&proc_post_mortem_dump_p->d0)
@@ -72,7 +72,7 @@ struct __post_mortem_dump {
                                                /* 0=Lo 1=med 2=Hi rez         */
 #define _v_bas_ad (((void *)0x44eL))           /* screen mem base             */
 #define vblsem		((short *) 0x452L))  /* vbl semaphore               */
-#define nvbls (((short *)0x454L))            /* # of vbl entries def. == 8  */
+#define nvbls (((short *)0x454L))        /* # of vbl entries def. == 8  */
 #define _vblqueue (((void (***)())0x456L))   /* vbl queue pointer      */
 #define colorptr (((short **)0x45aL))        /* pal. on next vblank if!NULL */
 #define _vbclock (((unsigned long *)0x462L)) /* vbi counter         */
@@ -87,10 +87,10 @@ struct __post_mortem_dump {
 #define _shell_p ((long *)0x4F6L)
 
 typedef struct {
-  short puns;
-  char v_p_un[16];
-  long pstart[16];
-  short bpbs[1]; /* really 16 BPB's (bios parameter block) */
+    short puns;
+    char v_p_un[16];
+    long pstart[16];
+    short bpbs[1]; /* really 16 BPB's (bios parameter block) */
 } HDINFO;
 
 #define pun_ptr ((HDINFO *)0x516L)
@@ -98,21 +98,21 @@ typedef struct {
 
 /* os header */
 typedef struct _osheader {
-  unsigned short os_entry;       /* 0x00  BRA to reset handler	*/
-  unsigned short os_version;     /* 0x02  TOS version		*/
-  void(*reseth) __PROTO((void)); /* 0x04 -> reset handler	*/
-  struct _osheader *os_beg;      /* 0x08 -> base of OS		*/
-  void *os_end;                  /* 0x0c -> end of OS ram usage */
-  char *os_rsv1;                 /* 0x10 reserved		*/
-  char *os_magic;                /* 0x14 GEM memory usage param */
-  long os_date;                  /* 0x18 Build date 0xMMDDYYYY	*/
-  unsigned short os_conf;        /* 0x1c OS conf bits		*/
-  unsigned short os_dosdate;     /* 0x1e DOS format build date  */
-  /* the following available on TOS version >= 1.2 */
-  char **p_root;   /* 0x20 -> base of OS pool	*/
-  char **pkbshift; /* 0x24 -> kbd shift state var */
-  char **p_run;    /* 0x28 -> PID of current proc */
-  char *p_rsv2;    /* 0x2c reserved		*/
+    unsigned short os_entry;       /* 0x00  BRA to reset handler	*/
+    unsigned short os_version;     /* 0x02  TOS version		*/
+    void(*reseth) __PROTO((void)); /* 0x04 -> reset handler	*/
+    struct _osheader *os_beg;      /* 0x08 -> base of OS		*/
+    void *os_end;                  /* 0x0c -> end of OS ram usage */
+    char *os_rsv1;                 /* 0x10 reserved		*/
+    char *os_magic;                /* 0x14 GEM memory usage param */
+    long os_date;                  /* 0x18 Build date 0xMMDDYYYY	*/
+    unsigned short os_conf;        /* 0x1c OS conf bits		*/
+    unsigned short os_dosdate;     /* 0x1e DOS format build date  */
+    /* the following available on TOS version >= 1.2 */
+    char **p_root;   /* 0x20 -> base of OS pool	*/
+    char **pkbshift; /* 0x24 -> kbd shift state var */
+    char **p_run;    /* 0x28 -> PID of current proc */
+    char *p_rsv2;    /* 0x2c reserved		*/
 } OSHEADER;
 
 /* zzzz to-do more */

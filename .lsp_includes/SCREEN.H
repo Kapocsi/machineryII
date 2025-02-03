@@ -8,7 +8,7 @@ extern "C" {
 /* Data structures for IOCTL on /dev/screen */
 
 #define SCR_NUM_COLORS                                                         \
-  256 /* max possible num. of colors (even more on Falcon) */
+    256 /* max possible num. of colors (even more on Falcon) */
 
 /* SCR_ALIGN gives a mask telling how the physical screen must be
    aligned (for the SCRSETP ioctl call. A typical use might be
@@ -29,11 +29,11 @@ extern "C" {
    SCRGETPARAM ioctl call */
 
 struct scr_param {
-  long scr_base;    /* physical address of screen */
-  short scr_width;  /* width of screen (pixels) */
-  short scr_height; /* height of screen (pixels) */
-  short scr_depth;  /* no. of bitplanes on screen */
-  short scr_mode;   /* special mode info about screen */
+    long scr_base;    /* physical address of screen */
+    short scr_width;  /* width of screen (pixels) */
+    short scr_height; /* height of screen (pixels) */
+    short scr_depth;  /* no. of bitplanes on screen */
+    short scr_mode;   /* special mode info about screen */
 };
 
 /* Each palette entry for the screen colors holds three entries;
@@ -54,7 +54,7 @@ struct scr_param {
 
 /* data structure returned by SCRGETCOLOR ioctl call */
 struct scr_palette {
-  unsigned char scr_rgb[SCR_NUM_COLORS][3];
+    unsigned char scr_rgb[SCR_NUM_COLORS][3];
 };
 
 #define SCRGETPARAM (('S' << 8) | 1)

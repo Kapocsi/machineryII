@@ -8,9 +8,9 @@ extern "C" {
 /* header file for mouse access */
 
 struct mouse_buf {
-  int m_buttons; /* button states */
-  int m_dx;      /* change in x since last read */
-  int m_dy;      /* change in y since last read */
+    int m_buttons; /* button states */
+    int m_dx;      /* change in x since last read */
+    int m_dy;      /* change in y since last read */
 };
 
 #define M_LEFT_BUTTON 0x02

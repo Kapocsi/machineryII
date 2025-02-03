@@ -23,12 +23,12 @@ void _exit __PROTO((int status));
 
 void _exit(status) int status;
 {
-  __exit((long)status);
+    __exit((long)status);
 }
 
 int raise(sig) int sig;
 {
-  return 0;
+    return 0;
 }
 
 #else
@@ -48,7 +48,7 @@ void _init_signal() {}
 __EXITING
 exit(status) int status;
 {
-  __exit(status);
+    __exit(status);
 }
 
 void __main() {}
@@ -57,9 +57,9 @@ void _main(argc, argv, environ) long argc;
 char **argv;
 char **environ;
 {
-  /* Avoid prototyping main, it will conflict with user's version */
-  __EXTERN int main();
-  exit(main((int)argc, argv, environ));
+    /* Avoid prototyping main, it will conflict with user's version */
+    __EXTERN int main();
+    exit(main((int)argc, argv, environ));
 }
 
 #ifdef __cplusplus

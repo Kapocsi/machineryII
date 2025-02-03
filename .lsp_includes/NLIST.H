@@ -5,9 +5,9 @@
 #endif
 
 struct nlist {
-  char *n_name;
-  unsigned short n_type;
-  long n_value;
+    char *n_name;
+    unsigned short n_type;
+    long n_value;
 };
 
 __EXTERN int nlist __PROTO((char *file, struct nlist *nl));

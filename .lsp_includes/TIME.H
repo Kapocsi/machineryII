@@ -34,26 +34,26 @@ typedef _SIZE_T size_t;
 typedef unsigned long clock_t;
 
 struct tm {
-  int tm_sec;   /* seconds (0..59) */
-  int tm_min;   /* minutes (0..59) */
-  int tm_hour;  /* hours (0..23) */
-  int tm_mday;  /* day of month (1..31) */
-  int tm_mon;   /* month (0..11) */
-  int tm_year;  /* year - 1900 */
-  int tm_wday;  /* day of week (0=Sun..6=Sat) */
-  int tm_yday;  /* day of year (0..365) */
-  int tm_isdst; /* daylight saving?  */
+    int tm_sec;   /* seconds (0..59) */
+    int tm_min;   /* minutes (0..59) */
+    int tm_hour;  /* hours (0..23) */
+    int tm_mday;  /* day of month (1..31) */
+    int tm_mon;   /* month (0..11) */
+    int tm_year;  /* year - 1900 */
+    int tm_wday;  /* day of week (0=Sun..6=Sat) */
+    int tm_yday;  /* day of year (0..365) */
+    int tm_isdst; /* daylight saving?  */
 };
 
 #ifndef __STRICT_ANSI__
 struct timeval {
-  long tv_sec;  /* seconds */
-  long tv_usec; /* microseconds */
+    long tv_sec;  /* seconds */
+    long tv_usec; /* microseconds */
 };
 
 struct timezone {
-  int tz_minuteswest; /* minues west of GMT */
-  int tz_dsttime;     /* daylight savings time correction */
+    int tz_minuteswest; /* minues west of GMT */
+    int tz_dsttime;     /* daylight savings time correction */
 };
 #endif
 
@@ -86,8 +86,8 @@ __EXTERN int select __PROTO((int, fd_set *, fd_set *, fd_set *,
                              struct timeval *));
 
 #define timercmp(tva, tvb, op)                                                 \
-  ((tva)->tv_sec op(tvb)->tv_sec ||                                            \
-   ((tva)->tv_sec == (tvb)->tv_sec && (tva)->tv_usec op(tvb)->tv_usec))
+    ((tva)->tv_sec op(tvb)->tv_sec ||                                          \
+     ((tva)->tv_sec == (tvb)->tv_sec && (tva)->tv_usec op(tvb)->tv_usec))
 #endif
 
 #ifdef __cplusplus

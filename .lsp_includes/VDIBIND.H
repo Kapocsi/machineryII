@@ -261,17 +261,18 @@ __EXTERN void v_escape2000 __PROTO((int handle, int times));
 
 #ifdef __GNUC_INLINE__
 #define vq_vgdos()                                                             \
-  ({                                                                           \
-    register unsigned long ret __asm__("d0");                                  \
-    __asm__ volatile("					\
+    ({                                                                         \
+        register unsigned long ret __asm__("d0");                              \
+        __asm__ volatile("					\
 		movq	#-2,d0;			\
-		trap	#2 "                                                  \
-                     : "=r"(ret) /* output */                                  \
-                     :                                                         \
-                     : "d0", "d1", "d2", "a0", "a1", "a2" /* clobbered regs */ \
-    );                                                                         \
-    ret;                                                                       \
-  })
+		trap	#2 "                                              \
+                         : "=r"(ret) /* output */                              \
+                         :                                                     \
+                         : "d0", "d1", "d2", "a0", "a1",                       \
+                           "a2" /* clobbered regs */                           \
+        );                                                                     \
+        ret;                                                                   \
+    })
 #else
 __EXTERN unsigned long vq_gdos __PROTO((void));
 #endif /* __GNUC__ | !__NO_INLINE__ */

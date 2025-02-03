@@ -94,18 +94,18 @@ extern char PC;
 extern bool GT, NONL, UPPERCASE, normtty, _pfast;
 
 struct _win_st {
-  short _cury, _curx;
-  short _maxy, _maxx;
-  short _begy, _begx;
-  short _flags;
-  short _ch_off;
-  bool _clear;
-  bool _leave;
-  bool _scroll;
-  char **_y;
-  short *_firstch;
-  short *_lastch;
-  struct _win_st *_nextp, *_orig;
+    short _cury, _curx;
+    short _maxy, _maxx;
+    short _begy, _begx;
+    short _flags;
+    short _ch_off;
+    bool _clear;
+    bool _leave;
+    bool _scroll;
+    char **_y;
+    short *_firstch;
+    short *_lastch;
+    struct _win_st *_nextp, *_orig;
 };
 
 #define WINDOW struct _win_st
@@ -157,18 +157,18 @@ int __void__;
  * mv functions
  */
 #define mvwaddch(win, y, x, ch)                                                \
-  VOID(wmove(win, y, x) == ERR ? ERR : waddch(win, ch))
+    VOID(wmove(win, y, x) == ERR ? ERR : waddch(win, ch))
 #define mvwgetch(win, y, x) VOID(wmove(win, y, x) == ERR ? ERR : wgetch(win))
 #define mvwaddbytes(win, y, x, da, co)                                         \
-  VOID(wmove(win, y, x) == ERR ? ERR : waddbytes(win, da, co))
+    VOID(wmove(win, y, x) == ERR ? ERR : waddbytes(win, da, co))
 #define mvwaddstr(win, y, x, str)                                              \
-  VOID(wmove(win, y, x) == ERR ? ERR : waddbytes(win, str, (int)strlen(str)))
+    VOID(wmove(win, y, x) == ERR ? ERR : waddbytes(win, str, (int)strlen(str)))
 #define mvwgetstr(win, y, x, str)                                              \
-  VOID(wmove(win, y, x) == ERR ? ERR : wgetstr(win, str))
+    VOID(wmove(win, y, x) == ERR ? ERR : wgetstr(win, str))
 #define mvwinch(win, y, x) VOID(wmove(win, y, x) == ERR ? ERR : winch(win))
 #define mvwdelch(win, y, x) VOID(wmove(win, y, x) == ERR ? ERR : wdelch(win))
 #define mvwinsch(win, y, x, c)                                                 \
-  VOID(wmove(win, y, x) == ERR ? ERR : winsch(win, c))
+    VOID(wmove(win, y, x) == ERR ? ERR : winsch(win, c))
 #define mvaddch(y, x, ch) mvwaddch(stdscr, y, x, ch)
 #define mvgetch(y, x) mvwgetch(stdscr, y, x)
 #define mvaddbytes(y, x, da, co) mvwaddbytes(stdscr, y, x, da, co)
@@ -186,19 +186,19 @@ int __void__;
 #define leaveok(win, bf) (win->_leave = bf)
 #define scrollok(win, bf) (win->_scroll = bf)
 #define flushok(win, bf)                                                       \
-  (bf ? (win->_flags |= _FLUSH) : (win->_flags &= ~_FLUSH))
+    (bf ? (win->_flags |= _FLUSH) : (win->_flags &= ~_FLUSH))
 #define getyx(win, y, x) y = win->_cury, x = win->_curx
 #define winch(win) (win->_y[win->_cury][win->_curx] & 0177)
 
 #define raw()                                                                  \
-  (_tty.sg_flags |= RAW, _pfast = _rawmode = TRUE, stty(_tty_ch, &_tty))
+    (_tty.sg_flags |= RAW, _pfast = _rawmode = TRUE, stty(_tty_ch, &_tty))
 #define noraw()                                                                \
-  (_tty.sg_flags &= ~RAW, _rawmode = FALSE, _pfast = !(_tty.sg_flags & CRMOD), \
-   stty(_tty_ch, &_tty))
+    (_tty.sg_flags &= ~RAW, _rawmode = FALSE,                                  \
+     _pfast = !(_tty.sg_flags & CRMOD), stty(_tty_ch, &_tty))
 #define cbreak()                                                               \
-  (_tty.sg_flags |= CBREAK, _rawmode = TRUE, stty(_tty_ch, &_tty))
+    (_tty.sg_flags |= CBREAK, _rawmode = TRUE, stty(_tty_ch, &_tty))
 #define nocbreak()                                                             \
-  (_tty.sg_flags &= ~CBREAK, _rawmode = FALSE, stty(_tty_ch, &_tty))
+    (_tty.sg_flags &= ~CBREAK, _rawmode = FALSE, stty(_tty_ch, &_tty))
 #define crmode() cbreak()     /* backwards compatability */
 #define nocrmode() nocbreak() /* backwards compatability */
 #define echo() (_tty.sg_flags |= ECHO, _echoit = TRUE, stty(_tty_ch, &_tty))

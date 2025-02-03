@@ -34,8 +34,8 @@ typedef _WCHAR_T wchar_t;
 #endif
 
 #define MB_CUR_MAX                                                             \
-  1 /* max. length of multibyte character                                      \
-       in current locale */
+    1 /* max. length of multibyte character                                    \
+         in current locale */
 
 #ifndef EXIT_FAILURE
 #define EXIT_FAILURE (1)
@@ -43,13 +43,13 @@ typedef _WCHAR_T wchar_t;
 #endif
 
 typedef struct {
-  int quot; /* quotient	*/
-  int rem;  /* remainder 	*/
+    int quot; /* quotient	*/
+    int rem;  /* remainder 	*/
 } div_t;
 
 typedef struct {
-  long quot; /* quotient	*/
-  long rem;  /* remainder 	*/
+    long quot; /* quotient	*/
+    long rem;  /* remainder 	*/
 } ldiv_t;
 
 __EXTERN double atof __PROTO((const char *s));

@@ -17,10 +17,10 @@ typedef _TIME_T time_t;
 #endif /* _TIME_T */
 
 struct tms {
-  time_t tms_utime;
-  time_t tms_stime;
-  time_t tms_cutime;
-  time_t tms_cstime;
+    time_t tms_utime;
+    time_t tms_stime;
+    time_t tms_cutime;
+    time_t tms_cstime;
 };
 
 __EXTERN long times __PROTO((struct tms *));

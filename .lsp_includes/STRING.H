@@ -91,27 +91,27 @@ __EXTERN int strncmpi __PROTO((const char *, const char *, size_t));
 #ifndef __cplusplus
 
 static __inline__ char *__strcat(char *dst, const char *src) {
-  register char *_dscan;
+    register char *_dscan;
 
-  for (_dscan = dst; *_dscan; _dscan++)
-    ;
-  while ((*_dscan++ = *src++))
-    ;
-  return dst;
+    for (_dscan = dst; *_dscan; _dscan++)
+        ;
+    while ((*_dscan++ = *src++))
+        ;
+    return dst;
 }
 
 static __inline__ char *__strcpy(char *dst, const char *src) {
-  register char *_dscan = dst;
-  while ((*_dscan++ = *src++))
-    ;
-  return dst;
+    register char *_dscan = dst;
+    while ((*_dscan++ = *src++))
+        ;
+    return dst;
 }
 
 static __inline__ size_t __strlen(const char *scan) {
-  register const char *_start = scan + 1;
-  while (*scan++)
-    ;
-  return (size_t)((long)scan - (long)_start);
+    register const char *_start = scan + 1;
+    while (*scan++)
+        ;
+    return (size_t)((long)scan - (long)_start);
 }
 
 #define strcat __strcat
