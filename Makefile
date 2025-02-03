@@ -1,16 +1,11 @@
-CC=cc
+CC=cc68x
 main=main
-CFLAGS=
+CFLAGS=-O -fc++-comments
 
-SRCS=$(wildcard *.c)
-OBJS=$(SRCS:.c=.o)
+SRCS=*.c
+OBJS=$(main).o
 
 .PHONY: all clean
-
-all: $(main)
-
-clean:
-	rm $(OBJS) $(main)
 
 $(main): $(OBJS)
 	$(CC) $(OBJS) -o $(main)
@@ -18,4 +13,5 @@ $(main): $(OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-
+clean:
+	delete $(OBJS) $(main)
