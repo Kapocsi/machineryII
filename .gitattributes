@@ -1,1 +1,5 @@
-*   text eol=crlf
+*.s   text eol=crlf
+*.c   text eol=crlf
+*.h   text eol=crlf
+*.md    text eol=crlf
+Makefile text eol=crlf

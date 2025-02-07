@@ -21,7 +21,7 @@ void black_screen(Screen *base);
 void white_screen(Screen *base);
 
 /* Set Pixel at position to color */
-void set_pixel(Screen *base, u16 x, u16 y, enum Color color);
+void set_pixel(Screen *base, u16 x, u16 y, Color color);
 
 /* Draw a bit map to the screen, the x,y offset being the top left corner of the
  * raster */

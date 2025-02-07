@@ -16,7 +16,9 @@
     ((UNITY_VERSION_MAJOR << 16) | (UNITY_VERSION_MINOR << 8) |                \
      UNITY_VERSION_BUILD)
 
+#ifdef __C68__
 #define UNITY_EXCLUDE_STDINT_H
+#endif
 
 #ifdef __cplusplus
 extern "C" {
