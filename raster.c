@@ -42,5 +42,19 @@ void drawBitMap(Screen *base, BitMap *bitmap, u16 x, u16 y,
 void drawVerticalLine(Screen *base, u16 x, u16 y_start, u16 y_end) { TODO() }
 
 void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end) {
-    TODO()
+
+    u16 x = x_start;
+    u16 y = y_pos;
+
+    /* 0b10....0 */
+    const u32 lmb = 1 << 31;
+    /* Set n-th in long to high */
+    register u32 bitmap = lmb >> (x & 31);
+    /* Offset to the long on the screen containing the relevant pixel */
+    register u32 offset = (x >> 5) + (y << 4) + (y << 2);  
+
+    /* Change WHITE to a  */
+    for (; x < x_end; x++) {
+        base[offset] = (base[offset] & ~bitmap) | (WHITE & bitmap);
+    }
 };

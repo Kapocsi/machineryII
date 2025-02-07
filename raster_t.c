@@ -1,5 +1,5 @@
 #include "lib/unity.h"
-#include "lib/unity_internals.h"
+#include "lib/unity_i.h"
 
 #include "global.h"
 #include "raster.h"

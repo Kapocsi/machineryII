@@ -24,7 +24,7 @@
 extern "C" {
 #endif
 
-#include "unity_internals.h"
+#include "unity_i.h"
 
 /*-------------------------------------------------------
  * Test Setup / Teardown

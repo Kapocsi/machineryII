@@ -2,6 +2,7 @@
 
 *.o
 main
+MAIN
 *.t
 
 !lib/unity.o
@@ -9,3 +10,6 @@ main
 a.out
 
 *_test
+
+*.O
+*.T

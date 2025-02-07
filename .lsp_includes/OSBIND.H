@@ -25,9 +25,6 @@ extern "C" {
 #define xbios _trap_14_
 #define bios _trap_13_
 
-#if !defined(__STDC__) && !defined(__MSHORT__)
-#error does not work with -trad and -mlong
-#endif
 
 __EXTERN long _trap_1_w __PROTO((short));
 __EXTERN long _trap_1_ww __PROTO((short, short));

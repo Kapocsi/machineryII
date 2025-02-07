@@ -17,7 +17,6 @@ extern "C" {
 
 #ifndef _SIZE_T
 #define _SIZE_T __SIZE_TYPEDEF__
-typedef _SIZE_T size_t;
 #endif
 
 /*

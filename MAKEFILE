@@ -24,6 +24,6 @@ unity.o:
 #	$(CC) $< unity.o -o $@
 #	$@							# Run the test
 
-raster.t: raster.o raster_test.o unity.o
+raster.t: raster.o raster_t.o unity.o
 	$(CC) $^ -o $@
 
