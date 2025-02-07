@@ -40,12 +40,13 @@ enum Bool { true = 1, false = 0 };
 
 /* ------------------------------  CONSTANTS  ------------------------------ */
 
-#define SCREEN_WIDTH 640;
-#define SCREEN_HEIGHT 400;
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 400
+#define SCREEN_BUFFER_SIZE 8000
 
 /* -------------------------------  MACROS  -------------------------------- */
 
-// For easily marking function as not yet implemented.
+/* For easily marking function as not yet implemented. */
 #define TODO()                                                                 \
     printf("%s::%d : Unimplemented Function! Exiting.\n", __FILE__, __LINE__); \
     Pterm(-1);
