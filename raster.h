@@ -25,10 +25,11 @@ void set_pixel(Screen *base, u16 x, u16 y, enum Color color);
 
 /* Draw a bit map to the screen, the x,y offset being the top left corner of the
  * raster */
-void drawBitMap(Screen *base, BitMap *bitmap, u8 x_offset, u8 y_offset,
+void drawBitMap(Screen *base, BitMap *bitmap, u16 x_offset, u16 y_offset,
                 BitMapDrawMode draw_mode);
 
-/* Draw a line, centered at a point at some angle theta (in degreess) */
-void drawLine(Screen *base, u8 angle, u8 x, u8 y);
+void drawVerticalLine(Screen *base, u16 x_pos, u16 y_start, u16 y_end);
+
+void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end);
 
 #endif

@@ -33,9 +33,13 @@ void set_pixel(Screen *base, u16 x, u16 y, enum Color color) {
     base[offset] = (base[offset] & ~bitmap) | (-color & bitmap);
 }
 
-void drawBitMap(Screen *base, BitMap *bitmap, u8 x, u8 y,
+void drawBitMap(Screen *base, BitMap *bitmap, u16 x, u16 y,
                 BitMapDrawMode draw_mode) {
     TODO();
 }
 
-void drawLine(Screen *base, u8 angle, u8 x, u8 y) { TODO(); }
+void drawVerticalLine(Screen *base, u16 x, u16 y_start, u16 y_end) { TODO() }
+
+void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end) {
+    TODO()
+};

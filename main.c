@@ -24,13 +24,7 @@ int main(int argc, char *argv[]) {
     disable_cursor();
     white_screen(base);
 
-    for (i = 5 + k; i < 300 + k; i++)
-        for (j = 5 + k; j < 100 + k; j++)
-            set_pixel(base, i, j, BLACK);
-
-    for (i = 20 + k; i < 280 + k; i++)
-        for (j = 20 + k; j < 80 + k; j++)
-            set_pixel(base, i, j, WHITE);
+    drawVerticalLine(base, 200, 50, 400);
 
     /* Wait for user input to quit */
     enable_cursor();
