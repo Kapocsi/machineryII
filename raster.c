@@ -6,7 +6,7 @@ void black_screen(Screen *base) {
     register int i = 0;
 
     for (i = 0; i < SCREEN_BUFFER_SIZE; i++) {
-        base[i] = 0xffffffff;
+        base[i] = ~0L;
     }
 }
 
@@ -18,8 +18,9 @@ void white_screen(Screen *base) {
     }
 }
 
-void set_pixel(Screen *base, u16 x, u16 y, enum Color color) {
-    /* TODO We can make this much faster if needed, most of this logic
+void set_pixel(Screen *base, u16 x, u16 y, Color color) {
+    /*
+     * TODO We can make this much faster if needed, most of this logic
      * is not needed if we use the bset operation that the m68k provides.
      */
 

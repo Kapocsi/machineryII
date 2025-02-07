@@ -7,7 +7,13 @@
 #ifndef global_h
 #define global_h
 
+#ifdef __C68__
 #include <osbind.h>
+#else
+#include <stdlib.h>
+#define Pterm(rv) exit(rv)
+#endif
+
 #include <stdio.h>
 
 /* --------------------------------  Types  -------------------------------- */
@@ -35,14 +41,14 @@ typedef long i32;
  */
 typedef unsigned long Screen;
 
-enum Color { BLACK = 1, WHITE = 0 };
+typedef enum { BLACK = 1, WHITE = 0 } Color;
 enum Bool { true = 1, false = 0 };
 
 /* ------------------------------  CONSTANTS  ------------------------------ */
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 400
-#define SCREEN_BUFFER_SIZE 8000
+#define SCREEN_WIDTH 640l
+#define SCREEN_HEIGHT 400l
+#define SCREEN_BUFFER_SIZE (SCREEN_WIDTH / (sizeof(long) * 8)) * SCREEN_HEIGHT
 
 /* -------------------------------  MACROS  -------------------------------- */
 

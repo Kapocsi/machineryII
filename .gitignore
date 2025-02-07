@@ -2,4 +2,10 @@
 
 *.o
 main
+*.t
 
+!lib/unity.o
+
+a.out
+
+*_test

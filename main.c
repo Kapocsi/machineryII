@@ -24,8 +24,6 @@ int main(int argc, char *argv[]) {
     disable_cursor();
     white_screen(base);
 
-    drawVerticalLine(base, 200, 50, 400);
-
     /* Wait for user input to quit */
     enable_cursor();
     return 0;
