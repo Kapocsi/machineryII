@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
     /* Setup Game Draw Canvas */
     disable_cursor();
     white_screen(base);
+    drawHorizontalLine(base, 200, 100, 500);
 
     /* Wait for user input to quit */
     enable_cursor();
