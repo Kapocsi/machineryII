@@ -43,7 +43,6 @@ void test_vertical_line() {
             TEST_ASSERT_EQUAL(0, base[i]);
         }
     }
-        
 }
 
 void test_horizontal_line() {

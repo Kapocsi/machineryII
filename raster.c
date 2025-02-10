@@ -39,7 +39,7 @@ void drawBitMap(Screen *base, BitMap *bitmap, u16 x, u16 y,
     TODO();
 }
 
-void drawVerticalLine(Screen *base, u16 x, u16 y_start, u16 y_end) { 
+void drawVerticalLine(Screen *base, u16 x, u16 y_start, u16 y_end) {
 
     /* offset to the current row */
     u16 y = (y_start << 4) + (y_start << 2);
@@ -49,7 +49,7 @@ void drawVerticalLine(Screen *base, u16 x, u16 y_start, u16 y_end) {
 
     /* offset to the long on the screen containing the relevant pixel */
     u32 x_offset = x >> 5;
-    
+
     /* LeftMost Bit (in a long) */
     u32 lmb = 1 << 31;
     /* a single bit placed where the line's pixel sits in the long */
@@ -57,7 +57,7 @@ void drawVerticalLine(Screen *base, u16 x, u16 y_start, u16 y_end) {
 
     for (; y <= y_limit; y += 20) {
         base[x_offset + y] |= bitmap;
-    }    
+    }
 }
 
 void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end) {
@@ -74,7 +74,7 @@ void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end) {
     u32 s_offset = x_start & 31;
     /* offset (from the left) of the ending bit in the last long */
     u32 e_offset = x_end & 31;
-    
+
     if (x < x_limit) {
         /* fill in the first long */
         base[x + y_offset] |= ~0L >> s_offset;
@@ -91,5 +91,4 @@ void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end) {
     } else {
         base[x + y_offset] |= (~0L >> s_offset) ^ (~0L >> e_offset);
     }
-
 };

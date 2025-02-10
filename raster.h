@@ -29,12 +29,12 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color);
 void drawBitMap(Screen *base, BitMap *bitmap, u16 x_offset, u16 y_offset,
                 BitMapDrawMode draw_mode);
 
-/* x_pos,y_start,y_end = inclusive pixel coordinates (must be in-bounds for the 
- * screen, y_start < y_end) */         
+/* x_pos,y_start,y_end = inclusive pixel coordinates (must be in-bounds for the
+ * screen, y_start < y_end) */
 void drawVerticalLine(Screen *base, u16 x_pos, u16 y_start, u16 y_end);
 
-/* x_start,x_end,y_pos = inclusive pixel coordinates (must be in-bounds for the 
- * screen, x_start < x_end) */ 
+/* x_start,x_end,y_pos = inclusive pixel coordinates (must be in-bounds for the
+ * screen, x_start < x_end) */
 void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end);
 
 #endif
