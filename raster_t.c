@@ -31,11 +31,42 @@ void test_white_screen() {
         TEST_ASSERT_EQUAL(0, base[i]);
 }
 
+void test_vertical_line() {
+    int i = 0;
+    white_screen(base);
+    drawVerticalLine(base, 1, 0, 400);
+
+    for (i = 0; i < SCREEN_BUFFER_SIZE; i++) {
+        if (i % 20 == 0) {
+            TEST_ASSERT_EQUAL(0x40000000, base[i]);
+        } else {
+            TEST_ASSERT_EQUAL(0, base[i]);
+        }
+    }
+        
+}
+
+void test_horizontal_line() {
+    int i = 0;
+    white_screen(base);
+    drawHorizontalLine(base, 1, 0, 640);
+
+    for (i = 0; i < SCREEN_BUFFER_SIZE; i++) {
+        if (i > 19 && i < 40) {
+            TEST_ASSERT_EQUAL(~0L, base[i]);
+        } else {
+            TEST_ASSERT_EQUAL(0, base[i]);
+        }
+    }
+}
+
 int main() {
     UNITY_BEGIN();
 
     RUN_TEST(test_black_screen);
     RUN_TEST(test_white_screen);
+    RUN_TEST(test_vertical_line);
+    RUN_TEST(test_horizontal_line);
 
     UNITY_END();
 }

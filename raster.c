@@ -50,8 +50,10 @@ void drawVerticalLine(Screen *base, u16 x, u16 y_start, u16 y_end) {
     /* offset to the long on the screen containing the relevant pixel */
     u32 x_offset = x >> 5;
     
+    /* LeftMost Bit (in a long) */
+    u32 lmb = 1 << 31;
     /* a single bit placed where the line's pixel sits in the long */
-    u32 bitmap = 1 << (31 - (x & 31));
+    u32 bitmap = lmb >> (x & 31);
 
     for (; y <= y_limit; y += 20) {
         base[x_offset + y] |= bitmap;

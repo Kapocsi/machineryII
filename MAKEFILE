@@ -11,7 +11,7 @@ main: $(OBJS)
 	$(CC) $(OBJS) -o $@
 
 clean:
-	$(RM) *.o *.t
+	$(RM) *.o *.t main
 
 unity.o:
 	@$(ECHO) "unity.o often fails to compile without increasing the memory limit."
