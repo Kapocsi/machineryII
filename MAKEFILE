@@ -1,10 +1,12 @@
 CC=cc68x
 CFLAGS=-O
-OBJS=main.o raster.o
+OBJS=main.o raster.o bitmaps.o
 
 
 .PHONY: test clean
-test: raster.t
+test: raster.t btmaps.t
+	raster.t
+	btmaps.t
 	@$(ECHO) Finished Running Tests.
 
 main: $(OBJS)
@@ -26,4 +28,10 @@ unity.o:
 
 raster.t: raster.o raster_t.o unity.o
 	$(CC) $^ -o $@
+
+
+btmaps.t: bitmaps.o btmaps_t.o unity.o
+	$(CC) $^ -o $@
+
+
 

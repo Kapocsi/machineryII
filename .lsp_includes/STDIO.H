@@ -15,6 +15,10 @@
 extern "C" {
 #endif
 
+#ifndef size_t
+#define size_t unsigned long
+#endif
+
 #ifndef _SIZE_T
 #define _SIZE_T __SIZE_TYPEDEF__
 #endif

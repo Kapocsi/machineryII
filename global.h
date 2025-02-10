@@ -42,7 +42,7 @@ typedef long i32;
 typedef unsigned long Screen;
 
 typedef enum { BLACK = 1, WHITE = 0 } Color;
-enum Bool { true = 1, false = 0 };
+enum Bool { True = 1, False = 0 };
 
 /* ------------------------------  CONSTANTS  ------------------------------ */
 

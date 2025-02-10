@@ -1,13 +1,8 @@
 #ifndef raster_h
 #define raster_h
 
+#include "bitmap.h"
 #include "global.h"
-
-typedef struct {
-    u8 *bytes;
-    u8 width;
-    u8 height;
-} BitMap;
 
 /*
  * Defines the mode in which the bitmap should be drawn
