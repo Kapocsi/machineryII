@@ -21,7 +21,7 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color);
 
 /* Draw a bit map to the screen, the x,y offset being the top left corner of the
  * raster (must be in-bounds for the screen) */
-void drawBitMap(Screen *base, BitMap *bitmap, u16 x_offset, u16 y_offset,
+void drawBitMap(Screen *base, const BitMap *bitmap, u16 x_offset, u16 y_offset,
                 BitMapDrawMode draw_mode);
 
 /* x_pos,y_start,y_end = inclusive pixel coordinates (must be in-bounds for the

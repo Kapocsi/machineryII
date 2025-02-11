@@ -1,3 +1,5 @@
+/* Unit tests for raster.c */
+
 #include "lib/unity.h"
 #include "lib/unity_i.h"
 
@@ -33,7 +35,6 @@ void test_white_screen() {
 
 void test_vertical_line() {
     int i = 0;
-    white_screen(base);
     drawVerticalLine(base, 1, 0, 400);
 
     for (i = 0; i < SCREEN_BUFFER_SIZE; i++) {
@@ -47,7 +48,6 @@ void test_vertical_line() {
 
 void test_horizontal_line() {
     int i = 0;
-    white_screen(base);
     drawHorizontalLine(base, 1, 0, 640);
 
     for (i = 0; i < SCREEN_BUFFER_SIZE; i++) {
@@ -59,6 +59,41 @@ void test_horizontal_line() {
     }
 }
 
+u8 count1s(u32 x) {
+    u8 count = 0;
+    /* This is super inefficient but since we only do it for testing
+     * it will have to do */
+    while (x) {
+        count += (x & 1);
+        x >>= 1;
+    }
+    return count;
+}
+
+u32 arrCount1s(Screen *base, u32 size) {
+    u32 count = 0;
+    int i = 0;
+
+    for (; i < size; i++)
+        count += count1s(base[i]);
+
+    return count;
+}
+
+void test_set_pixel() {
+    int x = 0;
+    int y = 0;
+
+    for (; x < SCREEN_WIDTH; x++) {
+        for (; y < SCREEN_HEIGHT / 4; y++) {
+            set_pixel(base, x, y, BLACK);
+
+            TEST_ASSERT_EQUAL(arrCount1s(base, SCREEN_BUFFER_SIZE),
+                              ((x + 1) * (y + 1)));
+        }
+    }
+}
+
 int main() {
     UNITY_BEGIN();
 
@@ -66,6 +101,7 @@ int main() {
     RUN_TEST(test_white_screen);
     RUN_TEST(test_vertical_line);
     RUN_TEST(test_horizontal_line);
+    RUN_TEST(test_set_pixel);
 
     UNITY_END();
 }

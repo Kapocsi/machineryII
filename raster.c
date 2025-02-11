@@ -1,6 +1,11 @@
 #include "raster.h"
 #include "global.h"
+#include <assert.h>
 #include <stdio.h>
+
+#define getOffset(x, y)                                                        \
+    /* (x * 32) + (y * 20) */                                                  \
+    (x >> 5) + (y << 4) + (y << 2)
 
 void black_screen(Screen *base) {
     register int i = 0;
@@ -24,19 +29,28 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
      * is not needed if we use the bset operation that the m68k provides.
      */
 
-    /* 0b10....0 */
     const u32 lmb = 1 << 31;
-    /* Set n-th in long to high */
     register u32 bitmap = lmb >> (x & 31);
-    /* Offset to the long on the screen containing the relevant pixel */
-    register u32 offset = (x >> 5) + (y << 4) + (y << 2);
+
+    register u32 offset = getOffset(x, y);
 
     base[offset] = (base[offset] & ~bitmap) | (-color & bitmap);
 }
 
-void drawBitMap(Screen *base, BitMap *bitmap, u16 x, u16 y,
-                BitMapDrawMode draw_mode) {
-    TODO();
+void drawBitMap(Screen *base, const BitMap *bitmap, const u16 x_start,
+                const u16 y_start, BitMapDrawMode draw_mode) {
+    u32 width_in_longs = bitmap->width / 32;
+    u32 base_offset = getOffset(x_start, y_start);
+    u8 x, y;
+
+    for (y = y_start; y < bitmap->height + y_start; y++) {
+        for (x = x_start; x < width_in_longs + (x_start / 32); x++) {
+            if (draw_mode == SET)
+                base[x + 20 * y] |= bitmap->longs[x + width_in_longs * y];
+            else if (draw_mode == UNSET)
+                base[x + 20 * y] &= ~(bitmap->longs[x + width_in_longs * y]);
+        }
+    }
 }
 
 void drawVerticalLine(Screen *base, u16 x, u16 y_start, u16 y_end) {

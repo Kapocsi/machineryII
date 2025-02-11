@@ -18,8 +18,20 @@ void enable_cursor() {
 int main(int argc, char *argv[]) {
     Screen *base = (Screen *)Physbase();
 
-    printf("%lu %lu %d %d\n", BlackBox.longs[0], BlackBox.longs[1],
-           BlackBox.width, BlackBox.height);
+    disable_cursor();
+    white_screen(base);
+
+    drawBitMap(base, &test, 0, 0, SET);
+
+    fgetc(stdin);
+
+    white_screen(base);
+    drawBitMap(base, &test, 0, 0, SET);
+
+    drawBitMap(base, &test, 0, 0, UNSET);
+
+    fgetc(stdin);
+    enable_cursor();
 
     return 0;
 }
