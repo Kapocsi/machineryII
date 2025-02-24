@@ -1,7 +1,10 @@
 CC=cc68x
-CFLAGS=-O
-OBJS=main.o raster.o bitmaps.o
+CFLAGS=-O -g
+OBJS=main.o raster.o bitmaps.o font.o
 
+
+main: $(OBJS)
+	$(CC) $(OBJS) -o $@
 
 .PHONY: test clean
 test: raster.t btmaps.t
@@ -9,8 +12,6 @@ test: raster.t btmaps.t
 	btmaps.t
 	@$(ECHO) Finished Running Tests.
 
-main: $(OBJS)
-	$(CC) $(OBJS) -o $@
 
 clean:
 	$(RM) *.o *.t main

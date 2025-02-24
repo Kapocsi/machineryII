@@ -1,7 +1,8 @@
+#include "bitmap.h"
 #include "global.h"
 #include "raster.h"
 
-#include "bitmaps.h"
+#include "font.h"
 #include <osbind.h>
 #include <stdio.h>
 
@@ -17,18 +18,17 @@ void enable_cursor() {
 
 int main(int argc, char *argv[]) {
     Screen *base = (Screen *)Physbase();
+    BitMap test = {glyphs['a'], 16, 16};
+    int x = 0;
 
     disable_cursor();
     white_screen(base);
 
-    drawBitMap(base, &test, 0, 0, SET);
-
-    fgetc(stdin);
-
-    white_screen(base);
-    drawBitMap(base, &test, 0, 0, SET);
-
-    drawBitMap(base, &test, 0, 0, UNSET);
+    for (x = 0; x < 33; x++) {
+        test.longs = glyphs[x];
+        drawBitMap(base, &test, (x * 16) % SCREEN_WIDTH,
+                   17 * ((x * 8) / SCREEN_WIDTH), SET);
+    }
 
     fgetc(stdin);
     enable_cursor();

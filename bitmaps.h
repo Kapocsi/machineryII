@@ -11,6 +11,6 @@
 #include "raster.h"
 
 extern const BitMap BlackBox;
-extern const BitMap test;
+extern const BitMap a;
 
 #endif

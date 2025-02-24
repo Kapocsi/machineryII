@@ -1,4 +1,5 @@
 #include "bitmaps.h"
+#include "bitmap.h"
 
 static const u32 _bb[32] = {
     ~0l, ~0l, ~0l, ~0l, ~0l, ~0l, ~0l, ~0l, ~0l, ~0l, ~0l,
@@ -25,5 +26,9 @@ static const u32 _bad_size[12] = {
     0xc0000000, 0x3ff00000, 0xffc00,    0x3ff,     0x0,     0xffc00000,
 };
 const BitMap test = {_bad_size, 32, 9};
+
+static const u32 _a[4] = {0x00000000, 0x18242442, 0x427E4242, 0x42420000};
+
+const BitMap a = {_a, 8, 16};
 
 /* const BitMap test = {array, 64, 32}; */
