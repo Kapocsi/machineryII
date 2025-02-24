@@ -3,6 +3,6 @@
 
 #include "global.h"
 
-extern const u32 glyphs[128][8];
+extern const u32 glyphs[128][4];
 
 #endif

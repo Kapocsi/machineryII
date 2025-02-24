@@ -46,9 +46,9 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
  * aligned or sized at n bits
  * **/
 #define genDrawBitMap(size)                                                    \
-    void drawBitMap##size(Screen *screen, const BitMap *bitmap,                \
-                          const u16 x_start, const u16 y_start,                \
-                          BitMapDrawMode draw_mode) {                          \
+    static void drawBitMap##size(Screen *screen, const BitMap *bitmap,         \
+                                 const u16 x_start, const u16 y_start,         \
+                                 BitMapDrawMode draw_mode) {                   \
         u##size *base = (u##size *)screen;                                     \
         u##size *bmaps = (u##size *)bitmap->longs;                             \
         u16 x, y;                                                              \

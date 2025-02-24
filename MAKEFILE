@@ -1,6 +1,7 @@
 CC=cc68x
 CFLAGS=-O -g
-OBJS=main.o raster.o bitmaps.o font.o
+FONT_OBJS=lib/unifont.c lib/depixel.o
+OBJS=main.o raster.o bitmaps.o  $(FONT_OBJS)
 
 
 main: $(OBJS)
@@ -17,10 +18,7 @@ clean:
 	$(RM) *.o *.t main
 
 unity.o:
-	@$(ECHO) "unity.o often fails to compile without increasing the memory limit."
-	@$(ECHO) "be advised, this might fail."
-
-	cc68x -c lib\unity.c -o unity.o
+	$(CC) -c lib/unity.c -o unity.o
 
 # Test Template:
 # <mod>.t: <mod test>.o unity.o
