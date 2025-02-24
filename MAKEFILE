@@ -1,36 +1,33 @@
+# CC=m68k-atari-mint-gcc # Switch to these for compiling with a X-compiler
+# CFLAGS=-O3 -g -mshort
 CC=cc68x
 CFLAGS=-O -g
-FONT_OBJS=lib/unifont.c lib/depixel.o
-OBJS=main.o raster.o bitmaps.o  $(FONT_OBJS)
+FONT_OBJS=lib/unifont.o lib/depixel.o
+OBJS=main.o raster.o bitmaps.o $(FONT_OBJS)
 
 
 main: $(OBJS)
 	$(CC) $(OBJS) -o $@
 
-.PHONY: test clean
 test: raster.t btmaps.t
 	raster.t
 	btmaps.t
-	@$(ECHO) Finished Running Tests.
-
 
 clean:
-	$(RM) *.o *.t main
+	$(RM) *.o *.t main **/*.o
 
-unity.o:
-	$(CC) -c lib/unity.c -o unity.o
 
 # Test Template:
-# <mod>.t: <mod test>.o unity.o
-#	$(CC) $< unity.o -o $@
+# <mod>.t: <mod test>.o lib/unity.o
+#	$(CC) $(CFLAGS) $^ -o $@
 #	$@							# Run the test
 
-raster.t: raster.o raster_t.o unity.o
-	$(CC) $^ -o $@
+raster.t: raster.o raster_t.o lib/unity.o
+	$(CC) $(CFLAGS) $^ -o $@
 
 
-btmaps.t: bitmaps.o btmaps_t.o unity.o
-	$(CC) $^ -o $@
+btmaps.t: bitmaps.o btmaps_t.o lib/unity.o
+	$(CC) $(CFLAGS) $^ -o $@
 
 
 

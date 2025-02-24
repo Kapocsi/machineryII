@@ -42,14 +42,16 @@ void white_screen(Screen *base);
  * @brief Sets a pixel at the specified coordinates to a given color.
  *
  * @param base Pointer to the screen buffer.
- * @param x X-coordinate of the pixel (must be in-bounds).
- * @param y Y-coordinate of the pixel (must be in-bounds).
+ * @param x X-coordinate of the pixel (must be in-bounds & multiple of 8).
+ * @param y Y-coordinate of the pixel (must be in-bounds & multiple of 8).
  * @param color The color to set the pixel to.
  */
 void set_pixel(Screen *base, u16 x, u16 y, Color color);
 
 /**
  * @brief Draws a bitmap onto the screen at the specified coordinates.
+ *
+ *
  *
  * @param base Pointer to the screen buffer.
  * @param bitmap Pointer to the bitmap to be drawn.

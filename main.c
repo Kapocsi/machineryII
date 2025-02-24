@@ -1,4 +1,3 @@
-#include "bitmap.h"
 #include "global.h"
 #include "raster.h"
 
@@ -6,6 +5,7 @@
 
 #include <osbind.h>
 #include <stdio.h>
+#include <string.h>
 
 void disable_cursor() {
     printf("\033f");
@@ -19,24 +19,17 @@ void enable_cursor() {
 
 int main(int argc, char *argv[]) {
     Screen *base = (Screen *)Physbase();
-    BitMap test = {glyphs['a'], 8, 16};
-    int x = 0;
+    char str[] = "123 @@ &";
+    u32 i = 0;
 
-    printf("%ld", sizeof(short));
-
-    disable_cursor();
     white_screen(base);
 
-    for (x = 0; x < 128 - 33; x++) {
-        test.longs = glyphs[x + 33];
-
-        drawBitMap(base, &test, (x * 8) % SCREEN_WIDTH,
-                   17 * ((x * 8) / SCREEN_WIDTH), SET);
+    for (i = 0; i < strlen(str) && 48 * (i + 1) < SCREEN_WIDTH; i++) {
+        drawBitMap(base, &depixel[str[i]], 48 * i, 200, SET);
     }
 
-    Vsync();
+    Crawcin();
 
-    fgetc(stdin);
     enable_cursor();
 
     return 0;

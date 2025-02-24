@@ -7,8 +7,17 @@
     /* (x * 32) + (y * 20) */                                                  \
     (x >> 5) + (y << 4) + (y << 2)
 
+u32 min(u32 a, u32 b) {
+    if (a > b)
+        return a;
+    return b;
+}
+
 void black_screen(Screen *base) {
     register int i = 0;
+
+    if (base == NULL)
+        return;
 
     for (i = 0; i < SCREEN_BUFFER_SIZE; i++) {
         base[i] = ~0L;
@@ -17,6 +26,9 @@ void black_screen(Screen *base) {
 
 void white_screen(Screen *base) {
     register int i = 0;
+
+    if (base == NULL)
+        return;
 
     for (i = 0; i < SCREEN_BUFFER_SIZE; i++) {
         base[i] = 0;
@@ -29,7 +41,7 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
      * is not needed if we use the bset operation that the m68k provides.
      */
 
-    const u32 lmb = 1 << 31;
+    const u32 lmb = 0x0000000000000001;
     register u32 bitmap = lmb >> (x & 31);
 
     register u32 offset = getOffset(x, y);
@@ -53,6 +65,9 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
         u##size *bmaps = (u##size *)bitmap->longs;                             \
         u16 x, y;                                                              \
         /* Move to top right corner of bitmap */                               \
+                                                                               \
+        assert(x_start % size == 0);                                           \
+                                                                               \
         base += y_start * (SCREEN_WIDTH / size); /* Move to y-pos */           \
         base += x_start / size;                  /* Move to x-pos */           \
                                                                                \
@@ -77,6 +92,7 @@ genDrawBitMap(32);
 
 void drawBitMap(Screen *base, const BitMap *bitmap, const u16 x_start,
                 const u16 y_start, BitMapDrawMode draw_mode) {
+    const u16 alignment = min(bitmap->width & 31, x_start & 31);
     /* Allow for attempting to draw to null screen and drawing null bitmap,
     this might occur in debugging and we should handle it gracefully. */
     if (base == NULL || bitmap == NULL || bitmap->longs == NULL)
@@ -90,18 +106,18 @@ void drawBitMap(Screen *base, const BitMap *bitmap, const u16 x_start,
     assert(x_start + bitmap->width <= SCREEN_WIDTH);
     assert(y_start + bitmap->height <= SCREEN_HEIGHT);
 
-    switch (bitmap->width & 31) {
+    switch (alignment) {
     case 0: /* Divisible by 32 */
-        assert(x_start % 32 == 0);
+        assert(alignment % 32 == 0);
         drawBitMap32(base, bitmap, x_start, y_start, draw_mode);
         break;
     case 16: /* Divisible by 16 */
-        assert(x_start % 16 == 0);
+        assert(alignment % 16 == 0);
         drawBitMap16(base, bitmap, x_start, y_start, draw_mode);
         break;
     case 8: /* Divisible by 8*/
     case 24:
-        assert(x_start % 8 == 0);
+        assert(alignment % 8 == 0);
         drawBitMap8(base, bitmap, x_start, y_start, draw_mode);
         break;
     default:
@@ -121,7 +137,7 @@ void drawVerticalLine(Screen *base, u16 x, u16 y_start, u16 y_end) {
     u32 x_offset = x >> 5;
 
     /* LeftMost Bit (in a long) */
-    u32 lmb = 1 << 31;
+    u32 lmb = 1l << 31;
     /* a single bit placed where the line's pixel sits in the long */
     u32 bitmap = lmb >> (x & 31);
 

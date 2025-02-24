@@ -1,4 +1,3 @@
-
 #include "../bitmap.h"
 #include "../global.h"
 
@@ -2213,7 +2212,7 @@ static const u32 __91[134] = {
     0x7f, 0xff800000, 0x0,  0x0,        0x0,  0x0,        0x0,  0x0,
     0x0,  0x0,        0x0,  0x0,        0x0,  0x0};
 
-BitMap depixel[] = {
+const BitMap depixel[] = {
     EMPTY_BITMAP,    EMPTY_BITMAP,    EMPTY_BITMAP,    EMPTY_BITMAP,
     EMPTY_BITMAP,    EMPTY_BITMAP,    EMPTY_BITMAP,    EMPTY_BITMAP,
     EMPTY_BITMAP,    EMPTY_BITMAP,    EMPTY_BITMAP,    EMPTY_BITMAP,

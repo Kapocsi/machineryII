@@ -64,7 +64,7 @@ typedef long i32;
  * Screens are frequently passed around in the program, so this alias
  * helps avoid simple errors.
  */
-typedef unsigned long Screen;
+typedef u32 Screen;
 
 /**
  * @enum Color
