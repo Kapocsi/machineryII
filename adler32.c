@@ -1,7 +1,3 @@
-/**
- * @file adler32.c
- * @brief Implementation of the Adler-32 checksum algorithm.
- */
 
 #include "adler32.h"
 

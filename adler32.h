@@ -1,5 +1,5 @@
 /**
- * @file crc32.h
+ * @file adler32.h
  * @brief Header for Adler-32 checksum computation.
  */
 
