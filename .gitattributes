@@ -2,5 +2,4 @@
 *.c   text eol=crlf
 *.h   text eol=crlf
 *.md    text eol=crlf
-*.sh    text eol=crlf
 Makefile text eol=crlf
