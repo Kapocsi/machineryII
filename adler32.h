@@ -16,4 +16,4 @@
  */
 u32 adler32(unsigned char *data, u32 len);
 
-#endif // CRC32_H
+#endif

@@ -14,7 +14,7 @@ test: raster.t btmaps.t
 	btmaps.t
 
 clean:
-	$(RM) *.o *.t main **/*.o
+	$(RM) *.o *.t main **\*.o
 
 
 # Test Template:
