@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+# Convert the make file s.t. the compiling can be done locally
+cat Makefile | sed 's/lib\\/lib\//g' Makefile | sed '/# RM Local/d' > .local-makefile
+
+# Run make with a local compiler
+make --makefile=.local-makefile CFLAGS=-"O3 -g -mshort" CC=m68k-atari-mint-gcc $@

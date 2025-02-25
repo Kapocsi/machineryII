@@ -15,3 +15,4 @@ a.out
 
 *.O
 *.T
+.local-makefile
