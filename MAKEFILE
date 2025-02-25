@@ -3,7 +3,7 @@
 CC=cc68x
 CFLAGS=-O -g
 FONT_OBJS=lib\unifont.o lib\depixel.o
-OBJS=main.o raster.o bitmaps.o $(FONT_OBJS)
+OBJS=main.o raster.o bitmaps.o $(FONT_OBJS) adler32.o
 
 
 main: $(OBJS)
