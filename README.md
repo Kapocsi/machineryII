@@ -1,4 +1,6 @@
-# Man Over Board
+# Man Over Board {#mainpage}
+
+Hello World!
 
 ## Compiling
 
