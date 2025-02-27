@@ -32,13 +32,13 @@ void test_switch_sprite() {
     TEST_ASSERT_EQUAL(0, swimmer.sprite);
 }
 
-void test_set_char () {
+void test_set_char() {
     Character character = {200, 200, 1, sprites};
     set_char(&character, 2);
     TEST_ASSERT_EQUAL(2, character.sprite);
 }
 
-void test_shift_pointer () {
+void test_shift_pointer() {
     u8 i;
     Pointer pointer = {100, 100, 200, 10, 0};
     for (i = 0; i < 15; i++) {
@@ -50,7 +50,7 @@ void test_shift_pointer () {
     TEST_ASSERT_EQUAL(100, pointer.x);
 }
 
-void test_increase_counter () {
+void test_increase_counter() {
     Counter counter = {200, 200, 999};
     increase_counter(&counter);
     TEST_ASSERT_EQUAL(1000, counter.value);
