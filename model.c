@@ -1,5 +1,4 @@
 #include "model.h"
-#include "global.h"
 
 /**
  * @brief The minimum permitted Swimmer y-coordinate.
@@ -16,6 +15,7 @@ static const u8 SW_SPEED = 10;
   * @brief The number of characters in the typing row
   */
 static const u8 ROW_W = 15;
+
 
 
 void bob_up (Swimmer *swimmer) {
@@ -53,9 +53,6 @@ void shift_pointer (Pointer *pointer) {
 }
 
 void increase_counter (Counter *counter) {
-    /*This function needs to check if the counter is maxed out,
-    and also set the sprites of the counters*/
-    TODO()
     (counter->value)++;
 }
 

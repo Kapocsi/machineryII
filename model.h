@@ -18,11 +18,11 @@
  * the correct input.
  */
  typedef struct {
-    const u16 x;    /* The x-coordinate of the left edge of the swimmer's sprite
+    u16 x;        /* The x-coordinate of the left edge of the swimmer's sprite
                         on the screen*/
-    u16 y;          /* The y-coordinate of the top edge of the swimmer's sprite
+    u16 y;        /* The y-coordinate of the top edge of the swimmer's sprite
                         on the screen*/
-    u8 sprite;      /* The index of the swimmer's current sprite based on the
+    u8 sprite;    /* The index of the swimmer's current sprite based on the
                         sprite array*/
     BitMap sprites[2];   /* The array of all of the swimmer's sprites*/
 } Swimmer;
@@ -35,11 +35,11 @@
  * Displays a single character value.
  */
  typedef struct {
-    const u16 x;    /* The x-coordinate of the left edge of the character's sprite
+    u16 x;     /* The x-coordinate of the left edge of the character's sprite
                         on the screen*/
-    const u16 y;    /* The y-coordinate of the top edge of the character's sprite
+    u16 y;     /* The y-coordinate of the top edge of the character's sprite
                         on the screen*/
-    u8 sprite;      /* The index of the character's current sprite based on the
+    u8 sprite; /* The index of the character's current sprite based on the
                         sprite array*/
     BitMap sprites[37];   /* The array of all of the character's sprites*/
 } Character;
@@ -53,12 +53,12 @@
  * next letter.
  */
  typedef struct {
-    u16 x_start;    /* The x-coordinate of the left side of the line at
+    u16 x_start;  /* The x-coordinate of the left side of the line at
                         position 0*/
-    u16 x;          /* The x-coordinate of the left side of the line*/
-    const u16 y;    /* The y-coordinate of the line*/
-    const u8 length; /* The length of the line in pixels*/
-    u8 char_pos;    /* Which character the pointer is positioned under
+    u16 x;        /* The x-coordinate of the left side of the line*/
+    u16 y;        /* The y-coordinate of the line*/
+    u8 length;    /* The length of the line in pixels*/
+    u8 char_pos;  /* Which character the pointer is positioned under
                         in the row - left to right, 0 to (ROW_W - 1)*/
 } Pointer;
 
@@ -68,12 +68,12 @@
  * @brief A string of numbers representing the player's point total.
  */
  typedef struct {
-    const u16 x;    /* The x-coordinate of the left edge of the leftmost
+    u16 x;        /* The x-coordinate of the left edge of the leftmost
                         character sprite*/
-    const u16 y;    /* The y-coordinate of the top edge of the character
+    u16 y;        /* The y-coordinate of the top edge of the character
                         sprites*/
-    u16 value;      /* The point value represented by the counter*/                    
-    Character numbers[4];   /* The array of all of the letter's sprites*/
+    u16 value;    /* The point value represented by the counter*/                    
+    /*Character numbers[4];   /* The array of characters that form the counter*/
 } Counter;
 
 
@@ -92,8 +92,7 @@ void set_char (Character *character, int char_index);
 /* Increases the pointer's x value, or returns it to its starting position */
 void shift_pointer (Pointer *pointer);
 
-/* Increases the point value of the counter, and changes its appearance to 
-   reflect the new value */
+/* Increases the point value of the counter */
 void increase_counter (Counter *counter);
 
  #endif
