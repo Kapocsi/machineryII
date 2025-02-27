@@ -1,9 +1,11 @@
+#include "adler32.h"
+#include "font.h"
 #include "global.h"
 #include "raster.h"
 
-#include "bitmaps.h"
 #include <osbind.h>
 #include <stdio.h>
+#include <string.h>
 
 void disable_cursor() {
     printf("\033f");
@@ -17,20 +19,18 @@ void enable_cursor() {
 
 int main(int argc, char *argv[]) {
     Screen *base = (Screen *)Physbase();
-
-    disable_cursor();
-    white_screen(base);
-
-    drawBitMap(base, &test, 0, 0, SET);
-
-    fgetc(stdin);
+    char str[] = "123 @@ &";
+    u32 i = 0;
 
     white_screen(base);
-    drawBitMap(base, &test, 0, 0, SET);
 
-    drawBitMap(base, &test, 0, 0, UNSET);
+    drawSmallText(base, str, strlen(str), 0, 0, SET);
 
-    fgetc(stdin);
+    printf("%08lx", adler32((u8 *)base, SCREEN_BUFFER_SIZE * 4));
+    drawBigText(base, str, strlen(str), 0, 200, SET);
+
+    Crawcin();
+
     enable_cursor();
 
     return 0;

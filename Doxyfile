@@ -1,0 +1,8 @@
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX = NO
+FULL_SIDEBAR = NO
+HTML_EXTRA_STYLESHEET  = doxygen-awesome-css/doxygen-awesome.css
+HTML_COLORSTYLE        = LIGHT # required with Doxygen >= 1.9.5
+
+PROJECT_NAME = "Man Over Board"
+OPTIMIZE_OUTPUT_FOR_C = yes
