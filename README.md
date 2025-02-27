@@ -21,13 +21,13 @@ make test
 To build an individual test suite:
 
 ```sh
-make <test suite>_t
+make <test suite>.t
 ```
 
 To run the compiled test suite:
 
 ```sh
-./<test suite>.t
+<test suite>.t
 ```
 
 ### Adding a Test Suite
