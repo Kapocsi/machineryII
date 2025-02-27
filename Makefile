@@ -6,7 +6,8 @@ FONT_OBJS=lib\unifont.o lib\depixel.o font.o model.o
 OBJS=raster.o bitmaps.o $(FONT_OBJS) adler32.o
 MAIN=main.o
 
-.PHONY: test clean run
+.PHONY: test clean run format
+
 
 run: main	# RM Local
 	main 	# RM Local
@@ -22,6 +23,9 @@ test: $(OBJS) raster.t btmaps.t font.t model.t
 
 clean:
 	$(RM) *.o *.t main **/*.o lib\*.o
+
+format:
+	clang-format **/*.h **/*.c *.c *.h -i
 
 # Test Template:
 # <mod>.t: <mod test>.o lib/unity.o

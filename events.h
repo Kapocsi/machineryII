@@ -5,13 +5,9 @@
  * This file [FILL THIS IN].
  */
 
- #ifndef MODEL_H
- #define MODEL_H
+#ifndef MODEL_H
+#define MODEL_H
 
 #include "model.h"
 
-
-
-
-
- #endif
+#endif
