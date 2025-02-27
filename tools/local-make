@@ -4,4 +4,4 @@
 cat Makefile | sed 's/lib\\/lib\//g' Makefile | sed '/# RM Local/d' > .local-makefile
 
 # Run make with a local compiler
-make --makefile=.local-makefile CFLAGS=-"O3 -g -mshort -D__C68__ CC=m68k-atari-mint-gcc" $@
+make --makefile=.local-makefile CFLAGS=-"O3 -g -mshort -D__C68__" CC=m68k-atari-mint-gcc $@
