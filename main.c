@@ -24,11 +24,10 @@ int main(int argc, char *argv[]) {
 
     white_screen(base);
 
-    for (i = 0; i < strlen(str) && 48 * (i + 1) < SCREEN_WIDTH; i++) {
-        drawBitMap(base, &depixel[str[i]], 48 * i, 200, SET);
-    }
+    drawSmallText(base, str, strlen(str), 0, 0, SET);
 
-    printf("%08lx\n", adler32((u8 *)base, SCREEN_BUFFER_SIZE * 4));
+    printf("%08lx", adler32((u8 *)base, SCREEN_BUFFER_SIZE * 4));
+    drawBigText(base, str, strlen(str), 0, 200, SET);
 
     Crawcin();
 
