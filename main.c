@@ -1,7 +1,7 @@
+#include "adler32.h"
+#include "font.h"
 #include "global.h"
 #include "raster.h"
-
-#include "font.h"
 
 #include <osbind.h>
 #include <stdio.h>
@@ -27,6 +27,8 @@ int main(int argc, char *argv[]) {
     for (i = 0; i < strlen(str) && 48 * (i + 1) < SCREEN_WIDTH; i++) {
         drawBitMap(base, &depixel[str[i]], 48 * i, 200, SET);
     }
+
+    printf("%08lx\n", adler32((u8 *)base, SCREEN_BUFFER_SIZE * 4));
 
     Crawcin();
 
