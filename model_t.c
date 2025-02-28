@@ -51,9 +51,20 @@ void test_shift_pointer() {
 }
 
 void test_increase_counter() {
-    Counter counter = {200, 200, 999};
+    Counter counter = {200, 200, 999, characters};
     increase_counter(&counter);
     TEST_ASSERT_EQUAL(1000, counter.value);
+}
+
+void test_change_row() {
+    int i;
+    char *new_string = "code";
+    Row row = {200, 200, "mess", characters};
+
+    change_row(&row, new_string);
+    for (i = 0; i < 4; i++) {
+        TEST_ASSERT_EQUAL(new_string[i], row.value[i]);
+    }
 }
 
 int main() {
@@ -65,6 +76,7 @@ int main() {
     RUN_TEST(test_set_char);
     RUN_TEST(test_shift_pointer);
     RUN_TEST(test_increase_counter);
+    RUN_TEST(test_change_row);
 
     UNITY_END();
 }

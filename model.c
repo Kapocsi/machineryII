@@ -49,3 +49,14 @@ void shift_pointer(Pointer *pointer) {
 }
 
 void increase_counter(Counter *counter) { (counter->value)++; }
+
+
+void change_row(Row *row, char *new_string) {
+    u8 i;
+    Character *letters = row->letters;
+    for (i = 0; i < 15; i++) {
+        letters[i].sprite = new_string[i] - 0 ;
+    }
+    row->value = new_string;
+    
+}
