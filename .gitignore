@@ -7,7 +7,6 @@ main
 MAIN
 *.t
 
-!lib/unity.o
 
 a.out
 
