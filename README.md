@@ -1,7 +1,5 @@
 # Man Over Board {#mainpage}
 
-Hello World!
-
 ## Compiling
 
 To compile and run the main game:

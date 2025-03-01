@@ -19,19 +19,10 @@ void enable_cursor() {
 
 int main(int argc, char *argv[]) {
     Screen *base = (Screen *)Physbase();
-    char str[] = "123 @@ &";
-    u32 i = 0;
+    char str[] = "Hello World!";
 
     white_screen(base);
-
-    drawSmallText(base, str, strlen(str), 0, 0, SET);
-
-    printf("%08lx", adler32((u8 *)base, SCREEN_BUFFER_SIZE * 4));
     drawBigText(base, str, strlen(str), 0, 200, SET);
-
-    Crawcin();
-
-    enable_cursor();
 
     return 0;
 }
