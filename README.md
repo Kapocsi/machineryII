@@ -1,6 +1,6 @@
 # Man Over Board {#mainpage}
 
-[Docs](https://machinery2docs.pages.dev/)
+[Docs](https://docs.kapocsi.ca)
 
 ## Compiling
 
