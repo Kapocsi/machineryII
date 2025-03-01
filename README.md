@@ -1,5 +1,7 @@
 # Man Over Board {#mainpage}
 
+[Docs](https://machinery2docs.pages.dev/)
+
 ## Compiling
 
 To compile and run the main game:
