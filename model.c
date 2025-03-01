@@ -26,37 +26,19 @@ void bob_up(Swimmer *swimmer) {
 
 void sink(Swimmer *swimmer) { swimmer->y += 1; }
 
-void switch_sprite(Swimmer *swimmer) {
-    if (swimmer->sprite == 0) {
-        swimmer->sprite = 1;
+void shift_pointer(Row *row) {
+    if (row->pos < ROW_W - 1) {
+        (row->pos)++;
     } else {
-        swimmer->sprite = 0;
+        row->pos = 0;
     }
 }
 
-void set_char(Character *character, int char_index) {
-    character->sprite = char_index;
+void increase_score(Score *score) {
+    if (score->score < 9999)
+        (score->score)++; 
 }
 
-void shift_pointer(Pointer *pointer) {
-    if (pointer->char_pos < ROW_W - 1) {
-        (pointer->char_pos)++;
-        pointer->x += pointer->length;
-    } else {
-        pointer->char_pos = 0;
-        pointer->x = pointer->x_start;
-    }
-}
+void change_row(Row *row, char *new_string) { row->text = new_string; }
 
-void increase_counter(Counter *counter) { (counter->value)++; }
-
-
-void change_row(Row *row, char *new_string) {
-    u8 i;
-    Character *letters = row->letters;
-    for (i = 0; i < 15; i++) {
-        letters[i].sprite = new_string[i] - 0 ;
-    }
-    row->value = new_string;
-    
-}
+void tick_up(Decorations *decorations) { (decorations->tick)++; }

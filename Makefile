@@ -2,8 +2,8 @@
 # CFLAGS=-O3 -g -mshort
 CC=cc68x
 CFLAGS=-O -g
-FONT_OBJS=lib\unifont.o lib\depixel.o font.o model.o
-OBJS=raster.o bitmaps.o $(FONT_OBJS) adler32.o
+FONT_OBJS=lib\unifont.o lib\depixel.o font.o
+OBJS=raster.o bitmaps.o model.o events.o $(FONT_OBJS) adler32.o
 MAIN=main.o
 
 .PHONY: test clean run format
