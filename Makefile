@@ -15,7 +15,7 @@ run: main	# RM Local
 main: $(OBJS) $(MAIN)
 	$(CC) $(CFLAGS) $^ -o $@
 
-test: $(OBJS) test\raster test\bitmaps test\font test\model
+test: $(objs) test\raster.prg test\bitmaps.prg test\font.prg test\model.prg
 	test\raster.prg
 	test\bitmaps.prg
 	test\font.prg

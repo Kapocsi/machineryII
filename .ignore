@@ -1,6 +1,5 @@
 .lsp_includes/*
-lib/unity*
 **/*.hex
-lib/unifont.c
-lib/depixel.c
+src/unifont.c
+src/depixel.c
 doxygen-awesome-css
