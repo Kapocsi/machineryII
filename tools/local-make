@@ -2,7 +2,7 @@
 
 
 # Convert the make file s.t. the compiling can be done locally
-cat Makefile | sed 's$\(\S\+\)\\$\1/$g' Makefile | sed '/# RM Local/d' > .local-makefile
+cat Makefile | gsed 's$\(\S\+\)\\$\1/$g' Makefile | sed '/# RM Local/d' > .local-makefile
 
 # Run make with a local compiler
-make --makefile=.local-makefile CFLAGS=-"O3 -g -mshort -D__C68__" CC=m68k-atari-mint-gcc $@
+make --makefile=.local-makefile CFLAGS=-"O3 -g -mshort -D__C68__ -Iinclude" CC=m68k-atari-mint-gcc $@
