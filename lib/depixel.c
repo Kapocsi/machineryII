@@ -1,4 +1,3 @@
-#include "../bitmap.h"
 #include "../global.h"
 
 #define EMPTY_BITMAP {(const u32 *)(0l), 0, 0}

@@ -1,5 +1,4 @@
 #include "font.h"
-#include "bitmap.h"
 #include "global.h"
 #include "raster.h"
 #include <assert.h>

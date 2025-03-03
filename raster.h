@@ -9,7 +9,6 @@
 #ifndef RASTER_H
 #define RASTER_H
 
-#include "bitmap.h"
 #include "global.h"
 
 /**

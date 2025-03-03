@@ -10,7 +10,6 @@
 #ifndef FONT_H
 #define FONT_H
 
-#include "bitmap.h"
 #include "global.h"
 #include "raster.h"
 

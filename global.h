@@ -67,6 +67,21 @@ typedef long i32;
 typedef u32 Screen;
 
 /**
+ * @struct BitMap
+ * @brief Represents a bitmap image using a pointer to pixel data and its
+ * dimensions.
+ *
+ * The BitMap struct stores a reference to an array of 32-bit unsigned integers
+ * representing the bitmap's pixel data, along with its width and height.
+ */
+typedef struct {
+    const u32 *longs; /**< Pointer to an array of 32-bit unsigned integers
+                         representing pixel data. */
+    const u8 width;   /**< Width of the bitmap in pixels. */
+    const u8 height;  /**< Height of the bitmap in pixels. */
+} BitMap;
+
+/**
  * @enum Color
  * @brief Defines color constants.
  *
