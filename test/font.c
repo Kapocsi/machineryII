@@ -1,5 +1,5 @@
-#include "adler32.h"
 #include "font.h"
+#include "adler32.h"
 #include "global.h"
 #include "raster.h"
 #include "unit.h"
