@@ -1,6 +1,7 @@
 #include "events.h"
 
-void start_game(Swimmer *swimmer, Score *score, Row *row, Decorations *decorations) {
+void start_game(Swimmer *swimmer, Score *score, Row *row,
+                Decorations *decorations) {
     swimmer->y = 150;
     score->score = 0;
     row->pos = 0;
@@ -15,6 +16,4 @@ void key_press(char key, Swimmer *swimmer, Score *score, Row *row) {
     }
 }
 
-void death() {
-    /* The "TODO()" macro messed with the model_t.c*/
-}
+void death() { /* The "TODO()" macro messed with the model_t.c*/ }

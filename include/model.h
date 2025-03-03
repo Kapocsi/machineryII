@@ -18,8 +18,8 @@
  * the correct input.
  */
 typedef struct {
-    u16 y;     /**The y-coordinate of the top edge of the swimmer's sprite
-                     on the screen*/
+    u16 y; /**The y-coordinate of the top edge of the swimmer's sprite
+                 on the screen*/
 } Swimmer;
 
 /**
@@ -36,7 +36,7 @@ typedef struct {
  * The next character for the player to type is saved here, and is
  * identified by its position within the Row's string value.
  */
- typedef struct {
+typedef struct {
     char *text; /**The string displayed in the row*/
     u8 pos;     /**The position of the next charcter to type in the row */
 } Row;
@@ -46,7 +46,7 @@ typedef struct {
  * @brief The fish and kelp, which are unaffected by game input.
  */
 typedef struct {
-    u32 tick;   /**The time that has passed since the game started*/
+    u32 tick; /**The time that has passed since the game started*/
     /* T state */
 } Decorations;
 

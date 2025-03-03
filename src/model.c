@@ -36,7 +36,7 @@ void shift_pointer(Row *row) {
 
 void increase_score(Score *score) {
     if (score->score < 9999)
-        (score->score)++; 
+        (score->score)++;
 }
 
 void change_row(Row *row, char *new_string) { row->text = new_string; }
