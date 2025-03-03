@@ -1,9 +1,7 @@
-#include "lib/unity.h"
-#include "lib/unity_i.h"
-
 #include "adler32.h"
 #include "font.h"
 #include "global.h"
+#include "lib/unit.h"
 #include "raster.h"
 
 #include <string.h>
@@ -36,10 +34,10 @@ void testBigText() {
 }
 
 int main() {
-    UNITY_BEGIN();
+    TEST_BEGIN();
 
     RUN_TEST(testSmallText);
     RUN_TEST(testBigText);
 
-    UNITY_END();
+    TEST_END();
 }

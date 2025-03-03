@@ -1,5 +1,4 @@
-#include "lib/unity.h"
-#include "lib/unity_i.h"
+#include "lib/unit.h"
 
 #include "bitmaps.h"
 
@@ -18,9 +17,9 @@ void testBitMapDeclaration() {
 }
 
 int main() {
-    UNITY_BEGIN();
+    TEST_BEGIN();
 
     RUN_TEST(testBitMapDeclaration);
 
-    UNITY_END();
+    TEST_END();
 }

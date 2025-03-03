@@ -1,7 +1,6 @@
 /* Unit tests for model.c and events.c  */
 
-#include "lib/unity.h"
-#include "lib/unity_i.h"
+#include "lib/unit.h"
 
 #include "events.h"
 
@@ -39,7 +38,7 @@ void test_change_row() {
 
     for (i = 0; i < 15; i++) {
         TEST_ASSERT_EQUAL(text[i], row.text[i]);
-    }  
+    }
     change_row(&row, new_text);
     for (i = 0; i < 15; i++) {
         TEST_ASSERT_EQUAL(new_text[i], row.text[i]);
@@ -88,12 +87,10 @@ void test_key_press() {
     TEST_ASSERT_EQUAL(1, row.pos);
 }
 
-void test_death() {
-    death();
-}
+void test_death() { death(); }
 
 int main() {
-    UNITY_BEGIN();
+    TEST_BEGIN();
 
     RUN_TEST(test_bob_up);
     RUN_TEST(test_sink);
@@ -105,5 +102,5 @@ int main() {
     RUN_TEST(test_key_press);
     RUN_TEST(test_death);
 
-    UNITY_END();
+    TEST_END();
 }

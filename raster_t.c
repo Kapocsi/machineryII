@@ -1,7 +1,6 @@
 /* Unit tests for raster.c */
 
-#include "lib/unity.h"
-#include "lib/unity_i.h"
+#include "lib/unit.h"
 
 #include "global.h"
 #include "raster.h"
@@ -95,7 +94,7 @@ void test_set_pixel() {
 }
 
 int main() {
-    UNITY_BEGIN();
+    TEST_BEGIN();
 
     RUN_TEST(test_black_screen);
     RUN_TEST(test_white_screen);
@@ -103,5 +102,5 @@ int main() {
     RUN_TEST(test_horizontal_line);
     RUN_TEST(test_set_pixel);
 
-    UNITY_END();
+    TEST_END();
 }
