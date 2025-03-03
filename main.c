@@ -1,4 +1,3 @@
-#include "adler32.h"
 #include "font.h"
 #include "global.h"
 #include "raster.h"

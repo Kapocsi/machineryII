@@ -3,7 +3,7 @@
 CC=cc68x
 CFLAGS=-O -g
 FONT_OBJS=lib\unifont.o lib\depixel.o font.o
-OBJS=raster.o bitmaps.o model.o events.o $(FONT_OBJS) adler32.o
+OBJS=raster.o bitmaps.o model.o events.o $(FONT_OBJS)  lib\adler32.o
 MAIN=main.o
 
 .PHONY: test clean run format

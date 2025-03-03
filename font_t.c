@@ -1,6 +1,6 @@
-#include "adler32.h"
 #include "font.h"
 #include "global.h"
+#include "lib/adler32.h"
 #include "lib/unit.h"
 #include "raster.h"
 
