@@ -3,7 +3,7 @@
 CC=cc68x
 CFLAGS=-O -g
 FONT_OBJS=lib\unifont.o lib\depixel.o font.o
-OBJS=raster.o bitmaps.o model.o events.o $(FONT_OBJS) adler32.o lib\unit.o
+OBJS=raster.o bitmaps.o model.o events.o $(FONT_OBJS) adler32.o
 MAIN=main.o
 
 .PHONY: test clean run format
@@ -28,23 +28,19 @@ format:
 	clang-format **/*.h **/*.c *.c *.h -i
 
 # Test Template:
-# <mod>.t: <mod test>.o
+# <mod>.t: <mod test>.o lib\unit.o
 #	$(CC) $(CFLAGS) $^ -o $@
 #	$@							# Run the test
 
-raster.t: $(OBJS) raster_t.o
+raster.t: $(OBJS) raster_t.o lib\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-
-btmaps.t: $(OBJS) btmaps_t.o
+btmaps.t: $(OBJS) btmaps_t.o lib\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-font.t: $(OBJS) font_t.o
+font.t: $(OBJS) font_t.o lib\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-
-model.t: $(OBJS) model_t.o
+model.t: $(OBJS) model_t.o lib\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
-
-
 
