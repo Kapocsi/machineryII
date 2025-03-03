@@ -2,7 +2,7 @@
 
 BASE=$(git rev-parse --show-toplevel)
 
-HEXFILE="$BASE/lib/unifont-16.0.02.hex"
+HEXFILE="$BASE/assets/unifont-16.0.02.hex"
 OUTFILE="$BASE/lib/unifont.c"
 
 function main() {
