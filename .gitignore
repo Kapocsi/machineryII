@@ -15,3 +15,9 @@ a.out
 *.O
 *.T
 .local-makefile
+
+*.PRG
+*.prg
+
+test/*
+!test/*.c

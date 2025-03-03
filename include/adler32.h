@@ -6,7 +6,7 @@
 #ifndef CRC32_H
 #define CRC32_H
 
-#include "../global.h"
+#include "global.h"
 
 /**
  * @brief Computes the Adler-32 checksum for a data buffer.

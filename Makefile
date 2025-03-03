@@ -1,10 +1,10 @@
 # CC=m68k-atari-mint-gcc # Switch to these for compiling with a X-compiler
 # CFLAGS=-O3 -g -mshort
 CC=cc68x
-CFLAGS=-O -g
-FONT_OBJS=lib\unifont.o lib\depixel.o font.o
-OBJS=raster.o bitmaps.o model.o events.o $(FONT_OBJS)  lib\adler32.o
-MAIN=main.o
+CFLAGS=-O -g -Iinclude
+FONT_OBJS=src\unifont.o src\depixel.o src\font.o
+OBJS=src\raster.o src\bitmaps.o src\model.o src\events.o $(FONT_OBJS)  src\adler32.o
+MAIN=src\main.o
 
 .PHONY: test clean run format
 
@@ -15,32 +15,32 @@ run: main	# RM Local
 main: $(OBJS) $(MAIN)
 	$(CC) $(CFLAGS) $^ -o $@
 
-test: $(OBJS) raster.t btmaps.t font.t model.t
-	model.t			# RM Local
-	font.t			# RM Local
-	raster.t		# RM Local
-	btmaps.t		# RM Local
+test: $(OBJS) test\raster test\bitmaps test\font test\model
+	test\raster.prg
+	test\bitmaps.prg
+	test\font.prg
+	test\model.prg
 
 clean:
-	$(RM) *.o *.t main **/*.o lib\*.o
+	$(RM) *.o src\*.o test\*.o test\*.prg *.prg
 
 format:
 	clang-format **/*.h **/*.c *.c *.h -i
 
 # Test Template:
-# <mod>.t: <mod test>.o lib\unit.o
+# test\<mod>: test\<mod test>.o src\unit.o
 #	$(CC) $(CFLAGS) $^ -o $@
 #	$@							# Run the test
 
-raster.t: $(OBJS) raster_t.o lib\unit.o
+test\raster.prg: $(OBJS) test\raster.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-btmaps.t: $(OBJS) btmaps_t.o lib\unit.o
+test\bitmaps.prg: $(OBJS) test\bitmaps.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-font.t: $(OBJS) font_t.o lib\unit.o
+test\font.prg: $(OBJS) test\font.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-model.t: $(OBJS) model_t.o lib\unit.o
+test\model.prg: $(OBJS) test\model.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 

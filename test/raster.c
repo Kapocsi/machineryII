@@ -1,6 +1,6 @@
 /* Unit tests for raster.c */
 
-#include "lib/unit.h"
+#include "unit.h"
 
 #include "global.h"
 #include "raster.h"

@@ -1,6 +1,6 @@
 /* Unit tests for model.c and events.c  */
 
-#include "lib/unit.h"
+#include "unit.h"
 
 #include "events.h"
 
