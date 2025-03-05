@@ -2,6 +2,17 @@
 
 [Docs](https://docs.kapocsi.ca)
 
+## Cloneing
+
+This project uses submodules for some external dependencies, while they are not
+required for the the main game, it is recomened that you clone the aswell.
+
+```sh
+git clone --recurse-submodules git@github.com:Kapocsi/machineryII.git
+# or
+git clone --recurse-submodules https://github.com/Kapocsi/machineryII.git
+```
+
 ## Compiling
 
 To compile and run the main game:
@@ -21,33 +32,39 @@ make test
 To build an individual test suite:
 
 ```sh
-make <test suite>.t
+make test/<suite>
 ```
 
 To run the compiled test suite:
 
 ```sh
-<test suite>.t
+test/<suite>
 ```
 
 ### Adding a Test Suite
 
-Since the [Unity](https://github.com/ThrowTheSwitch/Unity) testing framework relies heavily on macros, compiling unit tests can be time-consuming. Therefore, tests are maintained separately from the implementation code.
+1. Add a file with the same name as the module in `test` ie tests for `raster.c`
+   will live in `test/raster.c`
+2. Use the following template to add a entry to the Makefile
 
-We follow this naming convention:
-
+```make
+test\mod.prg: test\mod.o src\unit.o
+    $(CC) $(CFLAGS) $^ -o $@
+    $@							# Run the test
 ```
-<name>.c     # Implementation
-<name>.h     # Header file for module (optional)
-<name>_t.c   # Test file for module
-<name>.t     # Compiled tests for module
-```
 
-If `<name>_t` exceeds 8 characters, truncate `<name>` accordingly.
+3. Register the test in Makefile, by adding the test both as a dep and as build
+   step for `test`
+
+```make
+test: $(objs) test\mod.prg # other tests ...
+    test\mod.prg
+    # other tests...
+```
 
 ### Adding Test Cases
 
-To add a new test case, define a function within `<name>_t.c`:
+In `test\<module>.c` add function to test the given function:
 
 ```c
 void test_<function_name>() {
