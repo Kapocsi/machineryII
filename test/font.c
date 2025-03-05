@@ -19,7 +19,7 @@ void testSmallText() {
     hash = adler32((u8 *)base, SCREEN_BUFFER_SIZE * 4);
 
     /** Known correct hash*/
-    TEST_ASSERT_EQUAL(hash, 0x64070cd9l);
+    TEST_ASSERT_EQUAL(hash, 0x226c1291);
 }
 
 void testBigText() {

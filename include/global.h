@@ -119,6 +119,9 @@ enum Bool { True = 1, False = 0 };
  */
 #define SCREEN_BUFFER_SIZE (SCREEN_WIDTH / (sizeof(long) * 8)) * SCREEN_HEIGHT
 
+/** Long alignment of screen buffer */
+#define L_SB_ALIGN 256 / sizeof(long)
+
 /* -------------------------------  MACROS  -------------------------------- */
 
 /**

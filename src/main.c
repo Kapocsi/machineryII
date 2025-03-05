@@ -2,6 +2,8 @@
 #include "global.h"
 #include "raster.h"
 
+#include "screen.h"
+#include <assert.h>
 #include <osbind.h>
 #include <stdio.h>
 #include <string.h>
@@ -17,11 +19,26 @@ void enable_cursor() {
 }
 
 int main(int argc, char *argv[]) {
-    Screen *base = (Screen *)Physbase();
-    char str[] = "Hello World!";
+    Screen **screens = initScreen();
+    char str[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                 "Quisque elit est nulla";
+    long ssp = 0;
+    int i = 0;
+    Screen *base = screens[Primary];
 
     white_screen(base);
-    drawBigText(base, str, strlen(str), 0, 200, SET);
+    for (i = 0; i < SCREEN_HEIGHT - 16; i += 16)
+        drawSmallText(base, str, strlen(str), 0, i, SET);
 
+    base = screens[Secondary];
+    black_screen(base);
+    for (i = 0; i < SCREEN_HEIGHT - 16; i += 16)
+        drawSmallText(base, str, strlen(str), 0, i, UNSET);
+
+    switchBuffer(Primary);
+    Cconin();
+    switchBuffer(Secondary);
+
+    deinitScreen();
     return 0;
 }

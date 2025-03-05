@@ -7,10 +7,17 @@
     /* (x * 32) + (y * 20) */                                                  \
     (x >> 5) + (y << 4) + (y << 2)
 
-u32 min(u32 a, u32 b) {
+static u32 min(u32 a, u32 b) {
     if (a > b)
         return b;
     return a;
+}
+
+static u32 max(u32 a, u32 b) {
+    if (a > b)
+        return a;
+    else
+        return b;
 }
 
 void black_screen(Screen *base) {
@@ -94,7 +101,7 @@ void drawBitMap(Screen *base, const BitMap *bitmap, const u16 x_start,
                 const u16 y_start, BitMapDrawMode draw_mode) {
     u16 alignment = min(bitmap->width & 31, x_start & 31);
     if (alignment == 0)
-        alignment = bitmap->width & 31;
+        alignment = max(bitmap->width & 31, x_start & 31);
 
     /* Allow for attempting to draw to null screen and drawing null bitmap,
     this might occur in debugging and we should handle it gracefully. */

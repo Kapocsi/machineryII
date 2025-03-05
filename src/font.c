@@ -2,6 +2,7 @@
 #include "global.h"
 #include "raster.h"
 #include <assert.h>
+#include <stdio.h>
 
 #define SMALL_TEXT_WIDTH 8
 #define SMALL_TEXT_HEIGHT 16
