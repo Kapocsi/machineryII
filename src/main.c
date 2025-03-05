@@ -24,8 +24,9 @@ int main(int argc, char *argv[]) {
                  "Quisque elit est nulla";
     long ssp = 0;
     int i = 0;
-    Screen *base = screens[Primary];
+    Screen *base;
 
+    base = screens[Primary];
     white_screen(base);
     for (i = 0; i < SCREEN_HEIGHT - 16; i += 16)
         drawSmallText(base, str, strlen(str), 0, i, SET);
@@ -35,10 +36,14 @@ int main(int argc, char *argv[]) {
     for (i = 0; i < SCREEN_HEIGHT - 16; i += 16)
         drawSmallText(base, str, strlen(str), 0, i, UNSET);
 
-    switchBuffer(Primary);
-    Cconin();
     switchBuffer(Secondary);
+    Crawcin();
 
-    deinitScreen();
+    switchBuffer(Primary);
+
+    Crawcin();
+
+    switchBuffer(Original);
+
     return 0;
 }

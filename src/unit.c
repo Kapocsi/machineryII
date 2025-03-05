@@ -4,13 +4,15 @@
 #include <stdlib.h>
 
 static jmp_buf test_env;
-static unsigned int passed_tests = 0;
-static unsigned int failed_tests = 0;
+unsigned long passed_tests = 0;
+unsigned long failed_tests = 0;
 
 /** Reset the testing environment */
 void _startTest() {
     passed_tests = 0;
     failed_tests = 0;
+
+    printf("%ld\n", sizeof(long));
     printf("====== BEGIN TESTS ===== \n");
 }
 
@@ -35,10 +37,12 @@ int _runTest(void (*test)()) {
         printf("Passed\n");
         passed_tests++;
         tearDown();
+        printf("%d %d\n", passed_tests, failed_tests);
         return 0;
     }
     printf("Failed\n");
     failed_tests++;
+    printf("%d %d\n", passed_tests, failed_tests);
     tearDown();
     return -1;
 }

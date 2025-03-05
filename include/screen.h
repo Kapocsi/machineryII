@@ -11,5 +11,6 @@ typedef enum { ST_LOW = 0, ST_MED = 1, ST_HIGH = 2 } Resolutions;
 void switchBuffer(ScreenBuffer switch_to);
 Screen **initScreen();
 void deinitScreen();
+extern Screen *screens[bufferCount];
 
 #endif
