@@ -4,10 +4,14 @@
 #include "global.h"
 
 typedef enum { Original, Primary, Secondary } ScreenBuffer;
-typedef enum { ST_LOW = 0, ST_MED = 1, ST_HIGH = 2 } Resolutions;
 
 #define bufferCount 3
 
+/**
+ * @brief
+ *
+ * @param switch_to
+ */
 void switchBuffer(ScreenBuffer switch_to);
 Screen **initScreen();
 void deinitScreen();

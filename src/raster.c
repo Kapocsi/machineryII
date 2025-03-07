@@ -108,26 +108,15 @@ void drawBitMap(Screen *base, const BitMap *bitmap, const u16 x_start,
     if (base == NULL || bitmap == NULL || bitmap->longs == NULL)
         return;
 
-    /* These should be checked in the callee, as doing the complex checks on
-     * each draw would slow us down, this should only be checked in debug builds
-     */
-
-    /* TODO allow for disableing these checks at comptime */
-    assert(x_start + bitmap->width <= SCREEN_WIDTH);
-    assert(y_start + bitmap->height <= SCREEN_HEIGHT);
-
     switch (alignment) {
     case 0: /* Divisible by 32 */
-        assert(alignment % 32 == 0);
         drawBitMap32(base, bitmap, x_start, y_start, draw_mode);
         break;
     case 16: /* Divisible by 16 */
-        assert(alignment % 16 == 0);
         drawBitMap16(base, bitmap, x_start, y_start, draw_mode);
         break;
     case 8: /* Divisible by 8*/
     case 24:
-        assert(alignment % 8 == 0);
         drawBitMap8(base, bitmap, x_start, y_start, draw_mode);
         break;
     default:

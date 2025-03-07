@@ -5,7 +5,6 @@
 #include "screen.h"
 #include <assert.h>
 #include <osbind.h>
-#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -36,20 +35,21 @@ int main(int argc, char *argv[]) {
     Screen *base;
     u32 start = 0;
 
-    base = screens[Original];
-
+    base = screens[Primary];
     white_screen(base);
     for (i = 0; i < SCREEN_HEIGHT - 16; i += 16)
         drawSmallText(base, str, strlen(str), 0, i, SET);
 
+    base = screens[Secondary];
     black_screen(base);
     for (i = 0; i < SCREEN_HEIGHT - 16; i += 16)
         drawSmallText(base, str, strlen(str), 0, i, UNSET);
 
-    /* switchBuffer(Primary); */
-    /**/
-    /* Cconin(); */
-    /* switchBuffer(Original); */
+    switchBuffer(Primary);
+    Cconin();
+    switchBuffer(Secondary);
+    Cconin();
+    switchBuffer(Original);
 
     return 0;
 }

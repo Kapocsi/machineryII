@@ -1,3 +1,4 @@
 -Iinclude
 -isystem.lsp_includes
 -Isrc
+-D__C68__
