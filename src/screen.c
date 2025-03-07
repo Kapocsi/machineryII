@@ -7,12 +7,12 @@
 #define setIfNull(var, value) (var = var ? var : value)
 #define alignTo(x, a) (void *)(((unsigned long)&x + (a - 1)) & ~(a - 1))
 
-long alt_buffer[(bufferCount - 1) * SCREEN_BUFFER_SIZE + L_SB_ALIGN];
+volatile Screen alt_buffer[(bufferCount - 1) * SCREEN_BUFFER_SIZE + L_SB_ALIGN];
 Screen *screens[bufferCount];
 
 void switchBuffer(ScreenBuffer switch_to) {
     static Screen *lbase;
-    long ssp = 0;
+    volatile long ssp = 0;
     setIfNull(lbase, Logbase());
 
     /** Ensure that buffer is properly aligned */

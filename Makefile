@@ -1,7 +1,7 @@
 # CC=m68k-atari-mint-gcc # Switch to these for compiling with a X-compiler
 # CFLAGS=-O3 -g -mshort
 CC=cc68x
-CFLAGS=-O -g -Iinclude -pg
+CFLAGS=-g -Iinclude
 FONT_OBJS=src\unifont.o src\depixel.o src\font.o
 OBJS=src\raster.o src\bitmaps.o src\model.o src\events.o $(FONT_OBJS)  src\adler32.o src\screen.o
 MAIN=src\main.o
@@ -22,7 +22,7 @@ test: $(objs) test\raster.prg test\bitmaps.prg test\font.prg test\model.prg
 	test\model.prg
 
 clean:
-	$(RM) *.o src\*.o test\*.o test\*.prg *.prg
+	$(RM) *.o src\*.o test\*.o test\*.prg *.prg main
 
 format:
 	clang-format **/*.h **/*.c *.c *.h -i
