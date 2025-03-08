@@ -1,12 +1,12 @@
 #include "font.h"
 #include "global.h"
+#include "input.h"
 #include "raster.h"
 
 #include "screen.h"
 #include <assert.h>
 #include <osbind.h>
 #include <stdio.h>
-#include <string.h>
 
 void disable_cursor() {
     printf("\033f");
@@ -28,28 +28,26 @@ u32 tickSinceInception() {
 
 int main(int argc, char *argv[]) {
     Screen **screens = initScreen();
-    char str[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                 "Quisque elit est null\n";
-    long ssp = 0;
-    int i = 0;
-    Screen *base;
-    u32 start = 0;
+    BitMap c = {glyphs['*'], 8, 16};
+    Screen *base = screens[Original];
+    int first = 1;
+    int cx, cy;
+    int px = 0, py = 0;
+    initInput();
 
-    base = screens[Primary];
-    white_screen(base);
-    for (i = 0; i < SCREEN_HEIGHT - 16; i += 16)
-        drawSmallText(base, str, strlen(str), 0, i, SET);
+    while (1) {
+        base = nextBuffer();
 
-    base = screens[Secondary];
-    black_screen(base);
-    for (i = 0; i < SCREEN_HEIGHT - 16; i += 16)
-        drawSmallText(base, str, strlen(str), 0, i, UNSET);
+        cx = (((x + SCREEN_WIDTH) % SCREEN_WIDTH) / 8) * 8;
+        cy = (y + SCREEN_HEIGHT) % SCREEN_HEIGHT;
 
-    switchBuffer(Primary);
-    Cconin();
-    switchBuffer(Secondary);
-    Cconin();
-    switchBuffer(Original);
+        drawBitMap(base, &c, px, py, UNSET);
+        drawBitMap(base, &c, cx, cy, SET);
 
+        px = cx;
+        py = cy;
+    }
+
+    deinitInput();
     return 0;
 }

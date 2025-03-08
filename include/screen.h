@@ -15,6 +15,8 @@ typedef enum { Original, Primary, Secondary } ScreenBuffer;
 void switchBuffer(ScreenBuffer switch_to);
 Screen **initScreen();
 void deinitScreen();
+Screen *nextBuffer();
+
 extern Screen *screens[bufferCount];
 
 #endif

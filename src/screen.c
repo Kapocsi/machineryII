@@ -38,3 +38,11 @@ Screen **initScreen() {
 
     return screens;
 }
+
+static int i = 0;
+Screen *nextBuffer() {
+    i = (i + 1) % (bufferCount - 1);
+
+    switchBuffer(i + 1);
+    return screens[i + 1];
+}
