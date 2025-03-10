@@ -1,12 +1,22 @@
-#include <assert.h>
-#include <osbind.h>
-#include <stdio.h>
-
 #include "bitmaps.h"
 #include "global.h"
+#include "input.h"
 #include "raster.h"
-#include "screen.h"
 #include "super.h"
+
+#include "screen.h"
+#include <assert.h>
+#include <osbind.h>
+
+void disable_cursor() {
+    printf("\033f");
+    fflush(stdout);
+}
+
+void enable_cursor() {
+    printf("\033e");
+    fflush(stdout);
+}
 
 u32 tickSinceInception() {
     u32 ticks;
@@ -18,21 +28,27 @@ void setBuffer(void *);
 
 int main(int argc, char *argv[]) {
     Screen **screens = initScreen();
-    /* inputState *is = initInput(); */
+    inputState *is = initInput();
     Screen *base;
     int px, py, cx = 0, cy = 0;
 
-    base = screens[Original];
-    /* switchBuffer(Primary); */
-    white_screen(base);
+    base = screens[Primary];
+    switchBuffer(Primary);
 
-    for (px = 0; px < 8; px++) {
-        drawBitMap8(base, &cursor, px, 0, SET);
-        Cconin();
-        drawBitMap8(base, &cursor, px, 0, UNSET);
+    while (1) {
+        px = cx;
+        py = cy;
+
+        cx = is->mouse.x;
+        cy = is->mouse.y;
+
+        drawBitMap8(base, &cursor, px, py, UNSET);
+        drawBitMap8(base, &cursor, cx, cy, SET);
+
+        Vsync();
     }
 
-    /* deinitInput(); */
+    deinitInput();
     switchBuffer(Original);
 
     return 0;

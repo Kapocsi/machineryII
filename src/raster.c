@@ -70,81 +70,43 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
                           BitMapDrawMode draw_mode) {                          \
         u##size *base = (u##size *)screen;                                     \
         u##size *bmaps = (u##size *)bitmap->longs;                             \
-        u16 x, y;                                                              \
-        /* Move to top right corner of bitmap */                               \
-                                                                               \
-        if (x_start % size != 0)                                               \
-            printf("%d\n", x_start);                                           \
-        assert(x_start % size == 0);                                           \
-                                                                               \
-        base += y_start * (SCREEN_WIDTH / size); /* Move to y-pos */           \
-        base += x_start / size;                  /* Move to x-pos */           \
-                                                                               \
+        u##16 x, y, xo;                                                        \
+        u##size left, right;                                                   \
+        xo = x_start % size;                                                   \
+        base += y_start * (640l / size);                                       \
+        base += x_start / size;                                                \
         for (y = 0; y < bitmap->height; y++) {                                 \
             for (x = 0; x < bitmap->width / size; x++) {                       \
+                right = (*bmaps) << (size - xo);                               \
+                left = (*bmaps++) >> xo;                                       \
                 switch (draw_mode) {                                           \
                 case (SET):                                                    \
-                    *base++ |= *bmaps++;                                       \
+                    *base++ |= left;                                           \
                     break;                                                     \
                 case (UNSET):                                                  \
-                    *base++ &= ~(*bmaps++);                                    \
+                    *base++ &= ~left;                                          \
                     break;                                                     \
                 }                                                              \
             }                                                                  \
-            base += (SCREEN_WIDTH / size) - x;                                 \
+            switch (draw_mode) {                                               \
+            case (SET):                                                        \
+                *base++ |= right;                                              \
+                break;                                                         \
+            case (UNSET):                                                      \
+                *base++ &= ~right;                                             \
+                break;                                                         \
+            }                                                                  \
+            base += (SCREEN_WIDTH / size) - (x + 1);                           \
         }                                                                      \
-    }
+    };
 
-void drawBitMap8(Screen *screen, const BitMap *bitmap, const u16 x_start,
-                 const u16 y_start, BitMapDrawMode draw_mode) {
-    u8 *base = (u8 *)screen;
-    u8 *bmaps = (u8 *)bitmap->longs;
-    u16 x, y, xo;
-    u8 left, right;
-
-    xo = x_start % 8;
-
-    base += y_start * (640l / 8);
-    base += x_start / 8;
-
-    for (y = 0; y < bitmap->height; y++) {
-        for (x = 0; x < bitmap->width / 8; x++) {
-            right = (*bmaps) << (8 - xo);
-            left = (*bmaps++) >> xo;
-
-            switch (draw_mode) {
-            case (SET):
-                *base++ |= left;
-                break;
-            case (UNSET):
-                *base++ &= ~left;
-                break;
-            }
-        }
-
-        x++;
-
-        switch (draw_mode) {
-        case (SET):
-            *base++ |= right;
-            break;
-        case (UNSET):
-            *base++ &= ~right;
-            break;
-        }
-
-        base += 80 - x;
-    }
-};
-/* genDrawBitMap(8); */
+genDrawBitMap(8);
 genDrawBitMap(16);
 genDrawBitMap(32);
 
 void drawBitMap(Screen *base, const BitMap *bitmap, const u16 x_start,
                 const u16 y_start, BitMapDrawMode draw_mode) {
-    u16 alignment = min(bitmap->width & 31, x_start & 31);
-    if (alignment == 0)
-        alignment = max(bitmap->width & 31, x_start & 31);
+    u16 alignment = bitmap->width;
 
     /* Allow for attempting to draw to null screen and drawing null bitmap,
     this might occur in debugging and we should handle it gracefully. */

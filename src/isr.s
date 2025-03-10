@@ -8,15 +8,15 @@
 _keyboardIsr:
     movem.l	d0-d7/a0-a6,-(sp)
 
+startRead:
+
     movea.l	#IKBD_STATUS_REG,a0
     btst.b  #0,(a0)
     beq		IKBD_RETURN
 
-    ; clr.l	d0
-    ; movea.l	#IKBD_RDR_REG,a2
-    ; move.b	(a2),d0
+    jsr     _handleInput
 
-    jsr _handleInput
+    bra     startRead
 
 
 IKBD_RETURN:
