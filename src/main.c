@@ -28,25 +28,23 @@ u32 tickSinceInception() {
 
 int main(int argc, char *argv[]) {
     Screen **screens = initScreen();
+    inputState *input = initInput();
+    Screen *base;
     BitMap c = {glyphs['*'], 8, 16};
-    Screen *base = screens[Original];
-    int first = 1;
-    int cx, cy;
-    int px = 0, py = 0;
-    initInput();
+    int i;
 
-    while (1) {
-        base = nextBuffer();
+    base = screens[Primary];
 
-        cx = (((x + SCREEN_WIDTH) % SCREEN_WIDTH) / 8) * 8;
-        cy = (y + SCREEN_HEIGHT) % SCREEN_HEIGHT;
+    switchBuffer(Primary);
 
-        drawBitMap(base, &c, px, py, UNSET);
-        drawBitMap(base, &c, cx, cy, SET);
+    drawBitMap(base, &c, 0, 0, SET);
 
-        px = cx;
-        py = cy;
-    }
+    Vsync();
+
+    while (1)
+        ;
+
+    switchBuffer(Original);
 
     deinitInput();
     return 0;

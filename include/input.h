@@ -1,13 +1,18 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include "osbind.h"
-
 typedef void (*Vector)();
 
-void initInput();
-void deinitInput();
+typedef struct {
+    int x;
+    int y;
+} Mouse;
 
-extern int x, y;
+typedef volatile struct {
+    Mouse mouse;
+} inputState;
+
+inputState *initInput();
+void deinitInput();
 
 #endif

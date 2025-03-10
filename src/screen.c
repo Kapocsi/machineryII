@@ -9,40 +9,33 @@ typedef enum { ST_LOW = 0, ST_MED = 1, ST_HIGH = 2 } Resolutions;
 
 volatile Screen alt_buffer[(bufferCount - 1) * SCREEN_BUFFER_SIZE + L_SB_ALIGN];
 
-Screen *screens[bufferCount];
+static Screen *screens[bufferCount];
 
 #define setIfNull(var, value) (var = var ? var : value)
 #define alignTo(x, a) (void *)(((unsigned long)&x + (a - 1)) & ~(a - 1))
 
 void switchBuffer(ScreenBuffer switch_to) {
-    static Screen *lbase;
+    Screen *pbase = Physbase();
     volatile long ssp = 0;
-    setIfNull(lbase, Logbase());
-
-    /** Ensure that buffer is properly aligned */
-    assert((unsigned long)screens[switch_to] % 256 == 0);
 
     Super(0);
-    Setscreen(lbase, screens[switch_to], ST_HIGH);
-    Super(ssp);
+    Setscreen(screens[switch_to], pbase, ST_HIGH);
     Vsync();
+    Super(ssp);
 }
 
 Screen **initScreen() {
+    long ssp = 0;
     Screen *alt_buffer_start = alignTo(alt_buffer, L_SB_ALIGN);
-    assert((long)alt_buffer_start % 256 == 0);
+    int i;
 
-    setIfNull(screens[Original], Logbase());
+    screens[Original] = Logbase();
     screens[Primary] = alt_buffer_start;
-    screens[Secondary] = alt_buffer_start + (long)SCREEN_BUFFER_SIZE;
+    screens[Secondary] = alt_buffer_start + SCREEN_BUFFER_SIZE;
+
+    for (i = 0; i <= Secondary; i++)
+        printf("%lx\t", (u32)screens[i]);
+    printf("\n");
 
     return screens;
-}
-
-static int i = 0;
-Screen *nextBuffer() {
-    i = (i + 1) % (bufferCount - 1);
-
-    switchBuffer(i + 1);
-    return screens[i + 1];
 }

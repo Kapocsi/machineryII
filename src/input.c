@@ -1,5 +1,4 @@
 #include <osbind.h>
-#include <stdio.h>
 
 #include "global.h"
 #include "input.h"
@@ -14,14 +13,11 @@ static long held_keys[8];
  * placed in 8 bit ascii */
 typedef enum { UNDEF = 0x80, CTRL, LSHIFT, RSHIFT, ALT, CAPS_LOCK } CTRL_CHARS;
 typedef enum { HEADER, DX, DY } MousePacketStage;
-
 static Vector previous_isr;
+void keyboardIsr();
+static inputState input_state;
 
 MousePacketStage mps = HEADER;
-int x = 0;
-int y = 0;
-void keyboardIsr();
-
 Vector install_vector(int num, Vector vector) {
     Vector orig;
     Vector *vectp = (Vector *)((long)num << 2);
@@ -62,17 +58,20 @@ void handleInput() {
         break;
     case DX:
         mps = DY;
-        if (x + c > 0 && x + c < SCREEN_WIDTH)
-            x += c;
+        if (input_state.mouse.x + c > 0 &&
+            input_state.mouse.x + c < SCREEN_WIDTH)
+            input_state.mouse.x += c;
         break;
     case DY:
         mps = HEADER;
-        if (y + c > 0 && y + c < SCREEN_HEIGHT)
-            y += c;
+        if (input_state.mouse.y + c > 0 &&
+            input_state.mouse.y + c < SCREEN_HEIGHT)
+            input_state.mouse.y += c;
     }
-
-    /* printf("%d %d %d\n", mps, x, y); */
 }
 
-void initInput() { previous_isr = install_vector(70, keyboardIsr); }
+inputState *initInput() {
+    previous_isr = install_vector(70, keyboardIsr);
+    return &input_state;
+}
 void deinitInput() { install_vector(70, previous_isr); }

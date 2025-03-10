@@ -73,6 +73,8 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
         u16 x, y;                                                              \
         /* Move to top right corner of bitmap */                               \
                                                                                \
+        if (x_start % size != 0)                                               \
+            printf("%d\n", x_start);                                           \
         assert(x_start % size == 0);                                           \
                                                                                \
         base += y_start * (SCREEN_WIDTH / size); /* Move to y-pos */           \
@@ -120,7 +122,7 @@ void drawBitMap(Screen *base, const BitMap *bitmap, const u16 x_start,
         drawBitMap8(base, bitmap, x_start, y_start, draw_mode);
         break;
     default:
-        TODO();
+        printf("%d\n", alignment);
     }
 }
 
