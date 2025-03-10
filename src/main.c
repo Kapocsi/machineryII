@@ -2,6 +2,7 @@
 #include "global.h"
 #include "input.h"
 #include "raster.h"
+#include "super.h"
 
 #include "screen.h"
 #include <assert.h>
@@ -19,33 +20,37 @@ void enable_cursor() {
 }
 
 u32 tickSinceInception() {
-    long ssp = Super(0);
-    u32 ticks = *(u32 *)(0x462);
-    Super(ssp);
-
+    u32 ticks;
+    SuperDo(ticks = *(u32 *)(0x462));
     return ticks;
 }
 
+void setBuffer(void *);
+
 int main(int argc, char *argv[]) {
     Screen **screens = initScreen();
-    inputState *input = initInput();
+    inputState *is = initInput();
     Screen *base;
-    BitMap c = {glyphs['*'], 8, 16};
-    int i;
+    int px, py, cx = 0, cy = 0;
 
     base = screens[Primary];
-
     switchBuffer(Primary);
 
-    drawBitMap(base, &c, 0, 0, SET);
+    while (1) {
+        px = cx;
+        py = cy;
 
-    Vsync();
+        cx = (is->mouse.x / 8) * 8;
+        cy = is->mouse.y;
 
-    while (1)
-        ;
+        drawSmallText(base, "*", px, py, UNSET);
+        drawSmallText(base, "*", cx, cy, SET);
 
-    switchBuffer(Original);
+        Vsync();
+    }
 
     deinitInput();
+    switchBuffer(Original);
+
     return 0;
 }

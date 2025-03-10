@@ -34,12 +34,11 @@ extern const BitMap depixel[];
  *
  * @param base Pointer to the screen buffer.
  * @param str The null-terminated string to be drawn.
- * @param text_len Length of the string.
  * @param x X-coordinate of the text position.
  * @param y Y-coordinate of the text position.
  * @param drawMode Drawing mode to be applied.
  */
-void drawSmallText(Screen *base, char *str, u32 text_len, u16 x, u16 y,
+void drawSmallText(Screen *base, char *str, u16 x, u16 y,
                    BitMapDrawMode drawMode);
 
 /**
@@ -47,12 +46,11 @@ void drawSmallText(Screen *base, char *str, u32 text_len, u16 x, u16 y,
  *
  * @param base Pointer to the screen buffer.
  * @param str The null-terminated string to be drawn.
- * @param text_len Length of the string.
  * @param x X-coordinate of the text position.
  * @param y Y-coordinate of the text position.
  * @param drawMode Drawing mode to be applied.
  */
-void drawBigText(Screen *base, char *str, u32 text_len, u16 x, u16 y,
+void drawBigText(Screen *base, char *str, u16 x, u16 y,
                  BitMapDrawMode drawMode);
 
 #endif

@@ -1,43 +1,38 @@
 #include <osbind.h>
-#include <stdio.h>
 
 #include "assert.h"
 #include "global.h"
 #include "screen.h"
+#include "super.h"
 
 #ifndef ST_LOW
 typedef enum { ST_LOW = 0, ST_MED = 1, ST_HIGH = 2 } Resolutions;
 #endif
 
-volatile Screen alt_buffer[(bufferCount - 1) * SCREEN_BUFFER_SIZE + L_SB_ALIGN];
+/* Declared in switch.h */
+void setBuffer(void *);
 
-static Screen *screens[bufferCount];
+Screen alt_buffer[(bufferCount - 1) * SCREEN_BUFFER_SIZE + L_SB_ALIGN];
+Screen *screens[bufferCount];
 
 #define setIfNull(var, value) (var = var ? var : value)
 #define alignTo(x, a) (void *)(((unsigned long)&x + (a - 1)) & ~(a - 1))
 
-void switchBuffer(ScreenBuffer switch_to) {
-    Screen *pbase = Physbase();
-    volatile long ssp = 0;
+/** Contains the address of the logical base of the system */
+#define lbase 0x00044E;
 
-    Super(0);
-    Setscreen(screens[switch_to], pbase, ST_HIGH);
-    Vsync();
-    Super(ssp);
+void switchBuffer(ScreenBuffer switch_to) {
+    superIn();
+    setBuffer(screens[switch_to]);
+    superOut();
 }
 
 Screen **initScreen() {
-    long ssp = 0;
     Screen *alt_buffer_start = alignTo(alt_buffer, L_SB_ALIGN);
-    int i;
 
-    screens[Original] = Logbase();
+    SuperDo(screens[Original] = *(Screen **)lbase);
     screens[Primary] = alt_buffer_start;
     screens[Secondary] = alt_buffer_start + SCREEN_BUFFER_SIZE;
-
-    for (i = 0; i <= Secondary; i++)
-        printf("%lx\t", (u32)screens[i]);
-    printf("\n");
 
     return screens;
 }

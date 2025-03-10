@@ -2,6 +2,7 @@
 #include "global.h"
 #include "raster.h"
 #include <assert.h>
+#include <string.h>
 
 #define SMALL_TEXT_WIDTH 8
 #define SMALL_TEXT_HEIGHT 16
@@ -9,8 +10,10 @@
 #define BIG_TEXT_SPACING 48
 #define BIG_TEXT_HEIGHT 65
 
-void drawSmallText(Screen *base, char *str, u32 text_len, u16 x, u16 y,
+void drawSmallText(Screen *base, char *str, u16 x, u16 y,
                    BitMapDrawMode drawMode) {
+
+    u16 text_len = strlen(str);
     BitMap c = {0, SMALL_TEXT_WIDTH, SMALL_TEXT_HEIGHT};
     u16 i = 0;
 
@@ -24,9 +27,10 @@ void drawSmallText(Screen *base, char *str, u32 text_len, u16 x, u16 y,
     }
 }
 
-void drawBigText(Screen *base, char *str, u32 text_len, u16 x, u16 y,
+void drawBigText(Screen *base, char *str, u16 x, u16 y,
                  BitMapDrawMode drawMode) {
     u16 i = 0;
+    u16 text_len = strlen(str);
 
     assert(BIG_TEXT_SPACING * text_len + x < SCREEN_WIDTH);
     assert(y + BIG_TEXT_HEIGHT < SCREEN_HEIGHT);

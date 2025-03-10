@@ -15,7 +15,7 @@ void testSmallText() {
     char *text = "Hello World!";
     u32 hash;
 
-    drawSmallText(base, text, strlen(text), 0, 0, SET);
+    drawSmallText(base, text, 0, 0, SET);
     hash = adler32((u8 *)base, SCREEN_BUFFER_SIZE * 4);
 
     /** Known correct hash*/
@@ -26,7 +26,7 @@ void testBigText() {
     char *text = "Hello World!";
     u32 hash;
 
-    drawBigText(base, text, strlen(text), 0, 0, SET);
+    drawBigText(base, text, 0, 0, SET);
     hash = adler32((u8 *)base, SCREEN_BUFFER_SIZE * 4);
 
     /** Known correct hash*/
