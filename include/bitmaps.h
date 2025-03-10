@@ -9,5 +9,6 @@
 
 #include "global.h"
 
-const BitMap cursor;
+extern const BitMap cursor;
+
 #endif

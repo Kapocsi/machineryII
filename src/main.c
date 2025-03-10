@@ -1,23 +1,12 @@
-#include "font.h"
-#include "global.h"
-#include "input.h"
-#include "raster.h"
-#include "super.h"
-
-#include "screen.h"
 #include <assert.h>
 #include <osbind.h>
 #include <stdio.h>
 
-void disable_cursor() {
-    printf("\033f");
-    fflush(stdout);
-}
-
-void enable_cursor() {
-    printf("\033e");
-    fflush(stdout);
-}
+#include "bitmaps.h"
+#include "global.h"
+#include "raster.h"
+#include "screen.h"
+#include "super.h"
 
 u32 tickSinceInception() {
     u32 ticks;
@@ -27,31 +16,23 @@ u32 tickSinceInception() {
 
 void setBuffer(void *);
 
-void drawCursor() {}
-
 int main(int argc, char *argv[]) {
     Screen **screens = initScreen();
-    inputState *is = initInput();
+    /* inputState *is = initInput(); */
     Screen *base;
     int px, py, cx = 0, cy = 0;
 
-    base = screens[Primary];
-    switchBuffer(Primary);
+    base = screens[Original];
+    /* switchBuffer(Primary); */
+    white_screen(base);
 
-    while (1) {
-        px = cx;
-        py = cy;
-
-        cx = (is->mouse.x / 8) * 8;
-        cy = is->mouse.y;
-
-        drawSmallText(base, "*", px, py, UNSET);
-        drawSmallText(base, "*", cx, cy, SET);
-
-        Vsync();
+    for (px = 0; px < 8; px++) {
+        drawBitMap8(base, &cursor, px, 0, SET);
+        Cconin();
+        drawBitMap8(base, &cursor, px, 0, UNSET);
     }
 
-    deinitInput();
+    /* deinitInput(); */
     switchBuffer(Original);
 
     return 0;

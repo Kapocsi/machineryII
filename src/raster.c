@@ -65,9 +65,9 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
  * aligned or sized at n bits
  * **/
 #define genDrawBitMap(size)                                                    \
-    static void drawBitMap##size(Screen *screen, const BitMap *bitmap,         \
-                                 const u16 x_start, const u16 y_start,         \
-                                 BitMapDrawMode draw_mode) {                   \
+    void drawBitMap##size(Screen *screen, const BitMap *bitmap,                \
+                          const u16 x_start, const u16 y_start,                \
+                          BitMapDrawMode draw_mode) {                          \
         u##size *base = (u##size *)screen;                                     \
         u##size *bmaps = (u##size *)bitmap->longs;                             \
         u16 x, y;                                                              \
@@ -95,7 +95,48 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
         }                                                                      \
     }
 
-genDrawBitMap(8);
+void drawBitMap8(Screen *screen, const BitMap *bitmap, const u16 x_start,
+                 const u16 y_start, BitMapDrawMode draw_mode) {
+    u8 *base = (u8 *)screen;
+    u8 *bmaps = (u8 *)bitmap->longs;
+    u16 x, y, xo;
+    u8 left, right;
+
+    xo = x_start % 8;
+
+    base += y_start * (640l / 8);
+    base += x_start / 8;
+
+    for (y = 0; y < bitmap->height; y++) {
+        for (x = 0; x < bitmap->width / 8; x++) {
+            right = (*bmaps) << (8 - xo);
+            left = (*bmaps++) >> xo;
+
+            switch (draw_mode) {
+            case (SET):
+                *base++ |= left;
+                break;
+            case (UNSET):
+                *base++ &= ~left;
+                break;
+            }
+        }
+
+        x++;
+
+        switch (draw_mode) {
+        case (SET):
+            *base++ |= right;
+            break;
+        case (UNSET):
+            *base++ &= ~right;
+            break;
+        }
+
+        base += 80 - x;
+    }
+};
+/* genDrawBitMap(8); */
 genDrawBitMap(16);
 genDrawBitMap(32);
 
