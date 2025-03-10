@@ -27,6 +27,8 @@ u32 tickSinceInception() {
 
 void setBuffer(void *);
 
+void drawCursor() {}
+
 int main(int argc, char *argv[]) {
     Screen **screens = initScreen();
     inputState *is = initInput();

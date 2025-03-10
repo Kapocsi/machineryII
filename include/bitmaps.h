@@ -1,3 +1,4 @@
+
 /**
  * @file bitmaps.h
  * @brief Declares external bitmap objects.
@@ -7,9 +8,6 @@
 #define BITMAPS_H
 
 #include "global.h"
-#include "raster.h"
 
-extern const BitMap BlackBox;
-extern const BitMap a;
-
+const BitMap cursor;
 #endif

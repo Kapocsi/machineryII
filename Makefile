@@ -17,9 +17,8 @@ MAIN=src\main.o
 main: $(OBJS) $(MAIN)
 	$(CC) $(CFLAGS) $^ -o $@
 
-test: $(objs) test\raster.prg test\bitmaps.prg test\font.prg test\model.prg
+test: $(objs) test\raster.prg  test\font.prg test\model.prg
 	test\raster.prg # RM Local
-	test\bitmaps.prg # RM Local
 	test\font.prg # RM Local
 	test\model.prg # RM Local
 
@@ -37,8 +36,6 @@ format:
 test\raster.prg: $(OBJS) test\raster.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-test\bitmaps.prg: $(OBJS) test\bitmaps.o src\unit.o
-	$(CC) $(CFLAGS) $^ -o $@
 
 test\font.prg: $(OBJS) test\font.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
