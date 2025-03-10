@@ -35,6 +35,6 @@ void failTest();
     }
 
 #define TEST_BEGIN() _startTest()
-#define TEST_END() _endTest()
+#define TEST_END() _endTest();
 
 #endif /* UNIT_H */

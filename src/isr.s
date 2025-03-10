@@ -1,9 +1,9 @@
-    xdef _keyboardIsr
-    xref _handleInput
+    .xdef _keyboardIsr
+    .xref _handleInput
 
-    MFP_IN_SERVICE_B_REG	equ		$FFFFFA11
-    IKBD_RDR_REG			equ		$FFFFFC02
-    IKBD_STATUS_REG		    equ		$FFFFFC00
+.equ MFP_IN_SERVICE_B_REG,0xFFFFFA11
+.equ IKBD_RDR_REG,0xFFFFFC02
+.equ IKBD_STATUS_REG,0xFFFFFC00
 
 _keyboardIsr:
     movem.l	d0-d7/a0-a6,-(sp)
@@ -20,7 +20,7 @@ _keyboardIsr:
 
 
 IKBD_RETURN:
-	andi.b	#$BF,MFP_IN_SERVICE_B_REG
+	andi.b	#0xBF,MFP_IN_SERVICE_B_REG
     movem.l	(sp)+,d0-d7/a0-a6
 	rte
 

@@ -5,4 +5,4 @@
 cat Makefile | gsed 's$\(\S\+\)\\$\1/$g'  Makefile | sed '/# RM Local/d' > .local-makefile
 
 # Run make with a local compiler
-make --makefile=.local-makefile CFLAGS="-Iinclude -mshort -O3" CC=m68k-atari-mint-gcc $@
+make --makefile=.local-makefile CFLAGS="-Iinclude -mshort -O3 -mcpu=68000 -march=68000" CC=m68k-atari-mint-gcc $@

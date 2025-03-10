@@ -6,9 +6,6 @@
 #define IKBD_STATUS 0xFFFFFC00
 #define IKBD_READER 0xFFFFFC02
 
-/** Ascii-ish indexed bit array */
-static long held_keys[8];
-
 /** Chars with non obvious ascii mappings, we add them here to that they are
  * placed in 8 bit ascii */
 typedef enum { UNDEF = 0x80, CTRL, LSHIFT, RSHIFT, ALT, CAPS_LOCK } CTRL_CHARS;
@@ -16,8 +13,8 @@ typedef enum { HEADER, DX, DY } MousePacketStage;
 static Vector previous_isr;
 void keyboardIsr();
 static inputState input_state;
-
 MousePacketStage mps = HEADER;
+
 Vector install_vector(int num, Vector vector) {
     Vector orig;
     Vector *vectp = (Vector *)((long)num << 2);

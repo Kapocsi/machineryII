@@ -5,7 +5,9 @@
 #include "global.h"
 #include "screen.h"
 
+#ifndef ST_LOW
 typedef enum { ST_LOW = 0, ST_MED = 1, ST_HIGH = 2 } Resolutions;
+#endif
 
 volatile Screen alt_buffer[(bufferCount - 1) * SCREEN_BUFFER_SIZE + L_SB_ALIGN];
 
