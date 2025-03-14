@@ -50,6 +50,17 @@ typedef struct {
     /* T state */
 } Decorations;
 
+/**
+ * @struct Model
+ * @brief A single game state.
+ */
+typedef struct {
+    Swimmer swimmer;
+    Score score;
+    Row row;
+    Decorations decor;
+} Model;
+
 /**Decreases the swimmer's y value by a set amount */
 void bob_up(Swimmer *swimmer);
 

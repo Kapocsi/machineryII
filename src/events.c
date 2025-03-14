@@ -1,11 +1,10 @@
 #include "events.h"
 
-void start_game(Swimmer *swimmer, Score *score, Row *row,
-                Decorations *decorations) {
-    swimmer->y = 150;
-    score->score = 0;
-    row->pos = 0;
-    decorations->tick = 0;
+void start_game(Model *model) {
+    model->swimmer.y = 150;
+    model->score.score = 0;
+    model->row.pos = 0;
+    model->decor.tick = 0;
 }
 
 void key_press(char key, Swimmer *swimmer, Score *score, Row *row) {
