@@ -11,8 +11,7 @@
 #include "model.h"
 
 /**Sets up the intial game state*/
-void start_game(Swimmer *swimmer, Score *score, Row *row,
-                Decorations *decorations);
+void start_game(Model *model);
 
 /** @brief Checks if the correct key is pressed, changes game state if so.
  * Increases the score, raises the swimmer, and shifts the row's character

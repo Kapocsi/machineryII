@@ -2,11 +2,24 @@
 #include "font.h"
 #include "global.h"
 #include "raster.h"
-#include "screen.h"
-#include "super.h"
+#include "events.h"
 
 #include <assert.h>
 #include <osbind.h>
+
+/* Required Algorithm Structure in Main (Stage 5)
+
+initialize model
+render model (first frame)
+set quit = false
+
+repeat until quit
+    if input is pending
+        process async event <-- update model requests
+    if clock has ticked
+        process sync events <-- update model data
+        render model (next frame)
+*/
 
 void disable_cursor() {
     printf("\033f");
@@ -18,11 +31,9 @@ void enable_cursor() {
     fflush(stdout);
 }
 
-u32 tickSinceInception() {
-    u32 ticks;
-    SuperDo(ticks = *(u32 *)(0x462));
-    return ticks;
-}
+int main(int argc, char *argv[]) {
+    Screen *base = (Screen *)Physbase();
+    char str[] = "Hello World!";
 
 void setBuffer(void *);
 
