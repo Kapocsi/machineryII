@@ -3,6 +3,8 @@
 #include "raster.h"
 #include "events.h"
 
+#include "screen.h"
+#include <assert.h>
 #include <osbind.h>
 #include <stdio.h>
 #include <string.h>
@@ -31,18 +33,38 @@ void enable_cursor() {
     fflush(stdout);
 }
 
+u32 tickSinceInception() {
+    long ssp = Super(0);
+    u32 ticks = *(u32 *)(0x462);
+    Super(ssp);
+
+    return ticks;
+}
+
 int main(int argc, char *argv[]) {
-    Screen *base = (Screen *)Physbase();
+    Screen **screens = initScreen();
+    char str[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                 "Quisque elit est null\n";
+    long ssp = 0;
+    int i = 0;
+    Screen *base;
+    u32 start = 0;
 
-    Model model;
-    start_game(&model);
-
-    
-
-    char str[] = "Hello World!";
-
+    base = screens[Primary];
     white_screen(base);
-    drawBigText(base, str, strlen(str), 0, 200, SET);
+    for (i = 0; i < SCREEN_HEIGHT - 16; i += 16)
+        drawSmallText(base, str, strlen(str), 0, i, SET);
+
+    base = screens[Secondary];
+    black_screen(base);
+    for (i = 0; i < SCREEN_HEIGHT - 16; i += 16)
+        drawSmallText(base, str, strlen(str), 0, i, UNSET);
+
+    switchBuffer(Primary);
+    Cconin();
+    switchBuffer(Secondary);
+    Cconin();
+    switchBuffer(Original);
 
     return 0;
 }

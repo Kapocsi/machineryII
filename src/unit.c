@@ -3,23 +3,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static jmp_buf test_env;
-static unsigned int passed_tests = 0;
-static unsigned int failed_tests = 0;
+jmp_buf test_env;
+static unsigned long passed_tests = 0;
+static unsigned long failed_tests = 0;
 
 /** Reset the testing environment */
 void _startTest() {
     passed_tests = 0;
     failed_tests = 0;
+    printf("%ld %ld \n", passed_tests, failed_tests);
     printf("====== BEGIN TESTS ===== \n");
 }
 
 /** End the testing and print out final stats */
 void _endTest() {
     printf("======= END TESTS ======= \n"
-           "%d tests run, %d passing, %d failing.\n",
+           "%lu tests run, %lu passing, %lu failing.\n",
            passed_tests + failed_tests, passed_tests, failed_tests);
-
     if (passed_tests == passed_tests + failed_tests)
         exit(0);
     exit(-1);

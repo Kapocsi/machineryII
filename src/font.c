@@ -14,12 +14,10 @@ void drawSmallText(Screen *base, char *str, u32 text_len, u16 x, u16 y,
     BitMap c = {0, SMALL_TEXT_WIDTH, SMALL_TEXT_HEIGHT};
     u16 i = 0;
 
-    /* Assert in bounds */
     assert(SMALL_TEXT_WIDTH * text_len + x < SCREEN_WIDTH);
     assert(y + SMALL_TEXT_HEIGHT < SCREEN_HEIGHT);
 
     for (i = 0; i < text_len; i++) {
-        /** Load the correct gyph into the bitmap struct */
         c.longs = glyphs[str[i]];
 
         drawBitMap(base, &c, x + i * SMALL_TEXT_WIDTH, y, drawMode);

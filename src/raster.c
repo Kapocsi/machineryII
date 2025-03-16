@@ -7,10 +7,17 @@
     /* (x * 32) + (y * 20) */                                                  \
     (x >> 5) + (y << 4) + (y << 2)
 
-u32 min(u32 a, u32 b) {
+static u32 min(u32 a, u32 b) {
     if (a > b)
         return b;
     return a;
+}
+
+static u32 max(u32 a, u32 b) {
+    if (a > b)
+        return a;
+    else
+        return b;
 }
 
 void black_screen(Screen *base) {
@@ -94,33 +101,22 @@ void drawBitMap(Screen *base, const BitMap *bitmap, const u16 x_start,
                 const u16 y_start, BitMapDrawMode draw_mode) {
     u16 alignment = min(bitmap->width & 31, x_start & 31);
     if (alignment == 0)
-        alignment = bitmap->width & 31;
+        alignment = max(bitmap->width & 31, x_start & 31);
 
     /* Allow for attempting to draw to null screen and drawing null bitmap,
     this might occur in debugging and we should handle it gracefully. */
     if (base == NULL || bitmap == NULL || bitmap->longs == NULL)
         return;
 
-    /* These should be checked in the callee, as doing the complex checks on
-     * each draw would slow us down, this should only be checked in debug builds
-     */
-
-    /* TODO allow for disableing these checks at comptime */
-    assert(x_start + bitmap->width <= SCREEN_WIDTH);
-    assert(y_start + bitmap->height <= SCREEN_HEIGHT);
-
     switch (alignment) {
     case 0: /* Divisible by 32 */
-        assert(alignment % 32 == 0);
         drawBitMap32(base, bitmap, x_start, y_start, draw_mode);
         break;
     case 16: /* Divisible by 16 */
-        assert(alignment % 16 == 0);
         drawBitMap16(base, bitmap, x_start, y_start, draw_mode);
         break;
     case 8: /* Divisible by 8*/
     case 24:
-        assert(alignment % 8 == 0);
         drawBitMap8(base, bitmap, x_start, y_start, draw_mode);
         break;
     default:
