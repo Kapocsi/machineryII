@@ -17,15 +17,12 @@ MAIN=src\main.o
 main: $(OBJS) $(MAIN)
 	$(CC) $(CFLAGS) $^ -o $@
 
-test: $(objs) test\raster.prg  test\font.prg test\model.prg
-	test\raster.prg # RM Local
-	test\font.prg # RM Local
-	test\model.prg # RM Local
-
-
-assets:
-	bitmapgen -oc src/bitmaps.c -oh include/bitmaps.h assets/*.png
-	clang-format -i include/bitmaps.h src/bitmaps.c
+test: $(objs) test\raster.prg test\bitmaps.prg test\font.prg test\model.prg test\psg.prg
+	test\raster.prg
+	test\bitmaps.prg
+	test\font.prg
+	test\model.prg
+	test\psg.prg
 
 clean:
 	$(RM) *.o src\*.o test\*.o test\*.prg *.prg main
@@ -48,6 +45,6 @@ test\font.prg: $(OBJS) test\font.o src\unit.o
 test\model.prg: $(OBJS) test\model.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-test\vtest.prg: $(OBJS) test\vtest.o
+test\psg.prg: $(OBJS) test\psg.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
