@@ -60,16 +60,13 @@ void test_tick_up() {
 }
 
 void test_start_game() {
-    Swimmer swimmer = {200};
-    Score score = {9998};
-    Row row = {text, 0};
-    Decorations decorations = {10};
+    Model model = {{200}, {9998}, {text, 0}, {10}};
 
-    start_game(&swimmer, &score, &row, &decorations);
-    TEST_ASSERT_EQUAL(150, swimmer.y);
-    TEST_ASSERT_EQUAL(0, score.score);
-    TEST_ASSERT_EQUAL(0, row.pos);
-    TEST_ASSERT_EQUAL(0, decorations.tick);
+    start_game(&model);
+    TEST_ASSERT_EQUAL(150, model.swimmer.y);
+    TEST_ASSERT_EQUAL(0, model.score.score);
+    TEST_ASSERT_EQUAL(0, model.row.pos);
+    TEST_ASSERT_EQUAL(0, model.decor.tick);
 }
 
 void test_key_press() {

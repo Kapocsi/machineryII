@@ -3,7 +3,7 @@
 CC=cc68x
 CFLAGS=-g -Iinclude
 FONT_OBJS=src\unifont.o src\depixel.o src\font.o
-OBJS=src\raster.o src\bitmaps.o src\model.o src\events.o $(FONT_OBJS)  src\adler32.o src\screen.o
+OBJS=src\raster.o src\bitmaps.o src\model.o src\events.o src\psg.o src\music.o $(FONT_OBJS)  src\adler32.o src\screen.o
 MAIN=src\main.o
 
 .PHONY: test clean run format
@@ -15,11 +15,12 @@ MAIN=src\main.o
 main: $(OBJS) $(MAIN)
 	$(CC) $(CFLAGS) $^ -o $@
 
-test: $(objs) test\raster.prg test\bitmaps.prg test\font.prg test\model.prg
+test: $(objs) test\raster.prg test\bitmaps.prg test\font.prg test\model.prg test\psg.prg
 	test\raster.prg
 	test\bitmaps.prg
 	test\font.prg
 	test\model.prg
+	test\psg.prg
 
 clean:
 	$(RM) *.o src\*.o test\*.o test\*.prg *.prg main
@@ -42,5 +43,8 @@ test\font.prg: $(OBJS) test\font.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 test\model.prg: $(OBJS) test\model.o src\unit.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+test\psg.prg: $(OBJS) test\psg.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
