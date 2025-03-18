@@ -8,7 +8,7 @@ OBJS=src\raster.o src\bitmaps.o src\model.o src\events.o \
 	src\switch.o
 MAIN=src\main.o
 
-.PHONY: test clean run format
+.PHONY: test clean run format assets
 
 
 # run: main	# RM Local
@@ -21,6 +21,10 @@ test: $(objs) test\raster.prg  test\font.prg test\model.prg
 	test\raster.prg # RM Local
 	test\font.prg # RM Local
 	test\model.prg # RM Local
+
+assets:
+	bitmapgen -oc src/bitmaps.c -oh include/bitmaps.h assets/*.png
+	clang-format -i include/bitmaps.h src/bitmaps.c
 
 clean:
 	$(RM) *.o src\*.o test\*.o test\*.prg *.prg main

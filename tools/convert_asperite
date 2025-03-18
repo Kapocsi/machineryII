@@ -1,0 +1,3 @@
+#! /usr/bin/env bash
+
+fd -e aseprite -x asperite -b {} --save-as {.}.png

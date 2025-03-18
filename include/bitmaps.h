@@ -8,7 +8,11 @@
 #define BITMAPS_H
 
 #include "global.h"
+#include "raster.h"
 
 extern const BitMap cursor;
-
+extern const BitMap test_pattern16;
+extern const BitMap test_pattern32;
+extern const BitMap test_pattern64;
+extern const BitMap test_pattern8;
 #endif

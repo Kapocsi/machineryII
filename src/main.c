@@ -1,10 +1,10 @@
 #include "bitmaps.h"
+#include "font.h"
 #include "global.h"
-#include "input.h"
 #include "raster.h"
+#include "screen.h"
 #include "super.h"
 
-#include "screen.h"
 #include <assert.h>
 #include <osbind.h>
 
@@ -27,29 +27,31 @@ u32 tickSinceInception() {
 void setBuffer(void *);
 
 int main(int argc, char *argv[]) {
+    int x, i = 0;
     Screen **screens = initScreen();
-    inputState *is = initInput();
-    Screen *base;
-    int px, py, cx = 0, cy = 0;
+    Screen *base = screens[Original];
+    white_screen(base);
 
-    base = screens[Primary];
-    switchBuffer(Primary);
-
-    while (1) {
-        px = cx;
-        py = cy;
-
-        cx = is->mouse.x;
-        cy = is->mouse.y;
-
-        drawBitMap8(base, &cursor, px, py, UNSET);
-        drawBitMap8(base, &cursor, cx, cy, SET);
-
-        Vsync();
+    for (x = 0; x < 64; x++) {
+        drawBitMap(base, &test_pattern8, x, 0, SET);
+        Cconin();
+        drawBitMap(base, &test_pattern8, x, 0, UNSET);
     }
-
-    deinitInput();
-    switchBuffer(Original);
+    for (x = 0; x < 64; x++) {
+        drawBitMap(base, &test_pattern16, x, 0, SET);
+        Cconin();
+        drawBitMap(base, &test_pattern16, x, 0, UNSET);
+    }
+    for (x = 0; x < 64; x++) {
+        drawBitMap(base, &test_pattern32, x, 0, SET);
+        Cconin();
+        drawBitMap(base, &test_pattern32, x, 0, UNSET);
+    }
+    for (x = 0; x < 64; x++) {
+        drawBitMap(base, &test_pattern64, x, 0, SET);
+        Cconin();
+        drawBitMap(base, &test_pattern64, x, 0, UNSET);
+    }
 
     return 0;
 }

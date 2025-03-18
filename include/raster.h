@@ -83,7 +83,4 @@ void drawVerticalLine(Screen *base, u16 x_pos, u16 y_start, u16 y_end);
  */
 void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end);
 
-void drawBitMap8(Screen *screen, const BitMap *bitmap, const u16 x_start,
-                 const u16 y_start, BitMapDrawMode draw_mode);
-
 #endif /* RASTER_H */
