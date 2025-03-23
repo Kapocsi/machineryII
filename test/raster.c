@@ -109,37 +109,14 @@ enum Bool isBlank() {
     return sts;
 }
 
-void testDrawBitMap() {
-    int i = 0, x = 0;
-    const BitMap *test_patterns[4] = {&test_pattern8, &test_pattern16,
-                                      &test_pattern32, &test_pattern64};
-    const int test_pattern_count = sizeof(test_patterns) / sizeof(void *);
-    FILE *f = fopen("hashes.txt", "w+");
-
-    if (f == NULL) {
-        TODO()
-    }
-
-    for (; i < test_pattern_count; i++) {
-        for (x = 0; x < 64; x++) {
-            drawBitMap(base, test_patterns[i], x, 0, SET);
-            adler32((u8 *)base, SCREEN_BUFFER_SIZE * 4);
-            drawBitMap(base, test_patterns[i], x, 0, UNSET);
-            TEST_ASSERT(isBlank());
-        }
-    }
-}
-
 int main() {
     TEST_BEGIN();
 
-    /* RUN_TEST(test_black_screen); */
-    /* RUN_TEST(test_white_screen); */
-    /* RUN_TEST(ensure_blank); */
-    /* RUN_TEST(test_vertical_line); */
-    /* RUN_TEST(test_horizontal_line); */
-    /* RUN_TEST(test_set_pixel); */
-    RUN_TEST(testDrawBitMap);
+    RUN_TEST(test_black_screen);
+    RUN_TEST(test_white_screen);
+    RUN_TEST(test_vertical_line);
+    RUN_TEST(test_horizontal_line);
+    RUN_TEST(test_set_pixel);
 
     TEST_END();
 }

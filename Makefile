@@ -22,6 +22,7 @@ test: $(objs) test\raster.prg  test\font.prg test\model.prg
 	test\font.prg # RM Local
 	test\model.prg # RM Local
 
+
 assets:
 	bitmapgen -oc src/bitmaps.c -oh include/bitmaps.h assets/*.png
 	clang-format -i include/bitmaps.h src/bitmaps.c
@@ -45,5 +46,8 @@ test\font.prg: $(OBJS) test\font.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 test\model.prg: $(OBJS) test\model.o src\unit.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+test\vtest.prg: $(OBJS) test\vtest.o
 	$(CC) $(CFLAGS) $^ -o $@
 
