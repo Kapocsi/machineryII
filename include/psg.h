@@ -14,20 +14,21 @@
    routine to be used by the other functions in this module.*/
 void write_psg(u8 reg, u8 val);
 
-u8 read_psg(u8 reg); /*Used for testing*/
+/**Used for testing*/
+u8 read_psg(u8 reg); 
 
-void set_tone(u8 channel, u32 tuning);
- /*Loads the tone registers (coarse and fine) for the given channel (0=A, 1=B, 2=C) with the
+/**Loads the tone registers (coarse and fine) for the given channel (0=A, 1=B, 2=C) with the
 given 12-bit tuning.*/
+void set_tone(u8 channel, u32 tuning);
 
- void set_volume(u8 channel, u8 volume);
-/*Loads the volume register for the given channel.*/
+/**Loads the volume register for the given channel.*/
+void set_volume(u8 channel, u8 volume);
 
+/**Turns the given channel’s tone/noise signals on/off (0=off, 1=on).*/
 void enable_channel(u8 channel, enum Bool tone_on, enum Bool noise_on);
-/*Turns the given channel’s tone/noise signals on/off (0=off, 1=on).*/
 
+/**Silences all PSG sound production.*/
 void stop_sound();
-/*Silences all PSG sound production.*/
 
 /**Loads the noise register with the given tuning.*/
 void set_noise(u8 tuning);

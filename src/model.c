@@ -14,7 +14,7 @@ static const u8 SW_SPEED = 10;
 /**
  * @brief The number of characters in the typing row
  */
-static const u8 ROW_W = 15;
+static const u8 ROW_W = 25;
 
 void bob_up(Swimmer *swimmer) {
     if (swimmer->y > SW_MIN_Y + SW_SPEED) {

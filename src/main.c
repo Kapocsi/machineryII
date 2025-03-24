@@ -1,5 +1,7 @@
 #include "font.h"
 #include "global.h"
+#include "music.h"
+#include "psg.h"
 #include "raster.h"
 #include "events.h"
 
@@ -13,6 +15,7 @@
 
 initialize model
 render model (first frame)
+start music
 set quit = false
 
 repeat until quit
@@ -21,6 +24,7 @@ repeat until quit
     if clock has ticked
         process sync events <-- update model data
         render model (next frame)
+        update music
 */
 
 void disable_cursor() {
@@ -49,6 +53,32 @@ int main(int argc, char *argv[]) {
     int i = 0;
     Screen *base;
     u32 start = 0;
+    u32 ticks;
+    u8 beat_count = 0;
+    u8 prev_note = 0;
+
+    Model model = {{150}, {0}, {0}, {0}};
+
+    start_game(&model);
+    start_music();
+    ticks = tickSinceInception();
+    
+    
+    for (i = 0; i < 160; i++) {
+        while (tickSinceInception() - ticks < 1)
+            ;
+
+        ticks = tickSinceInception();
+        tick_increment(&model);
+        if (beat_count >= 20) {
+            prev_note = update_music(prev_note);
+            beat_count = 0;
+        } else {
+            beat_count++;
+        }
+
+    }
+    stop_sound();
 
     base = screens[Primary];
     white_screen(base);

@@ -2,22 +2,32 @@
 
 #include "unit.h"
 
+#include "global.h"
 #include "psg.h"
 #include "music.h"
 #include <osbind.h>
 #include <stdio.h>
 
+static const u32 melody[] = {0x0F0, 0x0BE, 0x0A0, 0x0AA};
+
 void setUp() {}
 void tearDown() {}
 
+u32 tickSinceInception() {
+    long ssp = Super(0);
+    u32 ticks = *(u32 *)(0x462);
+    Super(ssp);
 
-void test_write_psg() {
-
+    return ticks;
 }
 
-void test_read_psg() {
+
+void test_write_read_psg() {
     write_psg(0, 0xFE);
-    printf("\nValue of A fine tone: %u\n", read_psg(0));
+    TEST_ASSERT_EQUAL(0xFE, read_psg(0));
+    write_psg(0, 0x01);
+    TEST_ASSERT_EQUAL(0x1, read_psg(0));
+
 }
 
 void test_set_tone() {
@@ -45,25 +55,24 @@ void test_set_envelope() {
 }
 
 void test_start_music() {
-    printf("\nValue of mixer: %u\n", read_psg(7));
-    set_tone(0, 0x101);
-    printf("Value of mixer: %u\n", read_psg(7));
-    set_tone(0, 0x1EE);
-    printf("Value of channel A fine tone: %u\n", read_psg(0));
-    /*
-    enable_channel(0, True, True);
-    set_volume(0, 11);
-    Cconin();
-
-    set_tone(0, 0x1EE);
-    enable_channel(0, True, True);
-    set_volume(0, 11);
-    Cconin();*/
-
 }
 
 void test_update_music() {
+    u32 ticks = tickSinceInception();
+    u32 ticksElapsed;
+    u8 prev_index = 0;
+    u32 i;
+    
+    start_music();
 
+    for (i = 0; i < 50; i++) {
+        while (tickSinceInception() - ticks < 20)
+            ;
+
+        printf("Last note: %lu\n", (u32) prev_index);
+        prev_index = update_music(prev_index);
+        ticks = tickSinceInception();
+    }
 }
 
 
@@ -71,8 +80,7 @@ void test_update_music() {
 int main() {
     TEST_BEGIN();
 
-    RUN_TEST(test_write_psg);
-    RUN_TEST(test_read_psg);
+    RUN_TEST(test_write_read_psg);
     RUN_TEST(test_set_tone);
     RUN_TEST(test_set_volume);
     RUN_TEST(test_enable_channel);

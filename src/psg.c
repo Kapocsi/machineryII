@@ -15,14 +15,13 @@ void write_psg(u8 reg, u8 val) {
 
 u8 read_psg(u8 reg) {
     volatile u8 *reg_select = (u8 *) 0xFFFF8800;
-	volatile u8 *reg_read = (u8 *) 0xFFFF8802;
     u32 old_ssp;
     u8 value = 0;
 
     if (reg <= 15) {
         old_ssp = Super(0);
         *reg_select = reg;
-        value = *reg_read;
+        value = *reg_select;
         Super(old_ssp);
     }
     return value;
