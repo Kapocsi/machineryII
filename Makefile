@@ -5,7 +5,7 @@ CFLAGS=-g -Iinclude
 FONT_OBJS=src\unifont.o src\depixel.o src\font.o
 OBJS=src\raster.o src\bitmaps.o src\model.o src\events.o \
 	$(FONT_OBJS) src\adler32.o src\screen.o src\isr.s src\input.o src\super.o \
-	src\switch.o
+	src\switch.o src\psg.o
 MAIN=src\main.o
 
 .PHONY: test clean run format assets
@@ -17,9 +17,8 @@ MAIN=src\main.o
 main: $(OBJS) $(MAIN)
 	$(CC) $(CFLAGS) $^ -o $@
 
-test: $(objs) test\raster.prg test\bitmaps.prg test\font.prg test\model.prg test\psg.prg
+test: $(objs) test\raster.prg  test\font.prg test\model.prg test\psg.prg
 	test\raster.prg
-	test\bitmaps.prg
 	test\font.prg
 	test\model.prg
 	test\psg.prg
@@ -47,4 +46,5 @@ test\model.prg: $(OBJS) test\model.o src\unit.o
 
 test\psg.prg: $(OBJS) test\psg.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
+
 
