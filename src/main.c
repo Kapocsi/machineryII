@@ -38,19 +38,7 @@ typedef Screen **Screens;
 
 int main(int argc, char *argv[]) {
     Screens screens = initScreen();
-    inputState *i = initInput();
-    /* Model m; */
-    /**/
-    /* switchBuffer(Secondary); */
-    /* initModel(&m); */
 
-    /* change_row(&m.row, "Hello World!"); */
-    /* render(m, screens); */
-    /**/
-    /* switchBuffer(Original); */
-
-    while (1)
-        ;
-
+    printf("TODO!\n");
     return 0;
 }
