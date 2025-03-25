@@ -1,4 +1,5 @@
 #include "global.h"
+#include "input.h"
 #include "model.h"
 #include "render.h"
 #include "screen.h"
@@ -21,19 +22,19 @@ typedef Screen **Screens;
 
 int main(int argc, char *argv[]) {
     Screens screens = initScreen();
-    Model m;
+    inputState *i = initInput();
+    /* Model m; */
+    /**/
+    /* switchBuffer(Secondary); */
+    /* initModel(&m); */
 
-    switchBuffer(Secondary);
+    /* change_row(&m.row, "Hello World!"); */
+    /* render(m, screens); */
+    /**/
+    /* switchBuffer(Original); */
 
-    initModel(&m);
-
-    change_row(&m.row, "Hello World!");
-
-    render(m, screens);
-
-    Cconin();
-
-    switchBuffer(Original);
+    while (1)
+        ;
 
     return 0;
 }

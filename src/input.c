@@ -1,4 +1,5 @@
 #include <osbind.h>
+#include <stdio.h>
 
 #include "global.h"
 #include "input.h"
@@ -39,12 +40,54 @@ char shifted_keyboard[] = "\x80\033!@#$%^&*()_+\b\t"
                           "ZXCVBNM<>?\x83\x80\x84 \x85";
 
 char capslocked_keyboard[] = "\x80\0331234567890-=\b\t"
-                             "qwertyuiop[]\n\x81"
-                             "asdfghjkl;'`\x82\\"
-                             "zxcvbnm,./\x83\x80\x84 \x85";
+                             "QWERTYUIOP[]\n\x81"
+                             "ASDFGHJKL;'`\x82\\"
+                             "ZXCVBNM,./\x83\x80\x84 \x85";
+
+#define LSHIFT 0x2a
+#define RSHIFT 0x36
+#define CAPS_LOCK 0x3a
+
+void handleKeyboard(int c) {
+    char *map = keyboard;
+    const enum Bool down = !(c & 0x80);
+    char input = c & 0x3f;
+
+    /** Handle shift release */
+    if (!down && input == LSHIFT || input == RSHIFT) {
+        input_state.shift = False;
+    }
+
+    /** Only process keydown requests */
+    if (!down)
+        return;
+
+    switch (c & 0x3f) {
+    case RSHIFT:
+    case LSHIFT:
+        input_state.shift = True;
+        break;
+    case CAPS_LOCK:
+        printf("Toggle Capslock\n");
+        input_state.capsLock = !input_state.capsLock;
+    }
+
+    /** Set the correct scan code -> ascii-ish mapping; todo this mean that
+     * symbols won't work in capslock mode, future me problem*/
+    if (input_state.capsLock && !input_state.shift) {
+        map = capslocked_keyboard;
+    } else if (!input_state.capsLock && input_state.shift)
+        map = shifted_keyboard;
+
+    printf("%04x %d -> %c %d %d\n", c & 0x3f, down, map[c], input_state.shift,
+           input_state.capsLock);
+}
 
 void handleInput() {
     int c = *(char *)IKBD_READER;
+
+    if (mps == HEADER && c != 0xfff8)
+        handleKeyboard(c);
 
     if (c == 0xfff8 && mps != HEADER)
         return;
@@ -72,4 +115,5 @@ inputState *initInput() {
     previous_isr = install_vector(70, keyboardIsr);
     return &input_state;
 }
+
 void deinitInput() { install_vector(70, previous_isr); }

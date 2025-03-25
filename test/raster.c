@@ -51,7 +51,7 @@ void test_vertical_line() {
 
 void test_horizontal_line() {
     int i = 0;
-    drawHorizontalLine(base, 1, 0, 640);
+    drawHorizontalLine(base, 1, 0, 640, SET);
 
     for (i = 0; i < SCREEN_BUFFER_SIZE; i++) {
         if (i > 19 && i < 40) {

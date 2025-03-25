@@ -1,6 +1,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#include "global.h"
 typedef void (*Vector)();
 
 typedef struct {
@@ -10,6 +11,9 @@ typedef struct {
 
 typedef volatile struct {
     Mouse mouse;
+    enum Bool capsLock;
+    enum Bool shift;
+
 } inputState;
 
 inputState *initInput();

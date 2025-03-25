@@ -4,18 +4,6 @@
 #include <assert.h>
 #include <string.h>
 
-#define UNDERLINE_Y_OFFSET -6
-#define UNDERLINE_TICHNES 5
-
-void drawBigTextUnderline(Screen *base, u8 pos) {
-    int i = 0;
-
-    for (i = 0; i < UNDERLINE_TICHNES; i++) {
-        drawHorizontalLine(base, SCREEN_HEIGHT + UNDERLINE_Y_OFFSET - i,
-                           BIG_TEXT_WIDTH * pos,
-                           (BIG_TEXT_WIDTH * (pos + 1)) - 10);
-    }
-}
 
 void drawSmallText(Screen *base, char *str, u16 x, u16 y,
                    BitMapDrawMode drawMode) {

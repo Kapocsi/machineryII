@@ -150,7 +150,9 @@ void drawVerticalLine(Screen *base, u16 x, u16 y_start, u16 y_end) {
     }
 }
 
-void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end) {
+void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end,
+                        BitMapDrawMode mode) {
+    u32 mask;
 
     /* offset to the current long in the row */
     u8 x = x_start >> 5;
@@ -165,20 +167,25 @@ void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end) {
     /* offset (from the left) of the ending bit in the last long */
     u32 e_offset = x_end & 31;
 
+    if (mode == SET)
+        mask = ~0l;
+    else
+        mask = 0l;
+
     if (x < x_limit) {
         /* fill in the first long */
-        base[x + y_offset] |= ~0L >> s_offset;
+        base[x + y_offset] |= mask >> s_offset;
         x++;
 
         /* fill in the intermediate longs */
         for (; x < x_limit; x++) {
-            base[x + y_offset] = ~0L;
+            base[x + y_offset] = mask;
         }
 
         /* fill in the last long */
-        base[x + y_offset] |= ~(~0L >> e_offset);
+        base[x + y_offset] |= ~(mask >> e_offset);
 
     } else {
-        base[x + y_offset] |= (~0L >> s_offset) ^ (~0L >> e_offset);
+        base[x + y_offset] |= (mask >> s_offset) ^ (~0L >> e_offset);
     }
 };

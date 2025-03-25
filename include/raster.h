@@ -81,6 +81,7 @@ void drawVerticalLine(Screen *base, u16 x_pos, u16 y_start, u16 y_end);
  * @param x_start Starting X-coordinate (must be in-bounds, x_start < x_end).
  * @param x_end Ending X-coordinate (must be in-bounds).
  */
-void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end);
+void drawHorizontalLine(Screen *base, u16 y_pos, u16 x_start, u16 x_end,
+                        BitMapDrawMode mode);
 
 #endif /* RASTER_H */

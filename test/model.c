@@ -4,7 +4,7 @@
 
 #include "events.h"
 
-static const char text[] = "the quick brown";
+#define TEXT "the quick brown"
 static const char new_text[] = "fox jumped over";
 
 void setUp() {}
@@ -24,7 +24,7 @@ void test_sink() {
 
 void test_shift_pointer() {
     u8 i;
-    Row row = {text, 0};
+    Row row = {TEXT, 0};
     for (i = 0; i < 15; i++) {
         TEST_ASSERT_EQUAL(i, row.pos);
         shift_pointer(&row);
@@ -34,10 +34,10 @@ void test_shift_pointer() {
 
 void test_change_row() {
     int i;
-    Row row = {text, 0};
+    Row row = {TEXT, 0};
 
     for (i = 0; i < 15; i++) {
-        TEST_ASSERT_EQUAL(text[i], row.text[i]);
+        TEST_ASSERT_EQUAL(TEXT[i], row.text[i]);
     }
     change_row(&row, new_text);
     for (i = 0; i < 15; i++) {
@@ -60,7 +60,7 @@ void test_tick_up() {
 }
 
 void test_start_game() {
-    Model model = {{200}, {9998}, {text, 0}, {10}};
+    Model model = {{200}, {9998}, {TEXT, 0}, {10}};
 
     start_game(&model);
     TEST_ASSERT_EQUAL(150, model.swimmer.y);
@@ -72,7 +72,7 @@ void test_start_game() {
 void test_key_press() {
     Swimmer swimmer = {200};
     Score score = {0};
-    Row row = {text, 0};
+    Row row = {TEXT, 0};
 
     key_press('s', &swimmer, &score, &row);
     TEST_ASSERT_EQUAL(200, swimmer.y);
