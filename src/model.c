@@ -16,7 +16,7 @@ static const u8 SW_SPEED = 10;
 /**
  * @brief The number of characters in the typing row
  */
-static const u8 ROW_W = 15;
+static const u8 ROW_W = 25;
 
 #define DEFAULT_SCORE 0
 #define SWIMMER_START_POS 64
