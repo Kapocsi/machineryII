@@ -7,3 +7,4 @@ HTML_COLORSTYLE        = LIGHT # required with Doxygen >= 1.9.5
 PROJECT_NAME = "Man Over Board"
 OPTIMIZE_OUTPUT_FOR_C = yes
 VERBATIM_HEADERS=NO
+INPUT = include .
