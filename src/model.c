@@ -1,4 +1,6 @@
 #include "model.h"
+#include "global.h"
+#include <string.h>
 
 /**
  * @brief The minimum permitted Swimmer y-coordinate.
@@ -15,6 +17,16 @@ static const u8 SW_SPEED = 10;
  * @brief The number of characters in the typing row
  */
 static const u8 ROW_W = 15;
+
+#define DEFAULT_SCORE 0
+#define SWIMMER_START_POS 64
+
+void initModel(Model *m) {
+    memset(m, 0, sizeof(*m));
+    m->score.score = DEFAULT_SCORE;
+    m->swimmer.y = SWIMMER_START_POS;
+    m->decor.tick = 0;
+}
 
 void bob_up(Swimmer *swimmer) {
     if (swimmer->y > SW_MIN_Y + SW_SPEED) {
@@ -39,6 +51,6 @@ void increase_score(Score *score) {
         (score->score)++;
 }
 
-void change_row(Row *row, char *new_string) { row->text = new_string; }
+void change_row(Row *row, char *new_string) { strcpy(row->text, new_string); }
 
 void tick_up(Decorations *decorations) { (decorations->tick)++; }

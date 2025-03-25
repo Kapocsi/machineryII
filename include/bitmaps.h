@@ -11,6 +11,7 @@
 #include "raster.h"
 
 extern const BitMap cursor;
+extern const BitMap swimmer_idle_l;
 extern const BitMap test_pattern16;
 extern const BitMap test_pattern32;
 extern const BitMap test_pattern64;

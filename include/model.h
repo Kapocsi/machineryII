@@ -37,8 +37,8 @@ typedef struct {
  * identified by its position within the Row's string value.
  */
 typedef struct {
-    char *text; /**The string displayed in the row*/
-    u8 pos;     /**The position of the next charcter to type in the row */
+    char text[128]; /**The string displayed in the row*/
+    u8 pos;         /**The position of the next character to type in the row */
 } Row;
 
 /**
@@ -78,5 +78,8 @@ void increase_score(Score *score);
 
 /**Increases the tick counter by one */
 void tick_up(Decorations *decorations);
+
+/**Initialize model with default values */
+void initModel(Model *m);
 
 #endif

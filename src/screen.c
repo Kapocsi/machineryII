@@ -28,6 +28,7 @@ void switchBuffer(ScreenBuffer switch_to) {
 }
 
 Screen **initScreen() {
+    static int done = 0;
     Screen *alt_buffer_start = alignTo(alt_buffer, L_SB_ALIGN);
 
     SuperDo(screens[Original] = *(Screen **)lbase);

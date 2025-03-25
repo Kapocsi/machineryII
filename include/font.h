@@ -10,6 +10,12 @@
 #ifndef FONT_H
 #define FONT_H
 
+#define SMALL_TEXT_WIDTH 8
+#define SMALL_TEXT_HEIGHT 16
+#define BIG_TEXT_WIDTH 64
+#define BIG_TEXT_SPACING 48
+#define BIG_TEXT_HEIGHT 65
+
 #include "global.h"
 #include "raster.h"
 
@@ -52,5 +58,14 @@ void drawSmallText(Screen *base, char *str, u16 x, u16 y,
  */
 void drawBigText(Screen *base, char *str, u16 x, u16 y,
                  BitMapDrawMode drawMode);
+
+/**
+ * @brief Draw a underline under a character when draw at the bottom of the
+ * screen
+ *
+ * @param base Pointer to the screen buffer.
+ * @param pos index of the char to underline
+ */
+void drawBigTextUnderline(Screen *base, u8 pos);
 
 #endif

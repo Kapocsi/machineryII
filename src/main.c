@@ -1,7 +1,11 @@
 #include "global.h"
+#include "model.h"
+#include "render.h"
+#include "screen.h"
 
 #include <assert.h>
 #include <osbind.h>
+#include <stdio.h>
 
 void disable_cursor() {
     printf("\033f");
@@ -13,7 +17,23 @@ void enable_cursor() {
     fflush(stdout);
 }
 
+typedef Screen **Screens;
+
 int main(int argc, char *argv[]) {
-    Screen *base = (Screen *)Physbase();
-    char str[] = "Hello World!";
+    Screens screens = initScreen();
+    Model m;
+
+    switchBuffer(Secondary);
+
+    initModel(&m);
+
+    change_row(&m.row, "Hello World!");
+
+    render(m, screens);
+
+    Cconin();
+
+    switchBuffer(Original);
+
+    return 0;
 }

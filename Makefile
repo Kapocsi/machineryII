@@ -5,7 +5,7 @@ CFLAGS=-g -Iinclude
 FONT_OBJS=src\unifont.o src\depixel.o src\font.o
 OBJS=src\raster.o src\bitmaps.o src\model.o src\events.o \
 	$(FONT_OBJS) src\adler32.o src\screen.o src\isr.s src\input.o src\super.o \
-	src\switch.o src\psg.o
+	src\switch.o src\psg.o src\render.o src\itoa.o
 MAIN=src\main.o
 
 .PHONY: test clean run format assets
@@ -22,6 +22,11 @@ test: $(objs) test\raster.prg  test\font.prg test\model.prg test\psg.prg
 	test\font.prg
 	test\model.prg
 	test\psg.prg
+
+
+assets:
+	bitmapgen -oc src/bitmaps.c -oh include/bitmaps.h assets/*.png
+	clang-format -i include/bitmaps.h src/bitmaps.c
 
 clean:
 	$(RM) *.o src\*.o test\*.o test\*.prg *.prg main

@@ -68,6 +68,7 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
     void drawBitMap##size(Screen *screen, const BitMap *bitmap,                \
                           const u16 x_start, const u16 y_start,                \
                           BitMapDrawMode draw_mode) {                          \
+        u32 *baseEnd = (screen + SCREEN_BUFFER_SIZE);                          \
         u##size *base = (u##size *)screen;                                     \
         u##size *bmaps = (u##size *)bitmap->longs;                             \
         u##size x, y, xo, left, right;                                         \
@@ -78,6 +79,8 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
                                                                                \
         for (y = 0; y < bitmap->height; y++) {                                 \
             for (x = 0; x < bitmap->width / size; x++) {                       \
+                if ((u32)base >= (u32)baseEnd)                                 \
+                    return;                                                    \
                 right = (*bmaps) << (size - xo);                               \
                 left = (*bmaps++) >> xo;                                       \
                 switch (draw_mode) {                                           \
