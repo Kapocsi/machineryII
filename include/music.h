@@ -10,8 +10,6 @@
 
 #include "global.h"
 
-static const u32 melody[] = {0x1E0, 0x17D, 0x140, 0x17D};
-
 /**Begins the playing of the song by loading the data for the first note into the PSG */
 void start_music();
 

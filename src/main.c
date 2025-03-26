@@ -1,8 +1,11 @@
 #include "global.h"
 #include "input.h"
 #include "model.h"
+#include "events.h"
 #include "render.h"
 #include "screen.h"
+#include "psg.h"
+#include "music.h"
 
 #include <assert.h>
 #include <osbind.h>
@@ -34,23 +37,29 @@ void enable_cursor() {
     fflush(stdout);
 }
 
+u32 tickSinceInception() {
+    long ssp = Super(0);
+    u32 ticks = *(u32 *)(0x462);
+    Super(ssp);
+
+    return ticks;
+}
+
 typedef Screen **Screens;
 
 int main(int argc, char *argv[]) {
-    Screens screens = initScreen();
-    printf("TODO!\n");
-    
-    char str[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                 "Quisque elit est null\n";
-    long ssp = 0;
+
     int i = 0;
-    Screen *base;
-    u32 start = 0;
     u32 ticks;
     u8 beat_count = 0;
     u8 prev_note = 0;
 
+    Screens screens = initScreen();
+
     Model model = {{150}, {0}, {0}, {0}};
+
+    printf("TODO!\n");
+
 
     start_game(&model);
     start_music();
@@ -72,22 +81,6 @@ int main(int argc, char *argv[]) {
 
     }
     stop_sound();
-
-    base = screens[Primary];
-    white_screen(base);
-    for (i = 0; i < SCREEN_HEIGHT - 16; i += 16)
-        drawSmallText(base, str, strlen(str), 0, i, SET);
-
-    base = screens[Secondary];
-    black_screen(base);
-    for (i = 0; i < SCREEN_HEIGHT - 16; i += 16)
-        drawSmallText(base, str, strlen(str), 0, i, UNSET);
-
-    switchBuffer(Primary);
-    Cconin();
-    switchBuffer(Secondary);
-    Cconin();
-    switchBuffer(Original);
 
     return 0;
 }
