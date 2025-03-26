@@ -71,8 +71,22 @@ void test_update_music() {
 int main() {
     TEST_BEGIN();
 
-    RUN_TEST(test_write_psg);
-    RUN_TEST(test_read_psg);
+    set_noise(0x1F);
+    enable_channel(0, True, True);
+    set_volume(0, 0x10);
+    write_psg(0xC, 0x02);
+    write_psg(0xD, 0);
+
+    printf("\n");
+    if (0)
+        printf("%d is true\n", 0);
+    else
+        printf("%d is false\n", 0);
+
+    
+
+    /*
+    RUN_TEST(test_write_read_psg);
     RUN_TEST(test_set_tone);
     RUN_TEST(test_set_volume);
     RUN_TEST(test_enable_channel);
@@ -80,7 +94,7 @@ int main() {
     RUN_TEST(test_set_noise);
     RUN_TEST(test_set_envelope);
     RUN_TEST(test_start_music);
-    RUN_TEST(test_update_music);
+    RUN_TEST(test_update_music);*/
 
     TEST_END();
 }

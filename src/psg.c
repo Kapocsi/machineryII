@@ -29,19 +29,19 @@ u8 read_psg(u8 reg) {
 }
 
 void set_tone(u8 channel, u32 tuning) {
-    if (channel <= 3) {
+    if (channel <= 2) {
         write_psg(channel << 1, tuning & 0xFF);
         write_psg((channel << 1) + 1, tuning & 0xF00);
     }
 }
 
 void set_volume(u8 channel, u8 volume) {
-    if (channel <= 3)
+    if (channel <= 2)
         write_psg(channel + 8, volume & 0x1F);
 }
 
 void enable_channel(u8 channel, enum Bool tone_on, enum Bool noise_on) {
-    if (channel <= 3) {
+    if (channel <= 2) {
         write_psg(7, (~tone_on << channel) + (~noise_on << (channel + 3)));
     }
 }
