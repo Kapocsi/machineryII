@@ -14,14 +14,13 @@ void write_psg(u8 reg, u8 val) {
 }
 
 u8 read_psg(u8 reg) {
-    volatile u8 *reg_select = (u8 *) 0xFFFF8800;
-	volatile u8 *reg_read = (u8 *) 0xFFFF8802;
+	volatile u8 *reg_read = (u8 *) 0xFFFF8800;
     u32 old_ssp;
     u8 value = 0;
 
     if (reg <= 15) {
         old_ssp = Super(0);
-        *reg_select = reg;
+        *reg_read = reg;
         value = *reg_read;
         Super(old_ssp);
     }
@@ -30,8 +29,8 @@ u8 read_psg(u8 reg) {
 
 void set_tone(u8 channel, u32 tuning) {
     if (channel <= 2) {
-        write_psg(channel << 1, tuning & 0xFF);
-        write_psg((channel << 1) + 1, tuning & 0xF00);
+        write_psg(channel << 1, tuning & 0x0FF);
+        write_psg((channel << 1) + 1, tuning >> 8);
     }
 }
 
@@ -47,7 +46,7 @@ void enable_channel(u8 channel, enum Bool tone_on, enum Bool noise_on) {
 }
 
 void stop_sound() {
-    write_psg(7, 0x3F);
+    write_psg(7, 0xFF);
 }
 
 void set_noise(u8 tuning) {
@@ -57,3 +56,27 @@ void set_noise(u8 tuning) {
 void set_envelope(u8 shape, u16 sustain) {
 
 }
+
+void bob_sound() {
+    u16 i = 0;
+    write_psg(0x7, 0xEA);
+    set_tone(2, 0x0D6);
+    set_volume(2, 9);
+
+    while (i < 7500) { i++; }
+    i = 0;
+    set_tone(2, 0x0AA);
+
+    while (i < 7500) { i++; }
+    write_psg(0x7, 0xEE);
+}
+
+void death_sound() {
+    write_psg(0x7, 0xCE);
+    set_noise(0x03);
+    set_volume(2, 0x10);
+    write_psg(0xC, 0x11);
+    write_psg(0xD, 0);
+}
+
+

@@ -1,5 +1,6 @@
 #include "events.h"
 #include "model.h"
+#include "psg.h"
 
 void start_game(Model *model) {
     model->swimmer.y = 150;
@@ -17,7 +18,8 @@ void key_press(char key, Model *model) {
         bob_up(&(model->swimmer));
         increase_score(&(model->score));
         shift_pointer(&(model->row));
+        bob_sound();
     }
 }
 
-void death() { /* The "TODO()" macro messed with the model_t.c*/ }
+void death() { death_sound(); }

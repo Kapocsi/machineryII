@@ -10,6 +10,13 @@
 void setUp() {}
 void tearDown() {}
 
+u32 tickSinceInception() {
+    long ssp = Super(0);
+    u32 ticks = *(u32 *)(0x462);
+    Super(ssp);
+
+    return ticks;
+}
 
 void test_write_psg() {
 
@@ -45,20 +52,9 @@ void test_set_envelope() {
 }
 
 void test_start_music() {
-    printf("\nValue of mixer: %u\n", read_psg(7));
-    set_tone(0, 0x101);
-    printf("Value of mixer: %u\n", read_psg(7));
-    set_tone(0, 0x1EE);
-    printf("Value of channel A fine tone: %u\n", read_psg(0));
-    /*
-    enable_channel(0, True, True);
-    set_volume(0, 11);
-    Cconin();
-
-    set_tone(0, 0x1EE);
-    enable_channel(0, True, True);
-    set_volume(0, 11);
-    Cconin();*/
+    start_music();
+    printf("\nValue of channel A fine tone: %x\n", read_psg(0));
+    printf("Value of mixer: %x\n", read_psg(7));   
 
 }
 
@@ -69,19 +65,39 @@ void test_update_music() {
 
 
 int main() {
+    int i = 0;
+    u32 ticks;
+    u8 tick_count = 0;
+    MusicModel music_model = {0, 0};
+
+    printf("\n");
     TEST_BEGIN();
 
+    start_music();
+    ticks = tickSinceInception();
+
+    for (i = 0; i < 1000; i++) {
+        while (tickSinceInception() - ticks < 1)
+            ;
+
+        ticks = tickSinceInception();
+
+        if (tick_count >= 10) {
+            update_music(&music_model);
+            tick_count = 0;
+        } else {
+            tick_count++;
+        }
+    }
+    stop_sound();
+
+    /*
     set_noise(0x1F);
     enable_channel(0, True, True);
     set_volume(0, 0x10);
     write_psg(0xC, 0x02);
-    write_psg(0xD, 0);
+    write_psg(0xD, 0);*/
 
-    printf("\n");
-    if (0)
-        printf("%d is true\n", 0);
-    else
-        printf("%d is false\n", 0);
 
     
 
