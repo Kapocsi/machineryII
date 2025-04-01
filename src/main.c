@@ -51,8 +51,10 @@ int main(int argc, char *argv[]) {
 
     int i = 0;
     u32 ticks;
+    u8 note_count = 0;
     u8 beat_count = 0;
     u8 prev_note = 0;
+    u8 prev_beat = 0;
 
     Screens screens = initScreen();
 
@@ -64,7 +66,10 @@ int main(int argc, char *argv[]) {
     start_game(&model);
     start_music();
     ticks = tickSinceInception();
+
+    for (i = 0; i < 10; i++) {}
     
+    /* 1-a 2& -e8- 4 */
     
     for (i = 0; i < 160; i++) {
         while (tickSinceInception() - ticks < 1)
@@ -72,11 +77,17 @@ int main(int argc, char *argv[]) {
 
         ticks = tickSinceInception();
         tick_increment(&model);
-        if (beat_count >= 20) {
-            prev_note = update_music(prev_note);
+
+        if (beat_count == 10) {
             beat_count = 0;
         } else {
             beat_count++;
+        }
+
+        if (note_count == 20) {
+            note_count = 0;
+        } else {
+            note_count++;
         }
 
     }

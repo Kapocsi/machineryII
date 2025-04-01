@@ -3,7 +3,7 @@
 CC=cc68x
 CFLAGS=-g -Iinclude
 FONT_OBJS=src\unifont.o src\depixel.o src\font.o
-OBJS=src\raster.o src\bitmaps.o src\model.o src\events.o src\music.o \
+OBJS=src\raster.o src\bitmaps.o src\model.o src\events.o src\music.o src\words.o \
 	$(FONT_OBJS) src\adler32.o src\screen.o src\isr.s src\input.o src\super.o \
 	src\switch.o src\psg.o src\render.o src\itoa.o
 MAIN=src\main.o
@@ -17,11 +17,12 @@ MAIN=src\main.o
 main: $(OBJS) $(MAIN)
 	$(CC) $(CFLAGS) $^ -o $@
 
-test: $(objs) test\raster.prg  test\font.prg test\model.prg test\psg.prg
+test: $(objs) test\raster.prg  test\font.prg test\model.prg test\psg.prg test\words.prg
 	test\raster.prg
 	test\font.prg
 	test\model.prg
 	test\psg.prg
+	test\words.prg
 
 
 assets:
@@ -50,6 +51,9 @@ test\model.prg: $(OBJS) test\model.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 test\psg.prg: $(OBJS) test\psg.o src\unit.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+test\words.prg: $(OBJS) test\words.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 

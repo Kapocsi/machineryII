@@ -25,9 +25,13 @@
  * @brief A place to store the next row of words.
  */
  typedef struct {
-    u8 cutoff_i;        /**The index of the first cutoff character */
-    u8 indexes[25];
-    char *string;
+    u8 cutoff_i;    /** The index (in the cutoff word) of the first
+                     * cutoff character */
+    u8 last_i;      /** The index of the first slot of free memory
+                     * in the 'indexes' array*/
+    u8 indexes[6];  /** An ordered list of the words stored in the
+                     * buffer string*/
+    char *string;   /**/
 } RowBuffer;
 
 /**Set t*/

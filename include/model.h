@@ -37,7 +37,7 @@ typedef struct {
  * identified by its position within the Row's string value.
  */
 typedef struct {
-    char text[128]; /**The string displayed in the row*/
+    char text[25];  /**The string displayed in the row*/
     u8 pos;         /**The position of the next character to type in the row */
 } Row;
 
