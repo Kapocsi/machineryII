@@ -5,16 +5,36 @@
  * @brief The list of possible words to type.
  */
 static const Word WORDS[] = {
-    {6, "apple "},
-    {5, "pear "},
-    {7, "banana "}, 
-    {6, "lemon "}, 
-    {6, "fruit "},
-    {7, "orange "},
-    {6, "slice "},
-    {6, "salad "},
-    {5, "bowl "},
-    {6, "yummy "}
+    {4, "air "},
+    {4, "bob "},
+    {4, "eel "},
+    {4, "man "},
+    {4, "sea "},
+    {4, "sky "},
+    {4, "try "},
+    {5, "boat "},
+    {5, "buoy "},
+    {5, "dive "},
+    {5, "down "},
+    {5, "fish "},
+    {5, "help "},
+    {5, "kelp "},
+    {5, "land "},
+    {5, "over "},
+    {5, "rise "},
+    {5, "sink "},
+    {5, "sunk "},
+    {5, "swim "},
+    {6, "board "},
+    {6, "death "},
+    {6, "drown "},
+    {6, "fight "},
+    {6, "ocean "},
+    {6, "shark "},
+    {6, "shore "},
+    {6, "tidal "},
+    {6, "under "},
+    {6, "water "}
 };
 
 /*Copy the Buffer's string into the game's Row struct*/
