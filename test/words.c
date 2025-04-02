@@ -7,34 +7,64 @@
 #include <osbind.h>
 #include <stdio.h>
 
+#include <time.h>
+#include <stdlib.h>
+
 
 void setUp() {}
 void tearDown() {}
 
-
 void test_text_transfer() {
     int j;
-    char* base_string;
     RowBuffer buffer = {0, 0, {0, 0, 0, 0, 0, 0}, 
-    "aaaaaaaaaaaaaaaaaaaaaaaaa"};
-    Row row = {"abcdefghijklmnopqrstuvwxy", 0};
+    "abcdefghijklmnopqrstuvwxy"};
+    Row row = {"1234567891113151719212325", 0};
 
     next_row(&buffer, &row);
 
     for (j = 0; j < 25; j++) {
-        TEST_ASSERT_EQUAL('a', row.text[j]);
+        TEST_ASSERT_EQUAL(j + 0x61, (int) row.text[j]);
     }
+
 
 }
 
 void test_next_row_cutoff() {
-    RowBuffer buffer = {2, 5, {0, 0, 0, 0, 0, 0}, 
-    "pple apple apple apple ap"};
+    int j;
+    RowBuffer buffer = {1, 5, {0, 0, 0, 0, 0, 0}, 
+    "apple apple apple apple a"};
     Row row = {"1234567891113151719212325", 0};
 
-    next_row(&buffer, &row);
+    printf("\nStarting Row: [");
+    for (j = 0; j < 25; j++) {
+        printf("%c", row.text[j]);
+    }
+    printf("]\n");
+
+    srand(time(NULL));
     next_row(&buffer, &row);
 
+    printf("\nNext Row: [");
+    for (j = 0; j < 25; j++) {
+        printf("%c", row.text[j]);
+    }
+    printf("]\n");
+
+    next_row(&buffer, &row);
+
+    printf("\nNext Row: [");
+    for (j = 0; j < 25; j++) {
+        printf("%c", row.text[j]);
+    }
+    printf("]\n");
+
+    next_row(&buffer, &row);
+
+    printf("\nNext Row: [");
+    for (j = 0; j < 25; j++) {
+        printf("%c", row.text[j]);
+    }
+    printf("]\n");
 }
 
 

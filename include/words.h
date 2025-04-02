@@ -31,10 +31,13 @@
                      * in the 'indexes' array*/
     u8 indexes[6];  /** An ordered list of the words stored in the
                      * buffer string*/
-    char *string;   /**/
+    char *string;   /** The contents of the buffer */
 } RowBuffer;
 
-/**Set t*/
+/**Transfer the buffer's string to the row, then create a new string
+ * for the buffer to store.
+ * NOTE: The function 'srand(time(NULL));' must be invoked once by the calling
+ * module before any calls of this method. */
 void next_row(RowBuffer *buffer, Row *row);
 
 #endif
