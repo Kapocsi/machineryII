@@ -53,7 +53,7 @@ static const enum Bool SIXTEENTHS[] = {
 void start_music() {
     set_tone(0, MELODY[0]);
     write_psg(0x7, 0xEE);
-    set_volume(0, 11);
+    set_volume(0, 14);
     set_volume(1, 0x10);
 
     set_noise(0x1F);

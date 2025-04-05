@@ -76,7 +76,7 @@ int main() {
     start_music();
     ticks = tickSinceInception();
 
-    for (i = 0; i < 1000; i++) {
+    for (i = 0; i < 3200; i++) {
         while (tickSinceInception() - ticks < 1)
             ;
 

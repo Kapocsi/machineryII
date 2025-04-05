@@ -37,14 +37,6 @@ static const Word WORDS[] = {
     {6, "water "}
 };
 
-/*Copy the Buffer's string into the game's Row struct*/
-void transfer_string(RowBuffer *buffer, Row *row) {
-    int char_i;
-    for (char_i = 0; char_i < 25; char_i++) {
-        row->text[char_i] = buffer->string[char_i];
-    }
-}
-
 /*If a word was cut off at the end of the last row, put its remaining
       characters at the beginning of the new row*/
 u8 insert_cutoff(RowBuffer *buffer) {
@@ -63,13 +55,11 @@ u8 insert_cutoff(RowBuffer *buffer) {
     return char_i;
 }
 
-void next_row(RowBuffer *buffer, Row *row) {
+void new_row(RowBuffer *buffer) {
     u8 char_i = 0;
     u8 index_i = 0;
     u16 current_word;
     u8 word_i;
-
-    transfer_string(buffer, row);
 
     if (buffer->cutoff_i != 0) {
         char_i = insert_cutoff(buffer);
@@ -78,7 +68,7 @@ void next_row(RowBuffer *buffer, Row *row) {
 
     /*Create a new row of random words*/
     while (char_i < 25) {
-        current_word = rand() % 10;
+        current_word = rand() % 30;
         buffer->cutoff_i = 0;
         word_i = 0;
         buffer->indexes[buffer->last_i] = current_word;

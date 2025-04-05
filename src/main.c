@@ -10,6 +10,8 @@
 #include <assert.h>
 #include <osbind.h>
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
 /* Required Algorithm Structure in Main (Stage 5)
 
@@ -51,45 +53,34 @@ int main(int argc, char *argv[]) {
 
     int i = 0;
     u32 ticks;
-    u8 note_count = 0;
     u8 beat_count = 0;
-    u8 prev_note = 0;
-    u8 prev_beat = 0;
 
     Screens screens = initScreen();
 
-    Model model = {{150}, {0}, {0}, {0}};
+    Model model;
+    MusicModel music_model = {0, 0};
 
-    printf("TODO!\n");
-
-
+    srand(time(NULL));  /*this function must be called here (before start_game)
+                          in order for the row text to be randomized.*/
     start_game(&model);
     start_music();
     ticks = tickSinceInception();
-
-    for (i = 0; i < 10; i++) {}
     
     /* 1-a 2& -e8- 4 */
     
-    for (i = 0; i < 160; i++) {
+    for (i = 0; i < 3000; i++) {
         while (tickSinceInception() - ticks < 1)
             ;
 
         ticks = tickSinceInception();
         tick_increment(&model);
 
-        if (beat_count == 10) {
+        if (beat_count >= 10) {
+            update_music(&music_model);
             beat_count = 0;
         } else {
             beat_count++;
         }
-
-        if (note_count == 20) {
-            note_count = 0;
-        } else {
-            note_count++;
-        }
-
     }
     stop_sound();
 

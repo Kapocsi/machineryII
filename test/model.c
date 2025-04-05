@@ -25,9 +25,10 @@ void test_sink() {
 void test_shift_pointer() {
     u8 i;
     Row row = {TEXT, 0};
+    RowBuffer buffer;
     for (i = 0; i < 15; i++) {
         TEST_ASSERT_EQUAL(i, row.pos);
-        shift_pointer(&row);
+        shift_pointer(&row, &buffer);
     }
 }
 
@@ -58,11 +59,19 @@ void test_tick_up() {
     TEST_ASSERT_EQUAL(1, decorations.tick);
 }
 
+/*memset(m, 0, sizeof(*m));
+    m->score.score = DEFAULT_SCORE;
+    m->swimmer.y = SWIMMER_START_POS;
+    m->decor.tick = 0;
+    new_row(&(m->buffer));
+    change_row(&(m->row), m->buffer.string);
+    new_row(&(m->buffer));*/
+
 void test_start_game() {
-    Model model = {{200}, {9998}, {TEXT, 0}, {10}};
+    Model model;
 
     start_game(&model);
-    TEST_ASSERT_EQUAL(150, model.swimmer.y);
+    TEST_ASSERT_EQUAL(64, model.swimmer.y);
     TEST_ASSERT_EQUAL(0, model.score.score);
     TEST_ASSERT_EQUAL(0, model.row.pos);
     TEST_ASSERT_EQUAL(0, model.decor.tick);

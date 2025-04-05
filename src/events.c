@@ -3,10 +3,7 @@
 #include "psg.h"
 
 void start_game(Model *model) {
-    model->swimmer.y = 150;
-    model->score.score = 0;
-    model->row.pos = 0;
-    model->decor.tick = 0;
+    initModel(model);
 }
 
 void tick_increment(Model *model) {
@@ -17,7 +14,7 @@ void key_press(char key, Model *model) {
     if (key == (model->row.text)[model->row.pos]) {
         bob_up(&(model->swimmer));
         increase_score(&(model->score));
-        shift_pointer(&(model->row));
+        shift_pointer(&(model->row), &(model->buffer));
         bob_sound();
     }
 }

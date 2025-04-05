@@ -1,5 +1,6 @@
 #include "model.h"
 #include "global.h"
+#include "words.h"
 #include <string.h>
 
 /**
@@ -26,6 +27,9 @@ void initModel(Model *m) {
     m->score.score = DEFAULT_SCORE;
     m->swimmer.y = SWIMMER_START_POS;
     m->decor.tick = 0;
+    new_row(&(m->buffer));
+    change_row(&(m->row), m->buffer.string);
+    new_row(&(m->buffer));
 }
 
 void bob_up(Swimmer *swimmer) {
@@ -38,10 +42,12 @@ void bob_up(Swimmer *swimmer) {
 
 void sink(Swimmer *swimmer) { swimmer->y += 1; }
 
-void shift_pointer(Row *row) {
+void shift_pointer(Row *row, RowBuffer *buffer) {
     if (row->pos < ROW_W - 1) {
         (row->pos)++;
     } else {
+        change_row(row, (buffer->string));
+        new_row(buffer);
         row->pos = 0;
     }
 }
@@ -51,6 +57,6 @@ void increase_score(Score *score) {
         (score->score)++;
 }
 
-void change_row(Row *row, char *new_string) { strcpy(row->text, new_string); }
+void change_row(Row *row, char new_string[25]) { strcpy(row->text, new_string); }
 
 void tick_up(Decorations *decorations) { (decorations->tick)++; }

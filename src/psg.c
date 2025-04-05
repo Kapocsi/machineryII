@@ -61,7 +61,7 @@ void bob_sound() {
     u16 i = 0;
     write_psg(0x7, 0xEA);
     set_tone(2, 0x0D6);
-    set_volume(2, 9);
+    set_volume(2, 12);
 
     while (i < 7500) { i++; }
     i = 0;
