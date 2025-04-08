@@ -3,7 +3,7 @@
 
 #include "global.h"
 #include "input.h"
-#include "super.h"
+#include "vector.h"
 
 #define IKBD_STATUS 0xFFFFFC00
 #define IKBD_READER 0xFFFFFC02
@@ -16,18 +16,6 @@ static Vector previous_isr;
 void keyboardIsr();
 static inputState input_state;
 MousePacketStage mps = HEADER;
-
-Vector install_vector(int num, Vector vector) {
-    Vector orig;
-    Vector *vectp = (Vector *)((long)num << 2);
-
-    SuperDo({
-        orig = *vectp;
-        *vectp = vector;
-    });
-
-    return orig;
-}
 
 char keyboard[] = "\x80\0331234567890-=\b\t"
                   "qwertyuiop[]\n\x81"

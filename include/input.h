@@ -11,12 +11,6 @@
 #include "global.h"
 
 /**
- * @typedef Vector
- * @brief A function pointer type representing an input vector.
- */
-typedef void (*Vector)();
-
-/**
  * @struct Mouse
  * @brief Represents the position of the mouse.
  */

@@ -1,33 +1,20 @@
 #include "global.h"
+#include "events.h"
 #include "input.h"
 #include "model.h"
-#include "events.h"
+#include "music.h"
+#include "psg.h"
 #include "render.h"
 #include "screen.h"
-#include "psg.h"
-#include "music.h"
+#include "vbl.h"
+#include "vector.h"
 
 #include <assert.h>
 #include <osbind.h>
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
+#include <time.h>
 
-/* Required Algorithm Structure in Main (Stage 5)
-
-initialize model
-render model (first frame)
-start music
-set quit = false
-
-repeat until quit
-    if input is pending
-        process async event <-- update model requests
-    if clock has ticked
-        process sync events <-- update model data
-        render model (next frame)
-        update music
-*/
 
 void disable_cursor() {
     printf("\033f");
@@ -56,19 +43,17 @@ int main(int argc, char *argv[]) {
     u8 beat_count = 0;
 
     Screens screens = initScreen();
-
     Model model;
-    MusicModel music_model = {0, 0};
 
     srand(time(NULL));  /*this function must be called here (before start_game)
                           in order for the row text to be randomized.*/
     start_game(&model);
+    change_row(&model.row, "Test Text");
     start_music();
     ticks = tickSinceInception();
-    
-    /* 1-a 2& -e8- 4 */
-    
-    for (i = 0; i < 3000; i++) {
+
+    /*Main Game Loop*/
+    while (model.swimmer.y < 3000) {
         while (tickSinceInception() - ticks < 1)
             ;
 
@@ -76,11 +61,12 @@ int main(int argc, char *argv[]) {
         tick_increment(&model);
 
         if (beat_count >= 10) {
-            update_music(&music_model);
+            update_music();
             beat_count = 0;
         } else {
             beat_count++;
         }
+
     }
     stop_sound();
 
