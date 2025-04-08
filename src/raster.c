@@ -3,6 +3,11 @@
 #include <assert.h>
 #include <stdio.h>
 
+#define SWAP_VAL(X, Y)                                                         \
+    X = Y ^ X;                                                                 \
+    Y = X ^ Y;                                                                 \
+    X = Y ^ X;
+
 #define getOffset(x, y)                                                        \
     /* (x * 32) + (y * 20) */                                                  \
     (x >> 5) + (y << 4) + (y << 2)
@@ -92,6 +97,10 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
                     *base++ &= ~left;                                          \
                     *base++ &= ~right;                                         \
                     break;                                                     \
+                case (SWAP):                                                   \
+                    *base++ ^= left;                                           \
+                    *base++ ^= right;                                          \
+                    break;                                                     \
                 }                                                              \
                 base--;                                                        \
             }                                                                  \
@@ -99,11 +108,16 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
         }                                                                      \
     };
 
+/*
+X := Y XOR X; // XOR the values and store the result in X
+Y := X XOR Y; // XOR the values and store the result in Y
+X := Y XOR X; // XOR the values and store the result in X */
+
 genDrawBitMap(8);
 genDrawBitMap(16);
 genDrawBitMap(32);
 
-void drawBitMap(Screen *base, const BitMap *bitmap, const u16 x_start,
+void drawBitMap(Screen *base, BitMap *bitmap, const u16 x_start,
                 const u16 y_start, BitMapDrawMode draw_mode) {
     u16 alignment = bitmap->width & 31;
 

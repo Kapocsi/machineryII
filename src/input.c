@@ -56,7 +56,6 @@ void handleKeyboard(int c) {
         input_state.shift = True;
         break;
     case CAPS_LOCK:
-        printf("Toggle Capslock\n");
         input_state.capsLock = !input_state.capsLock;
     }
 
@@ -66,9 +65,6 @@ void handleKeyboard(int c) {
         map = capslocked_keyboard;
     } else if (!input_state.capsLock && input_state.shift)
         map = shifted_keyboard;
-
-    printf("%04x %d -> %c %d %d\n", c & 0x3f, down, map[c], input_state.shift,
-           input_state.capsLock);
 }
 
 void handleInput() {

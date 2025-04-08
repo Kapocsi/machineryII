@@ -56,4 +56,6 @@ test\psg.prg: $(OBJS) test\psg.o src\unit.o
 test\words.prg: $(OBJS) test\words.o src\unit.o
 	$(CC) $(CFLAGS) $^ -o $@
 
+test\splash.prg: $(OBJS) test\splash.c
+	$(CC) $(CFLAGS) $^ -o $@
 
