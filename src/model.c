@@ -57,6 +57,8 @@ void increase_score(Score *score) {
         (score->score)++;
 }
 
-void change_row(Row *row, char new_string[25]) { strcpy(row->text, new_string); }
+void change_row(Row *row, char new_string[25]) {
+    strcpy(row->text, new_string);
+}
 
 void tick_up(Decorations *decorations) { (decorations->tick)++; }

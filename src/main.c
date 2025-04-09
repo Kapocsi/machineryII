@@ -1,5 +1,5 @@
-#include "global.h"
 #include "events.h"
+#include "global.h"
 #include "input.h"
 #include "model.h"
 #include "music.h"
@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
 
 void disable_cursor() {
     printf("\033f");
@@ -45,8 +44,8 @@ int main(int argc, char *argv[]) {
     Screens screens = initScreen();
     Model model;
 
-    srand(time(NULL));  /*this function must be called here (before start_game)
-                          in order for the row text to be randomized.*/
+    srand(time(NULL)); /*this function must be called here (before start_game)
+                         in order for the row text to be randomized.*/
     start_game(&model);
     change_row(&model.row, "Test Text");
     start_music();
@@ -66,7 +65,6 @@ int main(int argc, char *argv[]) {
         } else {
             beat_count++;
         }
-
     }
     stop_sound();
 
