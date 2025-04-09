@@ -2,13 +2,9 @@
 #include "model.h"
 #include "psg.h"
 
-void start_game(Model *model) {
-    initModel(model);
-}
+void start_game(Model *model) { initModel(model); }
 
-void tick_increment(Model *model) {
-    sink(&(model->swimmer));
-}
+void tick_increment(Model *model) { sink(&(model->swimmer)); }
 
 void key_press(char key, Model *model) {
     if (key == (model->row.text)[model->row.pos]) {

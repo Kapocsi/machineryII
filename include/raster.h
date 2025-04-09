@@ -61,7 +61,7 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color);
  * in-bounds).
  * @param draw_mode The drawing mode (SET or UNSET).
  */
-void drawBitMap(Screen *base, BitMap *bitmap, u16 x_offset, u16 y_offset,
+void drawBitMap(Screen *base, const BitMap *bitmap, u16 x_offset, u16 y_offset,
                 BitMapDrawMode draw_mode);
 
 /**
