@@ -38,8 +38,8 @@ typedef struct {
  * identified by its position within the Row's string value.
  */
 typedef struct {
-    char text[25];  /**The string displayed in the row*/
-    u8 pos;         /**The position of the next character to type in the row */
+    char text[25]; /**The string displayed in the row*/
+    u8 pos;        /**The position of the next character to type in the row */
 } Row;
 
 /**
@@ -59,8 +59,8 @@ typedef struct {
     Swimmer swimmer;
     Score score;
     Row row;
-    RowBuffer buffer;   /**Stores the next string for the
-                         * row, and creates new strings */
+    RowBuffer buffer; /**Stores the next string for the
+                       * row, and creates new strings */
     Decorations decor;
 } Model;
 
@@ -84,5 +84,7 @@ void tick_up(Decorations *decorations);
 
 /**Initialize model with default values */
 void initModel(Model *m);
+
+Model *getModel();
 
 #endif

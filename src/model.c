@@ -22,6 +22,8 @@ static const u8 ROW_W = 25;
 #define DEFAULT_SCORE 0
 #define SWIMMER_START_POS 64
 
+static Model *model;
+
 void initModel(Model *m) {
     memset(m, 0, sizeof(*m));
     m->score.score = DEFAULT_SCORE;
@@ -30,6 +32,8 @@ void initModel(Model *m) {
     new_row(&(m->buffer));
     change_row(&(m->row), m->buffer.string);
     new_row(&(m->buffer));
+
+    model = m;
 }
 
 void bob_up(Swimmer *swimmer) {
@@ -62,3 +66,5 @@ void change_row(Row *row, char new_string[25]) {
 }
 
 void tick_up(Decorations *decorations) { (decorations->tick)++; }
+
+Model *getModel() { return model; }

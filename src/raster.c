@@ -108,39 +108,44 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
         }                                                                      \
     };
 
-/*
-X := Y XOR X; // XOR the values and store the result in X
-Y := X XOR Y; // XOR the values and store the result in Y
-X := Y XOR X; // XOR the values and store the result in X */
-
 genDrawBitMap(8);
 genDrawBitMap(16);
 genDrawBitMap(32);
 
-void drawBitMap(Screen *base, BitMap *bitmap, const u16 x_start,
+/* Interface of all draw bitmap functions */
+typedef void (*drawBitMapFunc)(Screen *base, const BitMap *bitmap, u16 x_offset,
+                               u16 y_offset, BitMapDrawMode draw_mode);
+
+void drawBitMap(Screen *base, BitMap const *bitmap, const u16 x_start,
                 const u16 y_start, BitMapDrawMode draw_mode) {
-    u16 alignment = bitmap->width & 31;
+    /* v-table for finding the which bitmap draw version to call,
+     * if bitmap is 32 aligned use the 32 aligned version, if 8 aligned
+     * used that. etc.
+     *
+     * Table lookup function: (width % 32) / 8
+     *  width % 32 allows us to check modulo {32,16,8} == 0 all at once
+     *      if (x % 32 == {24,8}) then 8 | x.
+     *      if (x % 32 == {16}) then 16 | x.
+     *      if (x % 32 == 0) then 32 | x.
+     *  collapsing the the output of the modulo 24 by the gcm (8) gives us
+     *       8 | x -> 1,3
+     *       16 | x -> 2
+     *       32 | x -> 0
+     *  hence the populated members of the vtable */
+    drawBitMapFunc callTable[4] = {drawBitMap32, drawBitMap8, drawBitMap16,
+                                   drawBitMap8};
 
     /* Allow for attempting to draw to null screen and drawing null bitmap,
     this might occur in debugging and we should handle it gracefully. */
     if (base == NULL || bitmap == NULL || bitmap->longs == NULL)
         return;
 
-    switch (alignment) {
-    case 0: /* Divisible by 32 */
-        drawBitMap32(base, bitmap, x_start, y_start, draw_mode);
-        break;
-    case 16: /* Divisible by 16 */
-        drawBitMap16(base, bitmap, x_start, y_start, draw_mode);
-        break;
-    case 8: /* Divisible by 8*/
-    case 24:
-        drawBitMap8(base, bitmap, x_start, y_start, draw_mode);
-        break;
-    default:
-        printf("\n\n %u\n", alignment);
-        TODO();
-    }
+    /** We should only ever get values of 0,1,2, or 3. */
+    assert(((bitmap->width & 31) >> 3) >= 0);
+    assert(((bitmap->width & 31) >> 3) <= 3);
+
+    callTable[(bitmap->width & 31) >> 3](base, bitmap, x_start, y_start,
+                                         draw_mode);
 }
 
 void drawVerticalLine(Screen *base, u16 x, u16 y_start, u16 y_end) {

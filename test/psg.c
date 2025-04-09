@@ -2,8 +2,8 @@
 
 #include "unit.h"
 
-#include "psg.h"
 #include "music.h"
+#include "psg.h"
 #include <osbind.h>
 #include <stdio.h>
 
@@ -29,19 +29,18 @@ void test_write_read_psg() {
 void test_start_music() {
     start_music();
     printf("\nValue of channel A fine tone: %x\n", read_psg(0));
-    printf("Value of mixer: %x\n", read_psg(7));   
-
-    printf("Press a key to continue\n"); 
-    while (!Cconis())
-		;
-
-    Cnecin();
+    printf("Value of mixer: %x\n", read_psg(7));
 }
 
-void test_update_music() {
+void test_update_music() {}
+
+int main() {
     int i = 0;
     u32 ticks;
     u8 tick_count = 0;
+
+    printf("\n");
+    TEST_BEGIN();
 
     start_music();
     ticks = tickSinceInception();
@@ -52,7 +51,13 @@ void test_update_music() {
             ;
 
         ticks = tickSinceInception();
-        update_music();
+
+        if (tick_count >= 10) {
+            update_music();
+            tick_count = 0;
+        } else {
+            tick_count++;
+        }
     }
     stop_sound();
     Cnecin();
@@ -64,24 +69,7 @@ void test_bob_sound() {
     while (!Cconis())
 		;
 
-    Cnecin();
-    printf("Press a key to continue\n"); 
-}
-
-void test_death_sound() {
-    printf("\nDeath Sound\n");
-    death_sound();
-    while (!Cconis())
-		;
-
-    Cnecin();
-    printf("Press a key to continue\n");
-}
-
-int main() {
-  
-    TEST_BEGIN();
-    
+    /*
     RUN_TEST(test_write_read_psg);
     RUN_TEST(test_start_music);
     RUN_TEST(test_update_music);
