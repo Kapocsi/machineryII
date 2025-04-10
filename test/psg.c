@@ -18,37 +18,12 @@ u32 tickSinceInception() {
     return ticks;
 }
 
-void test_write_psg() {
 
-}
-
-void test_read_psg() {
+void test_write_read_psg() {
     write_psg(0, 0xFE);
-    printf("\nValue of A fine tone: %u\n", read_psg(0));
-}
-
-void test_set_tone() {
-
-}
-
-void test_set_volume() {
-
-}
-
-void test_enable_channel() {
-
-}
-
-void test_stop_sound() {
-
-}
-
-void test_set_noise() {
-
-}
-
-void test_set_envelope() {
-
+    TEST_ASSERT_EQUAL(0xFE, read_psg(0));
+    write_psg(0, 0x01);
+    TEST_ASSERT_EQUAL(0x01, read_psg(0));
 }
 
 void test_start_music() {
@@ -56,61 +31,62 @@ void test_start_music() {
     printf("\nValue of channel A fine tone: %x\n", read_psg(0));
     printf("Value of mixer: %x\n", read_psg(7));   
 
+    printf("Press a key to continue\n"); 
+    while (!Cconis())
+		;
+
+    Cnecin();
 }
 
 void test_update_music() {
-
-}
-
-
-
-int main() {
     int i = 0;
     u32 ticks;
     u8 tick_count = 0;
-    MusicModel music_model = {0, 0};
-
-    printf("\n");
-    TEST_BEGIN();
 
     start_music();
     ticks = tickSinceInception();
 
-    for (i = 0; i < 3200; i++) {
+    printf("\nPress a key to continue\n"); 
+    while(!Cconis()) {
         while (tickSinceInception() - ticks < 1)
             ;
 
         ticks = tickSinceInception();
-
-        if (tick_count >= 10) {
-            update_music(&music_model);
-            tick_count = 0;
-        } else {
-            tick_count++;
-        }
+        update_music();
     }
     stop_sound();
+    Cnecin();
+}
 
-    /*
-    set_noise(0x1F);
-    enable_channel(0, True, True);
-    set_volume(0, 0x10);
-    write_psg(0xC, 0x02);
-    write_psg(0xD, 0);*/
+void test_bob_sound() {
+    printf("\nBob Sound\n"); 
+    bob_sound();
+    while (!Cconis())
+		;
 
+    Cnecin();
+    printf("Press a key to continue\n"); 
+}
 
+void test_death_sound() {
+    printf("\nDeath Sound\n");
+    death_sound();
+    while (!Cconis())
+		;
+
+    Cnecin();
+    printf("Press a key to continue\n");
+}
+
+int main() {
+  
+    TEST_BEGIN();
     
-
-    /*
     RUN_TEST(test_write_read_psg);
-    RUN_TEST(test_set_tone);
-    RUN_TEST(test_set_volume);
-    RUN_TEST(test_enable_channel);
-    RUN_TEST(test_stop_sound);
-    RUN_TEST(test_set_noise);
-    RUN_TEST(test_set_envelope);
     RUN_TEST(test_start_music);
-    RUN_TEST(test_update_music);*/
+    RUN_TEST(test_update_music);
+    RUN_TEST(test_bob_sound);
+    RUN_TEST(test_death_sound);
 
     TEST_END();
 }

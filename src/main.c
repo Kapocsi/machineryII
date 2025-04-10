@@ -59,14 +59,7 @@ int main(int argc, char *argv[]) {
 
         ticks = tickSinceInception();
         tick_increment(&model);
-
-        if (beat_count >= 10) {
-            update_music();
-            beat_count = 0;
-        } else {
-            beat_count++;
-        }
-
+        update_music();
     }
     stop_sound();
 

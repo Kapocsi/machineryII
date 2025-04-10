@@ -1,16 +1,15 @@
 #include "global.h"
 #include "music.h"
 #include "psg.h"
-#include <stdio.h>
 
 /**The current index in the SIXTEENTHS array in music.c */
-u8 current_beat; 
+static u8 current_beat; 
 
 /**The current index in the MELODY array in music.c */
-u8 current_note;
+static u8 current_note;
 
 /**The number of ticks since the last sixteenth */
-u8 counter;
+static u8 counter;
 
 static const u16 MELODY[] = {
     0, 0, 0, 0,
@@ -66,7 +65,7 @@ void start_music() {
 
     set_tone(0, MELODY[0]);
     write_psg(0x7, 0xEE);
-    set_volume(0, 14);
+    set_volume(0, 13);
     set_volume(1, 0x10);
 
     set_noise(0x1F);
@@ -78,7 +77,7 @@ void update_music() {
     enum Bool beat_value;
     u16 note_value;
 
-    if (counter < 10) {
+    if (counter > 9) {
         current_beat = (current_beat + 1) & 0x1F;
         beat_value = SIXTEENTHS[(current_beat + 1) & 0x1F];
 

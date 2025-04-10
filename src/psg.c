@@ -60,12 +60,12 @@ void set_envelope(u8 shape, u16 sustain) {
 void bob_sound() {
     u16 i = 0;
     write_psg(0x7, 0xEA);
-    set_tone(2, 0x0D6);
+    set_tone(2, 0x1D6);
     set_volume(2, 12);
 
     while (i < 7500) { i++; }
     i = 0;
-    set_tone(2, 0x0AA);
+    set_tone(2, 0x1AA);
 
     while (i < 7500) { i++; }
     write_psg(0x7, 0xEE);
