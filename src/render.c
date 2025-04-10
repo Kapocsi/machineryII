@@ -12,7 +12,7 @@
 static Model states[bufferCount - 1];
 static Model om;
 static u8 buf_idx = Primary;
-static char scoreBuffer[32] = "";
+static char scoreBuffer[32] = "Score:";
 
 #define changed(val) (m.val != om.val)
 
@@ -28,6 +28,7 @@ void render(Model m, Screen **screens) {
     om = states[buf_idx];
 
     if changed (score.score) {
+
         itoa(om.score.score, scoreBuffer, 10);
         drawSmallText(base, scoreBuffer, 0, 0, UNSET);
 
