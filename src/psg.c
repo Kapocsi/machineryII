@@ -1,4 +1,5 @@
 #include "psg.h"
+#include "super.h"
 
 void write_psg(u8 reg, u8 val) {
     volatile u8 *reg_select = (u8 *)0xFFFF8800;
@@ -6,10 +7,10 @@ void write_psg(u8 reg, u8 val) {
     u32 old_ssp;
 
     if (reg <= 15) {
-        old_ssp = Super(0);
-        *reg_select = reg;
-        *reg_write = val;
-        Super(old_ssp);
+        SuperDo({
+            *reg_select = reg;
+            *reg_write = val;
+        });
     }
 }
 
@@ -19,10 +20,10 @@ u8 read_psg(u8 reg) {
     u8 value = 0;
 
     if (reg <= 15) {
-        old_ssp = Super(0);
-        *reg_read = reg;
-        value = *reg_read;
-        Super(old_ssp);
+        SuperDo({
+            *reg_read = reg;
+            value = *reg_read;
+        });
     }
     return value;
 }
