@@ -78,7 +78,7 @@ void set_pixel(Screen *base, u16 x, u16 y, Color color) {
         u##size *bmaps = (u##size *)bitmap->longs;                             \
         u##size x, y, xo, left, right;                                         \
                                                                                \
-        xo = x_start % size;                                                   \
+        xo = x_start & (size - 1);                                             \
         base += y_start * (640l / size);                                       \
         base += x_start / size;                                                \
                                                                                \

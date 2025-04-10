@@ -44,7 +44,11 @@ void bob_up(Swimmer *swimmer) {
     }
 }
 
-void sink(Swimmer *swimmer) { swimmer->y += 1; }
+void sink(Swimmer *swimmer) {
+    /** Stop lowerin the swimmer once it hit's the the text */
+    if (swimmer->y++ > 200)
+        swimmer->y--;
+}
 
 void shift_pointer(Row *row, RowBuffer *buffer) {
     if (row->pos < ROW_W - 1) {
