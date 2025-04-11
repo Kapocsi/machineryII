@@ -63,11 +63,12 @@ int main() {
     Cnecin();
 }
 
-void test_bob_sound() {
-    printf("\nBob Sound\n"); 
-    bob_sound();
-    while (!Cconis())
-		;
+    /*
+    set_noise(0x1F);
+    enable_channel(0, True, True);
+    set_volume(0, 0x10);
+    write_psg(0xC, 0x02);
+    write_psg(0xD, 0);*/
 
     /*
     RUN_TEST(test_write_read_psg);

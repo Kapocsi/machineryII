@@ -39,9 +39,10 @@ int main(int argc, char *argv[]) {
 
     int i = 0;
     u32 ticks;
-    u8 beat_count = 0;
+    u32 oticks;
 
     Screens screens = initScreen();
+    inputState *inputState = initInput();
     Model model;
 
     srand(time(NULL)); /*this function must be called here (before start_game)
@@ -50,22 +51,20 @@ int main(int argc, char *argv[]) {
     change_row(&model.row, "Test Text");
     start_music();
     ticks = tickSinceInception();
+    oticks = ticks;
 
     /*Main Game Loop*/
     while (model.swimmer.y < 3000) {
-        while (tickSinceInception() - ticks < 1)
-            ;
 
         ticks = tickSinceInception();
         tick_increment(&model);
 
-        if (beat_count >= 10) {
-            update_music();
-            beat_count = 0;
-        } else {
-            beat_count++;
-        }
+        render(model, screens);
 
+        if (tickSinceInception() - oticks >= 10) {
+            update_music();
+            oticks = ticks;
+        }
     }
     stop_sound();
 

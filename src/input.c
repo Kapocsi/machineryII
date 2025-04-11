@@ -1,6 +1,6 @@
 #include <osbind.h>
-#include <stdio.h>
 
+#include "events.h"
 #include "global.h"
 #include "input.h"
 #include "vector.h"
@@ -61,10 +61,12 @@ void handleKeyboard(int c) {
 
     /** Set the correct scan code -> ascii-ish mapping; todo this mean that
      * symbols won't work in capslock mode, future me problem*/
-    if (input_state.capsLock && !input_state.shift) {
+    if (input_state.capsLock && !input_state.shift)
         map = capslocked_keyboard;
-    } else if (!input_state.capsLock && input_state.shift)
+    else if (!input_state.capsLock && input_state.shift)
         map = shifted_keyboard;
+
+    key_press(map[c]);
 }
 
 void handleInput() {

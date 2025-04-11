@@ -1,11 +1,11 @@
 # CC=m68k-atari-mint-gcc # Switch to these for compiling with a X-compiler
 # CFLAGS=-O3 -g -mshort
 CC=cc68x
-CFLAGS=-g -Iinclude
+CFLAGS=-Iinclude
 FONT_OBJS=src\unifont.o src\depixel.o src\font.o
 OBJS=src\raster.o src\bitmaps.o src\model.o src\events.o src\music.o src\words.o \
 	$(FONT_OBJS) src\adler32.o src\screen.o src\isr.s src\input.o src\super.o \
-	src\switch.o src\psg.o src\render.o src\itoa.o src\vector.o src\vbl.o
+	src\switch.o src\psg.o src\render.o src\itoa.o src\vector.o src\vbl.o src\is_super.o
 MAIN=src\main.o
 
 .PHONY: test clean run format assets

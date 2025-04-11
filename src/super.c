@@ -5,13 +5,12 @@
 static long ssp = 0;
 
 void superIn() {
-    if (ssp == 0) {
+    if (!is_super())
         ssp = Super(0);
-    }
 }
 
 void superOut() {
-    if (ssp != 0) {
+    if (is_super() && ssp != 0) {
         Super(ssp);
         ssp = 0;
     }
