@@ -43,6 +43,7 @@ int main(int argc, char *argv[]) {
     u8 beat_count = 0;
 
     Screens screens = initScreen();
+    inputState *input_state = initInput();
     Model model;
 
     srand(time(NULL));  /*this function must be called here (before start_game)
@@ -53,14 +54,17 @@ int main(int argc, char *argv[]) {
     ticks = tickSinceInception();
 
     /*Main Game Loop*/
-    while (model.swimmer.y < 3000) {
+    while (model.swimmer.y < 300) {
         while (tickSinceInception() - ticks < 1)
             ;
 
         ticks = tickSinceInception();
         tick_increment(&model);
         update_music();
+
+        /**/
     }
+    deinitInput();
     stop_sound();
 
     return 0;

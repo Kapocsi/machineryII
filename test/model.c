@@ -3,9 +3,10 @@
 #include "unit.h"
 
 #include "events.h"
+#include <stdio.h>
 
-#define TEXT "the quick brown"
-static const char new_text[] = "fox jumped over";
+#define TEXT "the quick brown fox jumpe"
+static const char new_text[] = "d over the lazy dog the q";
 
 void setUp() {}
 void tearDown() {}
@@ -25,10 +26,17 @@ void test_sink() {
 void test_shift_pointer() {
     u8 i;
     Row row = {TEXT, 0};
-    RowBuffer buffer;
-    for (i = 0; i < 15; i++) {
+    RowBuffer buffer =  {0, 0, {0, 0, 0, 0, 0, 0}, 
+                        "abcdefghijklmnopqrstuvwxy"};
+
+    for (i = 0; i < 25; i++) {
         TEST_ASSERT_EQUAL(i, row.pos);
         shift_pointer(&row, &buffer);
+    }
+    shift_pointer(&row, &buffer);
+
+    for (i = 0; i < 25; i++) {
+        TEST_ASSERT_EQUAL(i + 0x61, row.text[i]);
     }
 }
 
@@ -36,11 +44,11 @@ void test_change_row() {
     int i;
     Row row = {TEXT, 0};
 
-    for (i = 0; i < 15; i++) {
+    for (i = 0; i < 25; i++) {
         TEST_ASSERT_EQUAL(TEXT[i], row.text[i]);
     }
     change_row(&row, new_text);
-    for (i = 0; i < 15; i++) {
+    for (i = 0; i < 25; i++) {
         TEST_ASSERT_EQUAL(new_text[i], row.text[i]);
     }
 }
