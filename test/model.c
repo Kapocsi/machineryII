@@ -86,26 +86,22 @@ void test_start_game() {
 }
 
 void test_key_press() {
-    /* TODO FIX THIS*/
-
-    /* Swimmer swimmer = {200}; */
-    /* Score score = {0}; */
-    /* Row row = {TEXT, 0}; */
-    /**/
-    /* Model model = { */
-    /*     swimmer, */
-    /*     score, */
-    /*     row, */
-    /* }; */
-    /**/
-    /* key_press('s', &model); */
-    /* TEST_ASSERT_EQUAL(200, swimmer.y); */
-    /* TEST_ASSERT_EQUAL(0, score.score); */
-    /* TEST_ASSERT_EQUAL(0, row.pos); */
-    /* key_press('t', &model); */
-    /* TEST_ASSERT_EQUAL(190, swimmer.y); */
-    /* TEST_ASSERT_EQUAL(1, score.score); */
-    /* TEST_ASSERT_EQUAL(1, row.pos); */
+    Model model = {
+        {200}, 
+        {0}, 
+        {TEXT, 0}, 
+        {0, 0, {0, 0, 0, 0, 0, 0}, ""}, 
+        {0}
+    }; 
+    
+    key_press('s'); 
+    TEST_ASSERT_EQUAL(200, model.swimmer.y); 
+    TEST_ASSERT_EQUAL(0, model.score.score); 
+    TEST_ASSERT_EQUAL(0, model.row.pos); 
+    key_press('t'); 
+    TEST_ASSERT_EQUAL(190, model.swimmer.y); 
+    TEST_ASSERT_EQUAL(1, model.score.score); 
+    TEST_ASSERT_EQUAL(1, model.row.pos);
 }
 
 void test_death() { death(); }

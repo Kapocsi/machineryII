@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
     oticks = ticks;
 
     /*Main Game Loop*/
-    while (model.swimmer.y < 300) {
+    while (model.swimmer.y < 70) {
         while (tickSinceInception() - ticks < 1)
             ;
 
@@ -62,12 +62,9 @@ int main(int argc, char *argv[]) {
         tick_increment(&model);
 
         render(model, screens);
-
-        if (tickSinceInception() - oticks >= 10) {
-            update_music();
-            oticks = ticks;
-        }
+        update_music();
     }
+    printf("Outside game loop\n");
     deinitInput();
     stop_sound();
 
