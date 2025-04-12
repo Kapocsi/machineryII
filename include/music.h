@@ -8,11 +8,12 @@
 #ifndef MUSIC_H
 #define MUSIC_H
 
-/**Begins the playing of the song by loading the data for the first note into the PSG */
+/**Begins the playing of the song by loading the data for the first note into
+ * the PSG */
 void start_music();
 
-/**Advances to the next note and drum beat, and plays their sound. It should be run every
-  10 ticks.*/
+/**Advances to the next note and drum beat, and plays their sound. It should be
+  run every 10 ticks.*/
 void update_music();
 
 #endif

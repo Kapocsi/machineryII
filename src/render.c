@@ -48,9 +48,6 @@ void render(Model m, Screen **screens) {
                     UNSET);
         drawBigText(base, m.row.text, 0, SCREEN_HEIGHT - BIG_TEXT_HEIGHT - 1,
                     SET);
-
-        drawSmallText(base, om.row.text, 30, 0, UNSET);
-        drawSmallText(base, m.row.text, 30, 0, SET);
     }
 
     /* Save current state for next undraw */

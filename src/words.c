@@ -20,5 +20,5 @@ void new_row(char *buf, u32 size) {
     char *dest = buf;
     const char *src;
 
-    strcpy(dest, WORDS[rand() % WORD_COUNT - 1]);
+    strcpy(dest, WORDS[rand() % (WORD_COUNT - 1)]);
 }

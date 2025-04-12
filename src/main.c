@@ -8,6 +8,7 @@
 #include "screen.h"
 #include "vbl.h"
 #include "vector.h"
+#include "words.h"
 
 #include <assert.h>
 #include <osbind.h>
@@ -48,13 +49,13 @@ int main(int argc, char *argv[]) {
     srand(time(NULL)); /*this function must be called here (before start_game)
                          in order for the row text to be randomized.*/
     start_game(&model);
-    change_row(&model.row, "Test Text");
+    new_row(model.row.text, 25);
     start_music();
     ticks = tickSinceInception();
     oticks = ticks;
 
     /*Main Game Loop*/
-    while (model.swimmer.y < 200) {
+    while (1) {
         while (tickSinceInception() - ticks < 1)
             ;
 
@@ -62,7 +63,12 @@ int main(int argc, char *argv[]) {
         tick_increment(&model);
 
         render(model, screens);
-        update_music();
+
+        if (tickSinceInception() - oticks > 6) {
+            update_music();
+
+            oticks = tickSinceInception();
+        }
     }
 
     ticks = tickSinceInception();
