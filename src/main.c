@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
     oticks = ticks;
 
     /*Main Game Loop*/
-    while (model.swimmer.y < 70) {
+    while (model.swimmer.y < 200) {
         while (tickSinceInception() - ticks < 1)
             ;
 

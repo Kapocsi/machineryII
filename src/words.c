@@ -14,18 +14,11 @@ static const char WORDS[WORD_COUNT][10] = {
     "fish ",  "help ",  "kelp ",  "land ",  "over ",  "rise ",
     "sink ",  "sunk ",  "swim ",  "board ", "death ", "drown ",
     "fight ", "ocean ", "shark ", "shore ", "tidal ", "under "};
-/**/
+
 void new_row(char *buf, u32 size) {
     int i = 0, j = 0;
     char *dest = buf;
     const char *src;
 
-    while (i < size && j < 10) {
-        src = WORDS[rand() % WORD_COUNT - 1];
-        strcpy(&buf[i], src);
-        i += strlen(src);
-        j++;
-
-        death_sound();
-    }
+    strcpy(dest, WORDS[rand() % WORD_COUNT - 1]);
 }
