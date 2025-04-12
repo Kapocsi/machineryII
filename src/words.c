@@ -3,17 +3,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define WORD_COUNT 30
+#define WORD_COUNT 22
 
 /**
  * @brief The list of possible words to type.
  */
 static const char WORDS[WORD_COUNT][10] = {
-    "air ",   "bar ",   "bob ",   "eel ",   "man ",   "sea ",
-    "sky ",   "try ",   "boat ",  "buoy ",  "dive ",  "down ",
-    "fish ",  "help ",  "kelp ",  "land ",  "over ",  "rise ",
-    "sink ",  "sunk ",  "swim ",  "board ", "death ", "drown ",
-    "fight ", "ocean ", "shark ", "shore ", "tidal ", "under "};
+    "boat",  "buoy",  "dive",  "down",
+    "fish",  "help",  "kelp",  "land",  "over",  "rise",
+    "sink",  "sunk",  "swim",  "board", "death", "drown",
+    "fight", "ocean", "shark", "shore", "tidal", "under"};
 
 void new_row(char *buf, u32 size) {
     int i = 0, j = 0;

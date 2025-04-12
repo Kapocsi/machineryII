@@ -44,7 +44,7 @@ void bob_up(Swimmer *swimmer) {
 }
 
 void sink(Swimmer *swimmer) {
-    /** Stop lowerin the swimmer once it hit's the the text */
+    /** Stop lowering the swimmer once it hit's the the text */
     if (swimmer->y++ > 200)
         swimmer->y--;
 }

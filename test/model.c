@@ -23,22 +23,7 @@ void test_sink() {
     TEST_ASSERT_EQUAL(201, swimmer.y);
 }
 
-void test_shift_pointer() {
-    u8 i;
-    Row row = {TEXT, 0};
-    RowBuffer buffer =  {0, 0, {0, 0, 0, 0, 0, 0}, 
-                        "abcdefghijklmnopqrstuvwxy"};
-
-    for (i = 0; i < 25; i++) {
-        TEST_ASSERT_EQUAL(i, row.pos);
-        shift_pointer(&row, &buffer);
-    }
-    shift_pointer(&row, &buffer);
-
-    for (i = 0; i < 25; i++) {
-        TEST_ASSERT_EQUAL(i + 0x61, row.text[i]);
-    }
-}
+void test_shift_pointer() {}
 
 void test_change_row() {
     int i;

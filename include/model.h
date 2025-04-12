@@ -9,7 +9,6 @@
 #define MODEL_H
 
 #include "global.h"
-#include "words.h"
 
 /**
  * @struct Swimmer
