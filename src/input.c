@@ -10,7 +10,6 @@
 
 /** Chars with non obvious ascii mappings, we add them here to that they are
  * placed in 8 bit ascii */
-typedef enum { UNDEF = 0x80, CTRL, LSHIFT, RSHIFT, ALT, CAPS_LOCK } CTRL_CHARS;
 typedef enum { HEADER, DX, DY } MousePacketStage;
 static Vector previous_isr;
 void keyboardIsr();

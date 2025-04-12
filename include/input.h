@@ -42,4 +42,6 @@ inputState *initInput();
  */
 void deinitInput();
 
+typedef enum { UNDEF = 0x80, CTRL, LSHIFT, RSHIFT, ALT, CAPS_LOCK } CTRL_CHARS;
+
 #endif

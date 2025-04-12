@@ -59,8 +59,6 @@ typedef struct {
     Swimmer swimmer;
     Score score;
     Row row;
-    RowBuffer buffer; /**Stores the next string for the
-                       * row, and creates new strings */
     Decorations decor;
 } Model;
 
@@ -71,7 +69,7 @@ void bob_up(Swimmer *swimmer);
 void sink(Swimmer *swimmer);
 
 /**Increases the pointer's x value, or returns it to its starting position */
-void shift_pointer(Row *row, RowBuffer *buffer);
+void shift_pointer(Row *row);
 
 /**Changes the text parameter of the letter row */
 void change_row(Row *row, char new_string[25]);

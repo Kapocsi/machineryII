@@ -1,5 +1,6 @@
 #include "model.h"
 #include "global.h"
+#include "psg.h"
 #include "words.h"
 #include <string.h>
 
@@ -29,9 +30,7 @@ void initModel(Model *m) {
     m->score.score = DEFAULT_SCORE;
     m->swimmer.y = SWIMMER_START_POS;
     m->decor.tick = 0;
-    new_row(&(m->buffer));
-    change_row(&(m->row), m->buffer.string);
-    new_row(&(m->buffer));
+    new_row(m->row.text, 10);
 
     model = m;
 }
@@ -50,12 +49,11 @@ void sink(Swimmer *swimmer) {
         swimmer->y--;
 }
 
-void shift_pointer(Row *row, RowBuffer *buffer) {
-    if (row->pos < ROW_W - 1) {
+void shift_pointer(Row *row) {
+    if (row->pos < 3) {
         (row->pos)++;
     } else {
-        change_row(row, (buffer->string));
-        new_row(buffer);
+        new_row(row->text, 25);
         row->pos = 0;
     }
 }

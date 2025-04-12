@@ -64,9 +64,14 @@ int main(int argc, char *argv[]) {
         render(model, screens);
         update_music();
     }
-    printf("Outside game loop\n");
-    deinitInput();
+
+    ticks = tickSinceInception();
+    while (tickSinceInception() - ticks < 100)
+        ;
+
     stop_sound();
+    deinitInput();
+    switchBuffer(Original);
 
     return 0;
 }

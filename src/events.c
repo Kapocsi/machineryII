@@ -11,7 +11,8 @@ void key_press(char key) {
     if (key == (model->row.text)[model->row.pos]) {
         bob_up(&(model->swimmer));
         increase_score(&(model->score));
-        shift_pointer(&(model->row), &(model->buffer));
+        shift_pointer(&(model->row));
+
         bob_sound();
     }
 }
