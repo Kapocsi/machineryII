@@ -13,14 +13,14 @@
 /**Sets up the intial game state*/
 void start_game(Model *model);
 
-/** @brief Enacts synchronous events. 
+/** @brief Enacts synchronous events.
  * Sinks the swimmer */
 void tick_increment(Model *model);
 
 /** @brief Checks if the correct key is pressed, changes game state if so.
  * Increases the score, raises the swimmer, and shifts the row's character
  * pointer when the correct key is pressed */
-void key_press(char key, Model *model);
+void key_press(char key);
 
 /**Ends the game when the swimmer collides with the floor*/
 void death();

@@ -1,8 +1,10 @@
 #! /usr/bin/env bash
 
 
+
+
 # Convert the make file s.t. the compiling can be done locally
-cat Makefile | gsed 's$\(\S\+\)\\$\1/$g'  Makefile | sed '/# RM Local/d' > .local-makefile
+cat Makefile | sed 's$\(\S\+\)\\$\1/$g'  Makefile | sed '/# RM Local/d' > .local-makefile
 
 # Run make with a local compiler
 make --makefile=.local-makefile CFLAGS="-Iinclude -mshort -O3 -mcpu=68000 -march=68000" CC=m68k-atari-mint-gcc $@

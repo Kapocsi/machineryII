@@ -11,4 +11,6 @@
 void superIn();
 void superOut();
 
+int is_super(void);
+
 #endif

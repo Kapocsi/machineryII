@@ -2,8 +2,8 @@
 
 #include "unit.h"
 
-#include "psg.h"
 #include "music.h"
+#include "psg.h"
 #include <osbind.h>
 #include <stdio.h>
 
@@ -18,7 +18,6 @@ u32 tickSinceInception() {
     return ticks;
 }
 
-
 void test_write_read_psg() {
     write_psg(0, 0xFE);
     TEST_ASSERT_EQUAL(0xFE, read_psg(0));
@@ -29,11 +28,11 @@ void test_write_read_psg() {
 void test_start_music() {
     start_music();
     printf("\nValue of channel A fine tone: %x\n", read_psg(0));
-    printf("Value of mixer: %x\n", read_psg(7));   
+    printf("Value of mixer: %x\n", read_psg(7));
 
-    printf("Press a key to continue\n"); 
+    printf("Press a key to continue\n");
     while (!Cconis())
-		;
+        ;
 
     Cnecin();
 }
@@ -46,8 +45,8 @@ void test_update_music() {
     start_music();
     ticks = tickSinceInception();
 
-    printf("\nPress a key to continue\n"); 
-    while(!Cconis()) {
+    printf("\nPress a key to continue\n");
+    while (!Cconis()) {
         while (tickSinceInception() - ticks < 1)
             ;
 
@@ -59,29 +58,29 @@ void test_update_music() {
 }
 
 void test_bob_sound() {
-    printf("\nBob Sound\n"); 
+    printf("\nBob Sound\n");
     bob_sound();
     while (!Cconis())
-		;
+        ;
 
     Cnecin();
-    printf("Press a key to continue\n"); 
+    printf("Press a key to continue\n");
 }
 
 void test_death_sound() {
     printf("\nDeath Sound\n");
     death_sound();
     while (!Cconis())
-		;
+        ;
 
     Cnecin();
     printf("Press a key to continue\n");
 }
 
 int main() {
-  
+
     TEST_BEGIN();
-    
+
     RUN_TEST(test_write_read_psg);
     RUN_TEST(test_start_music);
     RUN_TEST(test_update_music);
